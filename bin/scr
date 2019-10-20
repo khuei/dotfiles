@@ -1,0 +1,21 @@
+#!/bin/sh
+#
+# [scr]eenshot
+
+scr_dir=~/pictures
+
+date=$(date +%F)
+time=$(date +%I-%M-%S)
+file="$scr_dir/$date-$time.jpg"
+
+mkdir -p "$scr_dir"
+
+ffmpeg \
+	-y \
+	-hide_banner \
+	-loglevel error \
+	-f x11grab \
+	-i "${DISPLAY%%.*}" \
+	-vframes 1 \
+	-q:v 0 \
+	"$file"

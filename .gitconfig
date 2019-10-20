@@ -1,0 +1,122 @@
+[alias]
+	s  = "!git status --short"
+	st = "!git status"
+
+	ca = "!git add --all && git commit --all"
+	ci = "!git add --all && git commit"
+
+	co = "!f() { git checkout -b \"$1\" 2> /dev/null || git checkout \"$1\"; }; f"
+
+	cr = "!git clone --recursive"
+
+	ff = "!git merge --ff-only"
+
+	p = "!git push --set-upstream origin $(git rev-parse --abbrev-ref HEAD)"
+
+	up = "!git pull && git submodule update --init --recursive && git submodule update --remote --merge"
+
+	reb = "!r() { git rebase --interactive HEAD~$1; }; r"
+
+	branches = "!git branch --all"
+	remotes  = "!git remote --verbose"
+	tags     = "!git tag --list"
+
+	lg = "!git log --abbrev-commit --color --decorate --graph --pretty=format:'%C(auto)%h%Creset -%C(auto)%d%Creset %s %C(magenta)(%cr) %C(cyan)<%an>%Creset'"
+
+	d  = "!git diff-index --quiet HEAD -- || git diff --patch-with-stat"
+	di = "!d() { git diff --patch-with-stat HEAD~$1; }; git diff-index --quiet HEAD --; d"
+
+	fb = "!f() { git branch --all --contains $1; }; f"
+	fc = "!f() { git log --pretty=format:'%C(yellow)%h	%Cblue%ad  %Creset%s%Cgreen  [%cn] %Cred%d' --decorate --date=short -S$1; }; f"
+	fm = "!f() { git log --pretty=format:'%C(yellow)%h	%Cblue%ad  %Creset%s%Cgreen  [%cn] %Cred%d' --decorate --date=short --grep=$1; }; f"
+
+[branch]
+	autoSetupMerge = always
+	autoSetupRebase = local
+
+[branch "master"]
+	rebase = true
+
+[color]
+	ui = auto
+
+[color "diff-highlight"]
+	newHighlight = "green reverse"
+	newNormal = "green"
+	newReset = "noreverse"
+	oldHighlight = "red reverse"
+	oldNormal = "red"
+	oldReset = "noreverse"
+
+[color "diff"]
+	commit = "yellow"
+	frag = "magenta"
+	meta = 11
+	new = "green"
+	old = "red"
+	whitespace = "red reverse"
+
+[color "interactive"]
+	prompt = blue reverse
+
+[color "status"]
+	untracked = blue
+
+[commit]
+	verbose = true
+
+[core]
+	attributesFile = ~/.gitattributes
+	compression = 9
+	excludesFile = ~/.gitignore
+	looseCompression = 9
+
+[diff]
+	algorithm = histogram
+	compactionHeuristic = true
+	renames = copies
+
+[fetch]
+	prune = true
+
+[grep]
+	lineNumber = true
+
+[help]
+	autoCorrect = 2
+
+[log]
+	decorate = short
+
+[merge]
+	conflictStyle = diff3
+	log = 1000
+
+[pager]
+	show-branch = true
+	status = true
+
+[protocol]
+	version = 2
+
+[pull]
+	ff = only
+	rebase = preserve
+
+[push]
+	default = simple
+
+[rebase]
+	autoSquash = true
+
+[rerere]
+	enabled = true
+
+[status]
+	submoduleSummary = true
+
+[submodule]
+	fetchJobs = 4
+
+[include]
+	path = .gitconfig.local

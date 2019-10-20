@@ -1,0 +1,4 @@
+xkb_keycodes "xcape-special" {
+	<HYPR> =  65;
+	<SPCE> = 207;
+};

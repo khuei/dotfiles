@@ -1,0 +1,15 @@
+#!/bin/sh
+#
+# [v]ideo [t]o [g]if
+
+[ "$1" ] || exit 1
+
+ffmpeg \
+	-ss 0 \
+	-i "$1" \
+	-vf "fps=30,scale=1200:-1: \
+	     flags=lanczos,split[s0][s1]; \
+	     [s0]palettegen[p]; \
+	     [s1][p]paletteuse" \
+	-loop 0 \
+	"${1%%.*}.gif"

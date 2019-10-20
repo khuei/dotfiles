@@ -1,0 +1,21 @@
+[submodule "deoplete"]
+	path = nvim/pack/bundle/opt/deoplete
+	url = https://github.com/Shougo/deoplete.nvim.git
+[submodule "deoplete-lsp"]
+	path = nvim/pack/bundle/opt/deoplete-lsp
+	url = https://github.com/Shougo/deoplete-lsp.git
+[submodule "lspconfig"]
+	path = nvim/pack/bundle/opt/lspconfig
+	url = https://github.com/neovim/nvim-lspconfig.git
+[submodule "treesitter"]
+	path = nvim/pack/bundle/opt/treesitter
+	url = https://github.com/nvim-treesitter/nvim-treesitter.git
+[submodule "ultisnips"]
+	path = nvim/pack/bundle/opt/ultisnips
+	url = https://github.com/SirVer/ultisnips.git
+[submodule "zsh-autosuggestions"]
+	path = .zsh/plugin/zsh-autosuggestions
+	url = https://github.com/zsh-users/zsh-autosuggestions.git
+[submodule "zsh-syntax-highlighting"]
+	path = .zsh/plugin/zsh-syntax-highlighting
+	url = https://github.com/zsh-users/zsh-syntax-highlighting.git

@@ -1,0 +1,5 @@
+#compdef color
+
+local -a colors
+colors=(${$(find ~/.zsh/colors -name 'base16-*.sh' -exec basename {} .sh ';')##base16-})
+_describe 'color' colors

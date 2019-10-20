@@ -1,0 +1,11 @@
+#!/bin/sh
+#
+# [w]all[p]aper
+
+cd -- ~/pictures/wallpaper 2>/dev/null || {
+	echo 'error: cannot find wallpaper directory' 1>&2
+	exit 1
+}
+
+picture=$(shuf -n 1 -e ./*)
+xwallpaper --zoom "$picture" >/dev/null
