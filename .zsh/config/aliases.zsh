@@ -45,6 +45,10 @@ if command -v color > /dev/null; then
 	alias c="color"
 fi
 
+if command -v clang-tidy > /dev/null; then
+	alias ctidy="clang-tidy"
+fi
+
 if command -v git > /dev/null; then
 	alias g=git
 	alias groot="cd \$(git rev-parse --show-toplevel 2> /dev/null)"
