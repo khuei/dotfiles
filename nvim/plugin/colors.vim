@@ -4,7 +4,7 @@ endif
 let g:loaded_colors = 1
 
 function! s:CheckColorScheme() abort
-	let s:config_file = expand("$HOME/.zsh/.base16")
+	let s:config_file = expand("$HOME/.base16")
 
 	if filereadable(s:config_file)
 		let s:config = readfile(s:config_file, '', 2)

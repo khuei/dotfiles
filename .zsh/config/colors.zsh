@@ -49,7 +49,7 @@ color() {
 				cp "$BASE16_CONFIG" "$BASE16_CONFIG_PREVIOUS" > /dev/null
 			fi
 
-			echo "$SCHEME" >! "$BASE16_CONFIG"
+			echo "$SCHEME" > "$BASE16_CONFIG"
 			echo "$BACKGROUND" >> "$BASE16_CONFIG"
 
 			sh "$FILE"
@@ -66,7 +66,6 @@ color() {
 			fi
 		else
 			echo "Colorscheme \"$SCHEME\" not found in $BASE16_DIR"
-			STATUS=1
 		fi
 	}
 
@@ -77,7 +76,6 @@ color() {
 			color_setup "$PREVIOUS_SCHEME"
 		else
 			echo "warning: no previous config found at $BASE16_CONFIG_PREVIOUS"
-			STATUS=1
 		fi
 		;;
 	'')
@@ -101,7 +99,6 @@ color() {
 
 	unfunction luma
 	unfunction color_setup
-	return "$STATUS"
 }
 
 color "$@"
