@@ -1,5 +1,17 @@
 #!/usr/bin/env zsh
 
+if command -v cc > /dev/null && \
+   command -v c++ > /dev/null; then
+	cc() {
+		local filetype=$(echo "$1" | \grep -o "[^.]*$")
+		if [ "$filetype" = "c" ]; then
+			command cc $1
+		elif [ "$filetype" = "cpp" ]; then
+			command c++ $1
+		fi
+	}
+fi
+
 if command -v tmux > /dev/null; then
 	tmux() {
 		SOCK_SYMLINK=~/.ssh/ssh_auth_sock
