@@ -1,24 +1,10 @@
 #!/usr/bin/env zsh
 
-alias ......="cd ../../.."
-alias ....="cd ../.."
-alias ..="cd .."
-
-alias dud="du -d 1 -h"
-alias duf="du -sh *"
-
-alias e="exit"
-
-alias fd="find . -type d -name"
-alias ff="find . -type f -name"
-
-alias grep="grep -HRn --color"
-
-alias h="history"
-
-alias l="ls -lFh"
-alias ll="ls -lAFh"
-alias ls="ls --color"
+if command -v ls > /dev/null; then
+	alias l="ls -Fh"
+	alias ll="ls -alFh"
+	alias ls="ls --color"
+fi
 
 if command -v alsamixer > /dev/null; then
 	alias a=alsamixer
@@ -45,8 +31,16 @@ if command -v color > /dev/null; then
 	alias c="color"
 fi
 
+if command -v clang-format > /dev/null; then
+	alias cformat="clang-format"
+fi
+
 if command -v clang-tidy > /dev/null; then
 	alias ctidy="clang-tidy"
+fi
+
+if command -v color > /dev/null; then
+	alias c="color"
 fi
 
 if command -v git > /dev/null; then
@@ -72,7 +66,7 @@ fi
 
 if command -v mpd > /dev/null && \
    command -v ncmpcpp > /dev/null; then
-	alias n="[ -z \$(ps -opid= -C mpd) ] && mpd; ncmpcpp"
+	alias n="[ -z '$(ps -opid= -C mpd)' ] && mpd; ncmpcpp"
 fi
 
 if command -v nvim > /dev/null; then
