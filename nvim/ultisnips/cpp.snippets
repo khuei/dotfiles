@@ -128,4 +128,10 @@ catch (${1}) {
 }
 endsnippet
 
+snippet fori "foreach"
+for (${1:char} ${2:i} : ${3})${4/([^\r\n|^\r|^\n]|\n\n|\r\r)*(\r\n|\r|\n)?.*/(?2: {:)/}
+	${4}
+${4/([^\r\n|^\r|^\n]|\n\n|\r\r)*(\r\n|\r|\n)?.*/(?2:}:)/}
+endsnippet
+
 # vim:ft=snippets:
