@@ -18,10 +18,12 @@ nnoremap <silent> gW <cmd>lua vim.lsp.buf.workspace_symbol()<CR>
 nnoremap <silent> gd <cmd>lua vim.lsp.buf.declaration()<CR>
 nnoremap <silent> gr <cmd>lua vim.lsp.buf.references()<CR>
 
-sign define LspDiagnosticsErrorSign text=✖
-sign define LspDiagnosticsWarningSign text=
-sign define LspDiagnosticsInformationSign text=
-sign define LspDiagnosticsHintSign text=➤
+if $TERM != 'linux'
+	sign define LspDiagnosticsErrorSign text=✖
+	sign define LspDiagnosticsWarningSign text=
+	sign define LspDiagnosticsInformationSign text=
+	sign define LspDiagnosticsHintSign text=➤
+endif
 
 function! s:SetupLspHighlights() abort
 	exec 'highlight LspDiagnosticsError cterm=italic gui=italic ' .
