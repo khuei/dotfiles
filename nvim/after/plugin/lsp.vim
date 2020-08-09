@@ -1,4 +1,4 @@
-if exists('g:loaded_lsp') || &compatible
+if exists('g:loaded_lsp') || !exists('g:nvim_lsp') || &compatible
 	finish
 endif
 let g:loaded_lsp = 1

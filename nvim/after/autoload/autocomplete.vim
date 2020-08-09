@@ -63,7 +63,7 @@ function! autocomplete#expand_or_jump(direction) abort
 endfunction
 
 function! autocomplete#deoplete_init() abort
-	if exists("g:deoplete_init_done")
+	if exists("g:deoplete_init_done") || !exists('g:loaded_deoplete')
 		return
 	endif
 	let g:deoplete_init_done = 1
