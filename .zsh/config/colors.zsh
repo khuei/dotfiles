@@ -1,10 +1,10 @@
 #!/usr/bin/env zsh
 
 color() {
-	SCHEME="$1"
-	BASE16_DIR=~/.zsh/colors
-	BASE16_CONFIG=~/.base16
-	BASE16_CONFIG_PREVIOUS="$BASE16_CONFIG.previous"
+	local SCHEME="$1"
+	local BASE16_DIR=~/.zsh/colors
+	local BASE16_CONFIG=~/.base16
+	local BASE16_CONFIG_PREVIOUS="$BASE16_CONFIG.previous"
 
 	luma() {
 		COLOR_HEX="$1"
