@@ -43,8 +43,6 @@ set relativenumber
 
 if $TERM == 'linux'
 	set guicursor=
-else
-	set guicursor=n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50
 endif
 
 if exists('&inccommand')
