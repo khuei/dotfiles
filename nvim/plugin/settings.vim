@@ -17,6 +17,10 @@ if &history < 10000
 	set history=10000
 endif
 
+if &tabpagemax < 50
+	set tabpagemax=50
+endif
+
 set updatetime=100
 
 set ttimeout
@@ -24,6 +28,7 @@ set ttimeoutlen=100
 
 set autoindent
 set backspace=indent,start,eol
+set smarttab
 
 set tabstop=8
 set softtabstop=8
