@@ -14,7 +14,7 @@ fi
 
 if command -v picom > /dev/null && \
    [ -f ~/picom/picom.conf ]; then
-	picom -b --config ~/picom/picom.conf
+	picom -b --experimental-backends --config ~/picom/picom.conf
 fi
 
 if command -v unclutter > /dev/null; then
