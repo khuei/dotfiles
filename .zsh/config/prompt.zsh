@@ -64,7 +64,7 @@ prompt_precmd() {
 	fi
 }
 
-prompt_async_vcs_info() {
+prompt_vcs_info() {
 	zstyle ":vcs_info:*" enable git
 	zstyle ":vcs_info:*" check-for-changes true
 	zstyle ":vcs_info:*" stagedstr "%F{green}●%f"
@@ -108,7 +108,7 @@ prompt_async_init() {
 prompt_async_tasks() {
 	prompt_async_init
 	async_worker_eval prompt_async builtin cd -q "$PWD"
-	async_job prompt_async prompt_async_vcs_info
+	async_job prompt_async prompt_vcs_info
 }
 
 prompt_async_callback() {
@@ -128,8 +128,8 @@ prompt_async_callback() {
 			prompt_async_tasks
 		fi
 		;;
-	prompt_async_vcs_info)
-		prompt_async_vcs_info
+	prompt_vcs_info)
+		prompt_vcs_info
 		zle .reset-prompt
 		;;
 	esac
