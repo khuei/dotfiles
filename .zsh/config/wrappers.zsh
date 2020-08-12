@@ -32,9 +32,9 @@ if command -v tmux > /dev/null; then
 	}
 fi
 
-if command -v vifm > /dev/null; then
+if command -v vifm > /dev/null && \
+   command -v ueberzug > /dev/null; then
 	vifm() {
-		if command -v ueberzug > /dev/null; then
 			export FIFO_UEBERZUG="/tmp/vifm-ueberzug-${PPID}"
 			rm "$FIFO_UEBERZUG" 2> /dev/null
 			mkfifo "$FIFO_UEBERZUG"
@@ -46,9 +46,6 @@ if command -v vifm > /dev/null; then
 			rm "$FIFO_UEBERZUG" 2> /dev/null
 			pkill -P $$ 2> /dev/null
 			unset FIFO_UEBERZUG
-		else
-			command vifm "$@"
-		fi
 	}
 fi
 
