@@ -3,12 +3,15 @@
 if command -v cc > /dev/null && \
    command -v c++ > /dev/null; then
 	cc() {
-		local filetype=$(echo "$1" | \grep -o "[^.]*$")
-		if [ "$filetype" = "c" ]; then
-			command cc $1
-		elif [ "$filetype" = "cpp" ]; then
-			command c++ $1
-		fi
+		filetype=$(echo "$1" | \grep -o '[^.]*$')
+		case $filetype in
+		'c')
+			command cc "$1"
+			;;
+		'cpp')
+			command c++ "$1"
+			;;
+		esac
 	}
 fi
 
