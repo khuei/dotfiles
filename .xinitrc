@@ -13,7 +13,7 @@ if command -v setxkbmap > /dev/null && \
 fi
 
 if command -v picom > /dev/null && \
-   [ -f ~/picom/picom.conf ]; then
+   [ -s ~/picom/picom.conf ]; then
 	picom -b --experimental-backends --config ~/picom/picom.conf
 fi
 
