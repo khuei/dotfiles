@@ -35,7 +35,7 @@ fi
 if command -v vifm > /dev/null && \
    command -v ueberzug > /dev/null; then
 	vifm() {
-			export FIFO_UEBERZUG="/tmp/vifm-ueberzug-${PPID}"
+			export FIFO_UEBERZUG="/tmp/vifm-ueberzug-$$"
 			rm "$FIFO_UEBERZUG" 2> /dev/null
 			mkfifo "$FIFO_UEBERZUG"
 			trap 'rm $FIFO_UEBERZUG 2> /dev/null && pkill -P $$ 2> /dev/null' EXIT
