@@ -5,11 +5,6 @@ fpath=(
 )
 
 setopt AUTO_CD
-setopt CORRECT_ALL
-setopt EXTENDED_GLOB
-setopt HIST_FIND_NO_DUPS
-setopt HIST_IGNORE_ALL_DUPS
-setopt HIST_IGNORE_SPACE
 setopt LIST_PACKED
 setopt MENU_COMPLETE
 setopt SHARE_HISTORY

@@ -6,6 +6,8 @@ prompt_window_title_setup() {
 }
 
 prompt_preexec() {
+	setopt EXTENDED_GLOB
+
 	typeset -Fg SECONDS
 	ZSH_START_TIME=${ZSH_START_TIME:-$SECONDS}
 
@@ -141,8 +143,6 @@ prompt_init() {
 	autoload -Uz async.zsh && async.zsh
 	autoload -Uz add-zsh-hook
 	autoload -Uz vcs_info
-
-	export SPROMPT="zsh: correct %F{red}'%R'%f to %F{red}'%r'%f [%B%Uy%u%bes, %B%Un%u%bo, %B%Ue%u%bdit, %B%Ua%u%bbort]? "
 
 	TMUXING="$(if echo "$TERM" | \grep 'tmux' 2> /dev/null; then echo "tmux"; fi)"
 	if [ -n "$TMUXING" ] && [ -n "$TMUX" ]; then
