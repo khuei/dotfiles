@@ -20,7 +20,7 @@ setup_hash() {
 
 		jump() {
 			local DIR="${*%%/}"
-			cd ~"$DIR" || return
+			cd ~"$DIR" || exit 1
 		}
 	fi
 }
