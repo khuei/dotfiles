@@ -2,9 +2,7 @@
 
 bindkey -v
 
-if tput cbt > /dev/null; then
-	bindkey "$(tput cbt)" reverse-menu-complete
-fi
+[ "$(tput cbt)" ] && bindkey "$(tput cbt)" reverse-menu-complete
 
 zle-keymap-select zle-line-init () {
 	if [ "$TERM" = 'linux' ]; then

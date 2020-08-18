@@ -9,10 +9,10 @@ color() {
 	luma() {
 		COLOR_HEX="$1"
 
-		if [ -z "$COLOR_HEX" ]; then
+		[ -n "$COLOR_HEX" ] || {
 			echo "Missing argument hex color (RRGGBB)"
 			return 1
-		fi
+		}
 
 		COLOR_HEX_RED=$(echo "$COLOR_HEX" | cut -c 1-2)
 		COLOR_HEX_GREEN=$(echo "$COLOR_HEX" | cut -c 3-4)
@@ -35,63 +35,63 @@ color() {
 		SCHEME="$1"
 		FILE="$BASE16_DIR/base16-$SCHEME.sh"
 
-		if [ -f "$FILE" ]; then
-			BG=$(\grep color_background= "$FILE" | cut -d \" -f2 | sed -e 's#/##g')
-			LUMA=$(luma "$BG")
-			LIGHT=$((LUMA > 127.5))
-			BACKGROUND='dark'
-
-			if [ "$LIGHT" -eq 1 ]; then
-				BACKGROUND='light'
-			fi
-
-			if [ -f "$BASE16_CONFIG" ]; then
-				cp "$BASE16_CONFIG" "$BASE16_CONFIG_PREVIOUS" > /dev/null
-			fi
-
-			echo "$SCHEME" > "$BASE16_CONFIG"
-			echo "$BACKGROUND" >> "$BASE16_CONFIG"
-
-			sh "$FILE"
-
-			if [ -n "$TMUX" ]; then
-				CC=$(\grep color18= "$FILE" | cut -d \" -f2 | sed -e 's#/##g')
-
-				if [ -n "$BG" ] && [ -n "$CC" ]; then
-					command tmux set -a window-active-style "bg=#$BG"
-					command tmux set -a window-style "bg=#$CC"
-					command tmux set -g pane-active-border-style "bg=#$CC"
-					command tmux set -g pane-border-style "bg=#$CC"
-				fi
-			fi
-		else
+		[ -f "$FILE" ] || {
 			echo "Colorscheme \"$SCHEME\" not found in $BASE16_DIR"
-		fi
+			return 1
+		}
+
+		BG=$(grep color_background= "$FILE" | cut -d \" -f2 | sed -e 's#/##g')
+		LUMA=$(luma "$BG")
+
+		LIGHT=$((LUMA > 127.5))
+		case $LIGHT in
+		0)
+			BACKGROUND='dark' ;;
+		1)
+			BACKGROUND='light' ;;
+		esac
+
+		[ -f "$BASE16_CONFIG" ] && \
+			cp "$BASE16_CONFIG" "$BASE16_CONFIG_PREVIOUS" > /dev/null
+
+		echo "$SCHEME" > "$BASE16_CONFIG"
+		echo "$BACKGROUND" >> "$BASE16_CONFIG"
+
+		sh "$FILE"
+
+		[ -n "$TMUX" ] || return 0
+
+		CC=$(grep color18= "$FILE" | cut -d \" -f2 | sed -e 's#/##g')
+
+		[ -n "$BG" ] && [ -n "$CC" ] || return 1
+
+		command tmux set -a window-active-style "bg=#$BG"
+		command tmux set -a window-style "bg=#$CC"
+		command tmux set -g pane-active-border-style "bg=#$CC"
+		command tmux set -g pane-border-style "bg=#$CC"
 	}
 
 	case "$SCHEME" in
 	-)
-		if [ -s "$BASE16_CONFIG_PREVIOUS" ]; then
-			PREVIOUS_SCHEME="$(head -1 "$BASE16_CONFIG_PREVIOUS")"
-			color_setup "$PREVIOUS_SCHEME"
-		else
+		[ -s "$BASE16_CONFIG_PREVIOUS" ] || {
 			echo "warning: no previous config found at $BASE16_CONFIG_PREVIOUS"
-		fi
+			return 1
+		}
+
+		PREVIOUS_SCHEME="$(head -1 "$BASE16_CONFIG_PREVIOUS")"
+		color_setup "$PREVIOUS_SCHEME"
 		;;
+
 	'')
-		if [ -s "$BASE16_CONFIG" ]; then
-			SCHEME="$(head -1 "$BASE16_CONFIG")"
-			BACKGROUND="$(sed -n -e "2 p" "$BASE16_CONFIG")"
-
-			if [ "$BACKGROUND" != 'dark' ] && [ "$BACKGROUND" != 'light' ]; then
-				echo "warning: unknown background type in $BASE16_CONFIG"
-			fi
-
-			color_setup "$SCHEME"
-		else
+		[ -s "$BASE16_CONFIG" ] || {
 			color_setup 'default-dark'
-		fi
+			return 0
+		}
+
+		SCHEME="$(head -1 "$BASE16_CONFIG")"
+		color_setup "$SCHEME"
 		;;
+
 	*)
 		color_setup "$SCHEME"
 		;;

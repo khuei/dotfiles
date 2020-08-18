@@ -1,9 +1,8 @@
 #!/usr/bin/env zsh
 
-if command -v cc > /dev/null && \
-   command -v c++ > /dev/null; then
+[ "$(command -v cc)" ] && [ "$(command -v c++)" ] && {
 	cc() {
-		filetype=$(echo "$1" | \grep -o '[^.]*$')
+		filetype=$(echo "$1" | grep -o '[^.]*$')
 		case $filetype in
 		'c')
 			command cc "$1"
@@ -13,47 +12,43 @@ if command -v cc > /dev/null && \
 			;;
 		esac
 	}
-fi
+}
 
-if command -v tmux > /dev/null; then
+[ "$(command -v tmux)" ] && {
 	tmux() {
 		SOCK_SYMLINK=~/.ssh/ssh_auth_sock
-		if [ -r "$SSH_AUTH_SOCK" ] && [ ! -L "$SSH_AUTH_SOCK" ]; then
+		[ -r "$SSH_AUTH_SOCK" ] && [ ! -L "$SSH_AUTH_SOCK" ] && \
 			ln -sf "$SSH_AUTH_SOCK" "$SOCK_SYMLINK"
-		fi
 
-		if [ -n "$*" ]; then
+		[ -n "$*" ] && {
 			env SSH_AUTH_SOCK="$SOCK_SYMLINK" tmux "$@"
 			return
-		fi
+		}
 
 		SESSION_NAME=$(basename "${$(pwd)//[.:]/_}")
 		env SSH_AUTH_SOCK="$SOCK_SYMLINK" tmux new -A -s "$SESSION_NAME"
 	}
-fi
+}
 
-if command -v vifm > /dev/null && \
-   command -v ueberzug > /dev/null; then
+[ "$(command -v vifm)" ] && [ "$(command -v ueberzug)" ] && {
 	vifm() {
-			export FIFO_UEBERZUG="/tmp/vifm-ueberzug-$$"
-			rm "$FIFO_UEBERZUG" 2> /dev/null
-			mkfifo "$FIFO_UEBERZUG"
-			trap 'rm $FIFO_UEBERZUG 2> /dev/null && pkill -P $$ 2> /dev/null' EXIT
-			tail -f "$FIFO_UEBERZUG" | ueberzug layer --silent --parser bash --loader thread &!
+		export FIFO_UEBERZUG="/tmp/vifm-ueberzug-$$"
+		rm "$FIFO_UEBERZUG" 2> /dev/null
+		mkfifo "$FIFO_UEBERZUG"
+		trap 'rm $FIFO_UEBERZUG 2> /dev/null && pkill -P $$ 2> /dev/null' EXIT
+		tail -f "$FIFO_UEBERZUG" | ueberzug layer --silent --parser bash --loader thread &!
 
-			command vifm "$@"
+		command vifm "$@"
 
-			rm "$FIFO_UEBERZUG" 2> /dev/null
-			pkill -P $$ 2> /dev/null
-			unset FIFO_UEBERZUG
+		rm "$FIFO_UEBERZUG" 2> /dev/null
+		pkill -P $$ 2> /dev/null
+		unset FIFO_UEBERZUG
 	}
-fi
+}
 
-if command -v xinit > /dev/null; then
+[ "$(command -v xinit)" ] && [ "$TERM" = "linux" ] && {
 	xinit() {
-		if [ "$TERM" = "linux" ]; then
-			vt=$(tty | sed "s/\/dev\/tty/vt/")
-			command xinit "$1" -- "$vt"
-		fi
+		vt=$(tty | sed "s/\/dev\/tty/vt/")
+		command xinit "$1" -- "$vt"
 	}
-fi
+}

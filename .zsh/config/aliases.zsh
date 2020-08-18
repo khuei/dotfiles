@@ -1,92 +1,44 @@
 #!/usr/bin/env zsh
 
-if command -v ls > /dev/null; then
-	alias l="ls -Fh"
-	alias ll="ls -alFh"
-	alias ls="ls --color"
-fi
+[ "$(command -v alsamixer)" ] && alias a=alsamixer
 
-if command -v alsamixer > /dev/null; then
-	alias a=alsamixer
-fi
-
-if command -v cargo > /dev/null; then
+[ "$(command -v cargo)" ] && {
 	alias cbench='cargo bench'
 	alias cbuild='cargo build'
 	alias ccheck='cargo check'
 	alias cclean='cargo clean'
 	alias crun='cargo run'
 	alias ctest='cargo test'
-fi
+}
 
-if command -v clang-format > /dev/null; then
-	alias cformat="clang-format"
-fi
+[ "$(command -v clang-format)" ] && alias cformat=clang-format
 
-if command -v clang-tidy > /dev/null; then
-	alias ctidy="clang-tidy"
-fi
+[ "$(command -v clang-tidy)" ] && alias ctidy=clang-tidy
 
-if command -v color > /dev/null; then
-	alias c="color"
-fi
+[ "$(command -v color)" ] && alias c=color
 
-if command -v clang-format > /dev/null; then
-	alias cformat="clang-format"
-fi
-
-if command -v clang-tidy > /dev/null; then
-	alias ctidy="clang-tidy"
-fi
-
-if command -v color > /dev/null; then
-	alias c="color"
-fi
-
-if command -v git > /dev/null; then
+[ "$(command -v git)" ] && {
 	alias g=git
 	alias groot="cd \$(git rev-parse --show-toplevel 2> /dev/null)"
-fi
+}
 
-if command -v htop > /dev/null; then
-	alias t=htop
-elif command -v top > /dev/null; then
-	alias t=top
-fi
+[ "$(command -v jump)" ] && alias j=jump
 
-if command -v jump > /dev/null; then
-	alias j=jump
-fi
+[ "$(command -v ls)" ] && {
+	alias l='ls -Fh'
+	alias ll='ls -alFh'
+	alias ls='ls --color'
+}
 
-if command -v less > /dev/null; then
-	alias r=less
-elif command -v more > /dev/null; then
-	alias r=more
-fi
+[ "$(command -v ncmpcpp)" ] && [ "$(command -v mpd)" ] && \
+	alias n="[ -z \$(ps -opid= -C mpd) ] && mpd; ncmpcpp"
 
-if command -v mpd > /dev/null && \
-   command -v ncmpcpp > /dev/null; then
-	alias n="[ -z '$(ps -opid= -C mpd)' ] && mpd; ncmpcpp"
-fi
+[ "$(command -v ssh)" ] && alias s=ssh
 
-if command -v nvim > /dev/null; then
-	alias v=nvim
-elif command -v vim > /dev/null; then
-	alias v=vim
-elif command -v vi > /dev/null; then
-	alias v=vi
-fi
+[ "$(command -v vifm)" ] && alias f=vifm
 
-if command -v ssh > /dev/null; then
-	alias s=ssh
-fi
+[ -n "$EDITOR" ] && alias v="$EDITOR"
 
-if command -v tmux > /dev/null; then
-	alias m=tmux
-elif command -v screen > /dev/null; then
-	alias m=screen
-fi
+[ -n "$MULTIPLEXER" ] && alias m="$MULTIPLEXER"
 
-if command -v vifm > /dev/null; then
-	alias f=vifm
-fi
+[ -n "$PAGER" ] && alias r="$PAGER"

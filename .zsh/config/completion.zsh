@@ -1,14 +1,10 @@
 #!/usr/bin/env zsh
 
 autoload -Uz compinit
-if [ ! -s ~/.zcompdump ]; then
+[ -s ~/.zcompdump ] || {
 	compinit -C
-	if [ ! -s ~/.zcomdump.zwc ]; then
-		zcompile -M ~/.zcompdump
-	fi
-else
-	compinit -i -u
-fi
+}
+compinit -i -u
 
 zstyle ':completion:*' accept-exact '*(N)'
 zstyle ':completion:*' use-cache on

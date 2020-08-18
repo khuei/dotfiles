@@ -32,9 +32,9 @@ prompt_precmd() {
 		SECS=$((DELTA - DAYS * 86400 - HOURS * 3600 - MINUTES * 60))
 		ELAPSED=""
 
-		test "$DAYS" != 0 && ELAPSED="${DAYS}d"
-		test "$HOURS" != 0 && ELAPSED="${ELAPSED}${HOURS}h"
-		test "$MINUTES" != 0 && ELAPSED="${ELAPSED}${MINUTES}m"
+		[ "$DAYS" -ne 0 ] && ELAPSED="${DAYS}d"
+		[ "$HOURS" -ne 0 ] && ELAPSED="${ELAPSED}${HOURS}h"
+		[ "$MINUTES" -ne 0 ] && ELAPSED="${ELAPSED}${MINUTES}m"
 
 		if [ -z "$ELAPSED" ]; then
 			SECS="$(print -f "%.2f" $SECS)s"
@@ -77,29 +77,22 @@ prompt_vcs_info() {
 	zstyle ":vcs_info:git*:*" actionformats "[%b|%a%m%c%u] "
 
 	+vi-git-untracked() {
-		if [ -n "$(git ls-files --exclude-standard --others 2> /dev/null)" ]; then
+		[ -n "$(git ls-files --exclude-standard --others 2> /dev/null)" ] && \
 			hook_com[unstaged]+="%F{blue}●%f"
-		fi
 	}
 
 	vcs_info
 }
 
 prompt_async_renice() {
-	if command -v renice > /dev/null; then
-		renice +15 -p $$
-	fi
+	[ "$(command -v renice)" ] && renice +15 -p $$
 
-	if command -v ionice > /dev/null; then
-		ionice -c 3 -p $$
-	fi
+	[ "$(command -v ionice)" ] && ionice -c 3 -p $$
 }
 
 prompt_async_init() {
 	typeset -g prompt_async_init
-	if (( ${prompt_async_init:-0} )); then
-		return
-	fi
+	(( ${prompt_async_init:-0} )) && return
 	prompt_async_init=1
 
 	async_start_worker prompt_async -u -n
@@ -118,17 +111,15 @@ prompt_async_callback() {
 
 	case "$job" in
 	\[async])
-		if (( error == 2 )) || (( error == 3 )) || (( error == 130 )); then
+		(( error == 2 )) || (( error == 3 )) || (( error == 130 )) && {
 			typeset -g prompt_async_init=0
 			async_stop_worker prompt_async
 			prompt_async_init
 			prompt_async_tasks
-		fi
+		}
 		;;
 	\[async/eval])
-		if (( error )); then
-			prompt_async_tasks
-		fi
+		(( error )) && prompt_async_tasks
 		;;
 	prompt_vcs_info)
 		prompt_vcs_info
@@ -144,8 +135,7 @@ prompt_init() {
 	autoload -Uz add-zsh-hook
 	autoload -Uz vcs_info
 
-	TMUXING="$(if echo "$TERM" | \grep 'tmux' 2> /dev/null; then echo "tmux"; fi)"
-	if [ -n "$TMUXING" ] && [ -n "$TMUX" ]; then
+	if [ -n "$TMUX" ]; then
 		LVL=$((SHLVL-1))
 	else
 		LVL=$SHLVL
@@ -158,10 +148,6 @@ prompt_init() {
 	fi
 
 	export PS1="%F{green}${SSH_TTY:+%n@%m}%f%B${SSH_TTY:+:}%b%F{blue}%B%1~%b%F{yellow}%B%(1j.*.)%(?..!)%b%f %B${SUFFIX}%b "
-
-	if [ -n "$TMUXING" ]; then
-		export ZLE_RPROMPT_INDENT=0
-	fi
 
 	add-zsh-hook precmd prompt_async_tasks
 	add-zsh-hook precmd prompt_precmd
