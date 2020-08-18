@@ -13,13 +13,6 @@ nnoremap <C-l> <C-w>l
 
 nnoremap Y y$
 
-nnoremap <leader>v :vsplit<CR>
-nnoremap <leader>s :split<CR>
-
-nnoremap <leader>\| <C-w>\|
-nnoremap <leader>_ <C-w>_
-nnoremap <leader>= <C-w>=
-
 nnoremap <leader>w :write!<CR>
 nnoremap <leader>q :quit!<CR>
 nnoremap <leader>x :quitall!<CR>
@@ -27,8 +20,6 @@ nnoremap <leader>x :quitall!<CR>
 nnoremap <leader>n :nohlsearch<CR>
 
 nnoremap <LocalLeader>e :edit <C-R>=expand('%:p:h') . '/'<CR>
-
-nnoremap <silent> <LocalLeader>s :syntax sync fromstart<CR>
 
 nnoremap <silent> <Leader>zz :%s/\s\+$//e<CR>
 
