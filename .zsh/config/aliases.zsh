@@ -35,10 +35,10 @@
 
 [ "$(command -v ssh)" ] && alias s=ssh
 
+[ "$(command -v tmux)" ] && alias t=tmux
+
 [ "$(command -v vifm)" ] && alias f=vifm
 
 [ -n "$EDITOR" ] && alias v="$EDITOR"
-
-[ -n "$MULTIPLEXER" ] && alias m="$MULTIPLEXER"
 
 [ -n "$PAGER" ] && alias r="$PAGER"
