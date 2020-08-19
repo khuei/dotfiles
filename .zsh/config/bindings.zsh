@@ -5,7 +5,7 @@ bindkey -v
 [ "$(tput cbt)" ] && bindkey "$(tput cbt)" reverse-menu-complete
 
 zle-keymap-select zle-line-init () {
-	if [ "$TERM" = 'linux' ]; then
+	if [ "$TERM" = "linux" ]; then
 		printf '\033[?16;0;224c'
 	else
 		case $KEYMAP in
