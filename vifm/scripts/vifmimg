@@ -1,29 +1,22 @@
 #!/usr/bin/env bash
 
-readonly ID_PREVIEW="preview"
-
-[ ! -d "/tmp$PWD/" ] && mkdir -p "/tmp$PWD/"
-
-previewclear() {
-	declare -p -A cmd=([action]=remove [identifier]="$ID_PREVIEW") \
-		> "$FIFO_UEBERZUG"
+preview_clear() {
+	declare -p -A cmd=([action]="remove" [identifier]="preview") \
+		> "$UEBERZUG_FIFO"
 }
 
-preview() {
-	declare -p -A cmd=([action]=add [identifier]="$ID_PREVIEW"
-	[x]="$2" [y]="$3" [width]="$4" [height]="$5" \
-		 [path]="$PWD/$6") \
-		 > "$FIFO_UEBERZUG"
+preview_draw() {
+	declare -p -A cmd=([action]="add" [identifier]="preview"
+	[x]="$2" [y]="$3" [width]="$4" [height]="$5" [path]="$PWD/$6") \
+		> "$UEBERZUG_FIFO"
 }
 
 main() {
 	case "$1" in
-	"clear")
-		previewclear "$@"
-		;;
-	"draw")
-		preview "$@"
-		;;
+	clear)
+		preview_clear "$@" ;;
+	draw)
+		preview_draw "$@" ;;
 	esac
 }
 

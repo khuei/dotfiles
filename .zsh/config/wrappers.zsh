@@ -32,17 +32,13 @@
 
 [ "$(command -v vifm)" ] && [ "$(command -v ueberzug)" ] && {
 	vifm() {
-		export FIFO_UEBERZUG="/tmp/vifm-ueberzug-$$"
-		rm "$FIFO_UEBERZUG" 2> /dev/null
-		mkfifo "$FIFO_UEBERZUG"
-		trap 'rm $FIFO_UEBERZUG 2> /dev/null && pkill -P $$ 2> /dev/null' EXIT
-		tail -f "$FIFO_UEBERZUG" | ueberzug layer --silent --parser bash --loader thread &!
+		export UEBERZUG_FIFO="/tmp/vifm-ueberzug-$$"
+		mkfifo "$UEBERZUG_FIFO"
+		trap 'rm $UEBERZUG_FIFO 2> /dev/null && unset UEBERZUG_FIFO;
+		      pkill -P $$ 2> /dev/null' EXIT
+		tail -f "$UEBERZUG_FIFO" | ueberzug layer --silent --parser bash --loader thread &!
 
 		command vifm "$@"
-
-		rm "$FIFO_UEBERZUG" 2> /dev/null
-		pkill -P $$ 2> /dev/null
-		unset FIFO_UEBERZUG
 	}
 }
 
