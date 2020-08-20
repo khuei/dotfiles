@@ -13,6 +13,8 @@ if has('syntax') && !exists('g:syntax_on')
 	syntax on
 endif
 
+set autoread
+
 if &history < 10000
 	set history=10000
 endif
@@ -46,6 +48,8 @@ endif
 
 set number
 set relativenumber
+
+set incsearch
 
 if $TERM == 'linux'
 	set guicursor=
