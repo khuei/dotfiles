@@ -25,8 +25,7 @@
 			return
 		}
 
-		SESSION_NAME=$(basename "${$(pwd)//[.:]/_}")
-		env SSH_AUTH_SOCK="$SOCK_SYMLINK" tmux new -A -s "$SESSION_NAME"
+		env SSH_AUTH_SOCK="$SOCK_SYMLINK" tmux new -A -s "$(basename "${PWD//[\.]/_}")"
 	}
 }
 
