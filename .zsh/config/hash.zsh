@@ -21,6 +21,6 @@
 
 	jump() {
 		local DIR="${*%%/}"
-		cd ~"$DIR" || return 1
+		cd -- ~"$DIR" || return 1
 	}
 }

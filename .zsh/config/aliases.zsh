@@ -19,7 +19,7 @@
 
 [ "$(command -v git)" ] && {
 	alias g=git
-	alias groot="cd \$(git rev-parse --show-toplevel 2> /dev/null)"
+	alias groot="cd -- \$(git rev-parse --show-toplevel 2> /dev/null)"
 }
 
 [ "$(command -v jump)" ] && alias j=jump

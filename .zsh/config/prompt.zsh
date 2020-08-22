@@ -102,7 +102,7 @@ prompt_async_init() {
 
 prompt_async_tasks() {
 	prompt_async_init
-	async_worker_eval prompt_async builtin cd -q "$PWD"
+	async_worker_eval prompt_async builtin cd -- "$PWD"
 	async_job prompt_async prompt_vcs_info
 }
 
