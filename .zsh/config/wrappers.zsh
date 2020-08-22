@@ -32,7 +32,7 @@
 
 [ "$(command -v vifm)" ] && [ "$(command -v ueberzug)" ] && {
 	vifm() {
-		export UEBERZUG_FIFO="/tmp/vifm-ueberzug-$$"
+		export UEBERZUG_FIFO="/tmp/vifm-ueberzug-$$" || return 1
 		mkfifo "$UEBERZUG_FIFO"
 		trap 'rm $UEBERZUG_FIFO 2> /dev/null && unset UEBERZUG_FIFO;
 		      pkill -P $$ 2> /dev/null' EXIT
