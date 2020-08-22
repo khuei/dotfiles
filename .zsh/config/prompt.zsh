@@ -13,7 +13,7 @@ prompt_preexec() {
 
 	HISTCMD_LOCAL=$((++HISTCMD_LOCAL))
 
-	TRIMMED="${2[(wr)^(*=*|ssh|sudo)]}"
+	TRIMMED="${2[(wr)^(*=*|ssh|sudo|-*)]}"
 	if [ -n "$TMUX" ]; then
 		prompt_window_title_setup "$TRIMMED"
 	else
