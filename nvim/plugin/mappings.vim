@@ -13,10 +13,6 @@ nnoremap <C-l> <C-w>l
 
 nnoremap Y y$
 
-nnoremap <leader>w :write!<CR>
-nnoremap <leader>q :quit!<CR>
-nnoremap <leader>x :quitall!<CR>
-
 nnoremap <leader>n :nohlsearch<CR>
 
 nnoremap <LocalLeader>e :edit <C-R>=expand('%:p:h') . '/'<CR>
