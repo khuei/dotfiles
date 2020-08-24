@@ -5,11 +5,9 @@
 		filetype=$(echo "$1" | grep -o '[^.]*$')
 		case $filetype in
 		'c')
-			command cc "$1"
-			;;
+			command cc "$1" ;;
 		'cpp')
-			command c++ "$1"
-			;;
+			command c++ "$1" ;;
 		esac
 	}
 }
