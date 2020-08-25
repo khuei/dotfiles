@@ -3,8 +3,6 @@ if exists('g:loaded_settings') || &compatible
 endif
 let g:loaded_settings = 1
 
-scriptencoding utf-8
-
 if has('autocmd')
 	filetype plugin indent on
 endif
