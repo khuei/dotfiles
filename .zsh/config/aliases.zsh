@@ -39,6 +39,6 @@
 
 [ "$(command -v vifm)" ] && alias f=vifm
 
-[ -n "$EDITOR" ] && alias v="$EDITOR"
+[ -n "$EDITOR" ] && alias v="${EDITOR:=vi}"
 
 [ -n "$PAGER" ] && alias r="$PAGER"
