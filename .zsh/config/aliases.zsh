@@ -39,4 +39,4 @@
 
 [ -n "$EDITOR" ] && alias v="${EDITOR:=vi}"
 
-[ -n "$PAGER" ] && alias r="$PAGER"
+[ -n "$PAGER" ] && alias p="$PAGER"
