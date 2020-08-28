@@ -18,9 +18,4 @@
 	[ -d "$LOG" ] && hash -d log="$LOG"
 	[ -d "$OVERLAY" ] && hash -d overlay="$OVERLAY"
 	[ -d "$PORTAGE" ] && hash -d portage="$PORTAGE"
-
-	jump() {
-		local DIR="${*%%/}"
-		cd -- ~"$DIR" || return 1
-	}
 }

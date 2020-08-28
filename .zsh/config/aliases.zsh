@@ -22,8 +22,6 @@
 	alias groot="cd -- \$(git rev-parse --show-toplevel 2> /dev/null)"
 }
 
-[ "$(command -v jump)" ] && alias j=jump
-
 [ "$(command -v ls)" ] && {
 	alias l='ls -Fh'
 	alias ll='ls -alFh'

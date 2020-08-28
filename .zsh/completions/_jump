@@ -1,3 +1,0 @@
-#compdef jump
-
-_values "hashed directory" $(hash -d | cut -d = -f1)
