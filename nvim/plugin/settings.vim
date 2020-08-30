@@ -62,7 +62,7 @@ if has('showcmd')
 endif
 
 if has('statusline')
-	set statusline=%<%F\ %y\ %m%r%=%-14.(L:\ %l/%L\ C:\ %c%V%)\ |
+	set statusline=%<%F\ %y%m%r%=%-14.(L:\ %l/%L\ C:\ %c%V%)\ |
 	set laststatus=2
 	set ruler
 endif
