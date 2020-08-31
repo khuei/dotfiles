@@ -92,7 +92,7 @@ prompt_async_renice() {
 
 prompt_async_init() {
 	typeset -g prompt_async_init
-	(( ${prompt_async_init:-0} )) && return
+	(( ${prompt_async_init:-0} )) && return 0
 	prompt_async_init=1
 
 	async_start_worker prompt_async -u -n

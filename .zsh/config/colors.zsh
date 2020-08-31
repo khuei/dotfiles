@@ -59,11 +59,11 @@ color() {
 
 		sh "$FILE"
 
-		[ -n "$TMUX" ] || return
+		[ -n "$TMUX" ] || return 0
 
 		CC=$(grep color18= "$FILE" | cut -d \" -f2 | sed -e 's#/##g')
 
-		[ -n "$BG" ] && [ -n "$CC" ] || return
+		[ -n "$BG" ] && [ -n "$CC" ] || return 0
 
 		command tmux set -a window-active-style "bg=#$BG"
 		command tmux set -a window-style "bg=#$CC"
@@ -85,7 +85,7 @@ color() {
 	'')
 		[ -s "$BASE16_CONFIG" ] || {
 			color_setup 'default-dark'
-			return
+			return 0
 		}
 
 		SCHEME="$(head -1 "$BASE16_CONFIG")"

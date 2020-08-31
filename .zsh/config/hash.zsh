@@ -1,7 +1,7 @@
 #!/usr/bin/env zsh
 
 {
-	[ "$(command -v hash)" ] || return 1
+	[ "$(command -v hash)" ] || return 0
 
 	local CODE=~/code
 	local CONSOLEFONT=/usr/share/consolefonts

@@ -20,7 +20,7 @@
 
 		[ -n "$*" ] && {
 			env SSH_AUTH_SOCK="$SOCK_SYMLINK" tmux "$@"
-			return
+			return 0
 		}
 
 		env SSH_AUTH_SOCK="$SOCK_SYMLINK" tmux new -A -s "$(basename "${PWD//[\.]/_}")"
