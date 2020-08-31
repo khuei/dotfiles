@@ -5,8 +5,6 @@ fpath=(
 )
 
 setopt AUTO_CD
-setopt LIST_PACKED
-setopt MENU_COMPLETE
 setopt SHARE_HISTORY
 
 . ~/.zsh/config/bindings.zsh

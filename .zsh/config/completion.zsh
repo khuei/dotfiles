@@ -6,6 +6,9 @@ autoload -Uz compinit
 }
 compinit -i -u
 
+setopt MENU_COMPLETE
+setopt LIST_PACKED
+
 zstyle ':completion:*' accept-exact '*(N)'
 zstyle ':completion:*' use-cache on
 zstyle ':completion:*' menu select
