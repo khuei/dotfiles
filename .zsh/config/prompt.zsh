@@ -67,6 +67,8 @@ prompt_precmd() {
 }
 
 prompt_vcs_info() {
+	autoload -Uz vcs_info
+
 	zstyle ":vcs_info:*" enable git
 	zstyle ":vcs_info:*" check-for-changes true
 	zstyle ":vcs_info:*" stagedstr "%F{green}●%f"
@@ -133,7 +135,6 @@ prompt_init() {
 
 	autoload -Uz async.zsh && async.zsh
 	autoload -Uz add-zsh-hook
-	autoload -Uz vcs_info
 
 	if [ -n "$TMUX" ]; then
 		LVL=$((SHLVL-1))
