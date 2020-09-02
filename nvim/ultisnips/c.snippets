@@ -98,6 +98,11 @@ case ${1:/* variable case */}:
 	${3:break;}
 endsnippet
 
+snippet default
+default:
+	${1}
+endsnippet
+
 snippet for "for loop"
 for (${1:int} ${2:i} = ${3:0}; $2 < ${4}; ${5:++}$2)${6/([^\r\n|^\r|^\n]|\n\n|\r\r)*(\r\n|\r|\n)?.*/(?2: {:)/}
 	${6}
