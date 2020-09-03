@@ -18,11 +18,8 @@ PATH=$PATH:/usr/local/sbin
 export PATH
 
 export XDG_CACHE_HOME=~
-export XDG_CONFIG_DIRS=~
 export XDG_CONFIG_HOME=~
-export XDG_DATA_DIRS=~
 export XDG_DATA_HOME=~
-export XDG_RUNTIME_DIR=~
 
 if command -v nvim > /dev/null; then
 	export EDITOR=nvim
