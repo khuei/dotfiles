@@ -31,6 +31,8 @@
 [ "$(command -v ncmpcpp)" ] && [ "$(command -v mpd)" ] && \
 	alias n="[ -z \"\$(ps -opid= -C mpd)\" ] && mpd; ncmpcpp 2> /dev/null"
 
+[ "$(command -v slock)" ] && alias sl=slock
+
 [ "$(command -v ssh)" ] && alias s=ssh
 
 [ "$(command -v tmux)" ] && alias t=tmux
