@@ -3,11 +3,19 @@
 [ "$(command -v cc)" ] && [ "$(command -v c++)" ] && {
 	cc() {
 		filetype=$(echo "$1" | grep -o '[^.]*$')
-		case $filetype in
-		'c')
-			command cc "$1" ;;
-		'cpp')
-			command c++ "$1" ;;
+		case "$filetype" in
+		c)
+			command cc "$1"
+			;;
+
+		cpp)
+			command c++ "$1"
+			;;
+
+		*)
+			echo 'error: no input files' 1>&2
+			return 1
+			;;
 		esac
 	}
 }
