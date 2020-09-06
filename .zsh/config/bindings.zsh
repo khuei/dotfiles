@@ -10,13 +10,11 @@ zle-keymap-select zle-line-init () {
 	else
 		case $KEYMAP in
 		vicmd)
-			printf '\033[2 q'
-			;;
+			printf '\033[2 q' ;;
 		main|vinns)
-			printf '\033[6 q'
-			;;
+			printf '\033[6 q' ;;
 		*)
-			printf '\033[2 q'
+			printf '\033[2 q' ;;
 		esac
 	fi
 }
