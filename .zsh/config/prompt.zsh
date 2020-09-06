@@ -120,9 +120,11 @@ prompt_async_callback() {
 			prompt_async_tasks
 		}
 		;;
+
 	\[async/eval])
 		(( error )) && prompt_async_tasks
 		;;
+
 	prompt_vcs_info)
 		prompt_vcs_info
 		zle .reset-prompt
