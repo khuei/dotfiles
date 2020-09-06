@@ -44,7 +44,7 @@ color() {
 		LUMA=$(luma "$BG")
 
 		LIGHT=$((LUMA > 127.5))
-		case $LIGHT in
+		case "$LIGHT" in
 		0)
 			BACKGROUND='dark' ;;
 		1)

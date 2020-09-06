@@ -8,7 +8,7 @@ zle-keymap-select zle-line-init () {
 	if [ "$TERM" = "linux" ]; then
 		printf '\033[?16;0;224c'
 	else
-		case $KEYMAP in
+		case "$KEYMAP" in
 		vicmd)
 			printf '\033[2 q' ;;
 		main|vinns)
