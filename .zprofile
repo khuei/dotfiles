@@ -21,16 +21,16 @@ export XDG_CACHE_HOME=~
 export XDG_CONFIG_HOME=~
 export XDG_DATA_HOME=~
 
-if command -v nvim > /dev/null; then
+if command -v nvim >/dev/null; then
 	export EDITOR=nvim
-elif command -v vim > /dev/null; then
+elif command -v vim >/dev/null; then
 	export EDITOR=vim
 fi
 
-if command -v less > /dev/null; then
+if command -v less >/dev/null; then
 	export MANPAGER=less
 	export PAGER=less
-elif command -v more > /dev/null; then
+elif command -v more >/dev/null; then
 	export MANPAGER=more
 	export PAGER=more
 fi
@@ -69,8 +69,8 @@ export LS_COLORS='rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;
 	zcompare ~/.zshrc
 
 	for file in ~/.zsh/**/*.{sh,zsh}; do
-		zcompare "$file" 2> /dev/null
+		zcompare "$file" 2>/dev/null
 	done
 
 	unfunction zcompare
-} > /dev/null &! exec zsh
+} >/dev/null &! exec zsh

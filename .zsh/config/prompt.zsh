@@ -79,7 +79,7 @@ prompt_vcs_info() {
 	zstyle ":vcs_info:git*:*" actionformats "[%b|%a%m%c%u] "
 
 	+vi-git-untracked() {
-		[ -n "$(git ls-files --exclude-standard --others 2> /dev/null)" ] && \
+		[ -n "$(git ls-files --exclude-standard --others 2>/dev/null)" ] && \
 			hook_com[unstaged]+="%F{blue}●%f"
 	}
 

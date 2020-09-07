@@ -52,7 +52,7 @@ color() {
 		esac
 
 		[ -f "$BASE16_CONFIG" ] && \
-			cp "$BASE16_CONFIG" "$BASE16_CONFIG_PREVIOUS" > /dev/null
+			cp "$BASE16_CONFIG" "$BASE16_CONFIG_PREVIOUS" >/dev/null
 
 		echo "$SCHEME" > "$BASE16_CONFIG"
 		echo "$BACKGROUND" >> "$BASE16_CONFIG"

@@ -5,7 +5,7 @@
 	ca = "!git add --all && git commit --all"
 	ci = "!git add --all && git commit"
 
-	co = "!f() { git checkout -b \"$1\" 2> /dev/null || git checkout \"$1\"; }; f"
+	co = "!f() { git checkout -b \"$1\" 2>/dev/null || git checkout \"$1\"; }; f"
 
 	cr = "!git clone --recursive"
 
