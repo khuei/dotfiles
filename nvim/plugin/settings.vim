@@ -13,6 +13,8 @@ endif
 
 set autoread
 
+set hidden
+
 if &history < 10000
 	set history=10000
 endif
