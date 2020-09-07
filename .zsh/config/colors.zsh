@@ -10,7 +10,7 @@ color() {
 		COLOR_HEX="$1"
 
 		[ -n "$COLOR_HEX" ] || {
-			echo "Missing argument hex color (RRGGBB)"
+			echo "Missing argument hex color (RRGGBB)" 1>&2
 			return 1
 		}
 
@@ -36,7 +36,7 @@ color() {
 		FILE="$BASE16_DIR/base16-$SCHEME.sh"
 
 		[ -f "$FILE" ] || {
-			echo "Colorscheme \"$SCHEME\" not found in $BASE16_DIR"
+			echo "Colorscheme \"$SCHEME\" not found in $BASE16_DIR" 1>&2
 			return 1
 		}
 
@@ -74,7 +74,7 @@ color() {
 	case "$SCHEME" in
 	-)
 		[ -s "$BASE16_CONFIG_PREVIOUS" ] || {
-			echo "warning: no previous config found at $BASE16_CONFIG_PREVIOUS"
+			echo "warning: no previous config found at $BASE16_CONFIG_PREVIOUS" 1>&2
 			return 1
 		}
 
