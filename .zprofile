@@ -21,16 +21,16 @@ export XDG_CACHE_HOME=~
 export XDG_CONFIG_HOME=~
 export XDG_DATA_HOME=~
 
-if command -v nvim >/dev/null; then
+if [ "$(command -v nvim)" ]; then
 	export EDITOR=nvim
-elif command -v vim >/dev/null; then
+elif [ "$(command -v vim)" ]; then
 	export EDITOR=vim
 fi
 
-if command -v less >/dev/null; then
+if [ "$(command -v less)" ]; then
 	export MANPAGER=less
 	export PAGER=less
-elif command -v more >/dev/null; then
+elif [ "$(command -v more)" ]; then
 	export MANPAGER=more
 	export PAGER=more
 fi
