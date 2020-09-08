@@ -36,24 +36,21 @@ set confirm-=delete,permdelete
 
 set rulerformat=\
 
+set vicmd=$EDITOR
+
 fileview ../ echo >/dev/null
 fileviewer */ ls --color --group-directories-first
 fileviewer .*/ ls --color --group-directories-first
-
-if executable('nvim')
-	filetype * nvim
-elseif executable('vim')
-	filetype * vim
-else
-	filetype * vi
-endif
-
-fileviewer <text/*> cat
 
 fileviewer *.bmp,*.jpg,*.jpeg,*.png,*.xpm
 			\ vifmimg draw %px %py %pw %ph %c
 			\ %pc
 			\ vifmimg clear
+
+filetype *.mp3,*.flac,*.wav mpv --no-video
+filetype *.gif,*.mp4,*.mkv,*.webm mpv
+filetype *.png,*.jpg,*.jpe,*.jpeg sxiv
+filetype *.html,*.pdf firefox
 
 nmap q ZQ
 nnoremap gg ggj
