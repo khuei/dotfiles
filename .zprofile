@@ -60,7 +60,7 @@ export LS_COLORS='rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;
 {
 	zcompare() {
 		[ -s "$1" ] && [ ! -s "$1".zwc ] || \
-		[ -n "$(find -L "$1" -prune -newer "$1".zwc)" ] && \
+		[ -n "$(find -L "$1" -prune -newer "$1".zwc 2>/dev/null)" ] && \
 			zcompile -M "$1"
 	}
 
