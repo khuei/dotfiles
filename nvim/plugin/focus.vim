@@ -14,10 +14,5 @@ if has('autocmd')
 
 		autocmd BufEnter,FocusGained,VimEnter,WinEnter * set list
 		autocmd BufLeave,FocusLost,WinLeave * set nolist
-
-		if has('syntax')
-			autocmd BufEnter,FocusGained,VimEnter,WinEnter * execute 'ownsyntax ' . (&ft)
-			autocmd BufLeave,FocusLost,WinLeave * ownsyntax off
-		endif
 	augroup END
 endif
