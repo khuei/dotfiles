@@ -50,7 +50,7 @@ function! s:SetupLspHighlights() abort
 endfunction
 
 if has('autocmd')
-	augroup Highlight
+	augroup highlight
 		autocmd!
 		autocmd ColorScheme * call s:SetupLspHighlights()
 	augroup END

@@ -4,7 +4,7 @@ endif
 let g:loaded_focus = 1
 
 if has('autocmd')
-	augroup Focus
+	augroup focus
 		autocmd!
 		autocmd BufEnter,FocusGained,VimEnter,WinEnter * set winhighlight=
 		autocmd FocusLost,WinLeave * set winhighlight=CursorLineNr:LineNr,StatusLine:LineNr,EndOfBuffer:ColorColumn,IncSearch:ColorColumn,Normal:ColorColumn,NormalNC:ColorColumn,SignColumn:ColorColumn

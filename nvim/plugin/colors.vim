@@ -60,7 +60,7 @@ function! s:SetupHighlights() abort
 endfunction
 
 if has('autocmd')
-	augroup Color
+	augroup color
 		autocmd!
 		autocmd ColorScheme * call s:SetupHighlights()
 		autocmd VimEnter,FocusGained * call s:CheckColorScheme()

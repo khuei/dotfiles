@@ -24,7 +24,7 @@ if exists(':UltiSnipsEdit')
 endif
 
 if has('autocmd')
-	augroup Autocomplete
+	augroup autocomplete
 		autocmd!
 		autocmd! User UltiSnipsEnterFirstSnippet
 		autocmd User UltiSnipsEnterFirstSnippet call autocomplete#setup_mappings()
@@ -32,7 +32,7 @@ if has('autocmd')
 		autocmd User UltiSnipsExitLastSnippet call autocomplete#teardown_mappings()
 	augroup END
 	
-	augroup Idleboot
+	augroup idleboot
 		autocmd!
 		if has('vim_starting')
 			autocmd CursorHold,CursorHoldI * call autocomplete#deoplete_init()
