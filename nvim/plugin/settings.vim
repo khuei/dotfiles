@@ -64,7 +64,7 @@ if has('showcmd')
 endif
 
 if has('statusline')
-	set statusline=%<%F\ %y%m%r%=%-14.(L:\ %l/%L\ C:\ %c%V%)\ |
+	set statusline=%<\ %F\ %m%r%y%w%=\ L:\ \%l\/\%L\ C:\ \%c\ |
 	set laststatus=2
 	set ruler
 endif
@@ -104,3 +104,5 @@ if exists('&wildmode')
 	set wildmenu
 	set wildcharm=<C-z>
 endif
+
+set noswapfile
