@@ -51,10 +51,6 @@ set relativenumber
 
 set incsearch
 
-if $TERM == 'linux'
-	set guicursor=
-endif
-
 if exists('&inccommand')
 	set inccommand=split
 endif
@@ -63,18 +59,23 @@ if has('showcmd')
 	set noshowcmd
 endif
 
+set completeopt=menuone
+set completeopt+=noinsert
+set completeopt+=noselect
+
+if exists('&wildmode')
+	set wildmenu
+	set wildcharm=<C-z>
+endif
+
+set splitbelow
+set splitright
+
 if has('statusline')
 	set statusline=%<\ %F\ %m%r%y%w%=\ L:\ \%l\/\%L\ C:\ \%c\ |
 	set laststatus=2
 	set ruler
 endif
-
-set list
-set listchars+=extends:»
-set listchars+=nbsp:ø
-set listchars+=precedes:«
-set listchars+=tab:▷┅
-set listchars+=trail:•
 
 if has('folding')
 	set fillchars=diff:∙
@@ -86,23 +87,39 @@ if has('folding')
 	set foldlevelstart=99
 endif
 
-set completeopt=menuone
-set completeopt+=noinsert
-set completeopt+=noselect
-
-set shortmess=I
-set shortmess+=c
-
-set splitbelow
-set splitright
+if $TERM == 'linux'
+	set guicursor=
+endif
 
 if has('termguicolors')
 	set termguicolors
 endif
 
-if exists('&wildmode')
-	set wildmenu
-	set wildcharm=<C-z>
-endif
+set shortmess=I
+set shortmess+=c
 
-set noswapfile
+set listchars+=extends:»
+set listchars+=nbsp:ø
+set listchars+=precedes:«
+set listchars+=tab:▷┅
+set listchars+=trail:•
+
+if has('autocmd')
+	augroup list
+		autocmd!
+		autocmd BufEnter,FocusGained,VimEnter,WinEnter * set list
+		autocmd BufLeave,FocusLost,WinLeave * set nolist
+	augroup END
+
+	augroup cursorline
+		autocmd!
+		autocmd BufEnter,InsertLeave,VimEnter * setlocal cursorline
+		autocmd BufLeave,InsertEnter * setlocal nocursorline
+	augroup END
+
+	augroup winhighlight
+		autocmd!
+		autocmd BufEnter,FocusGained,VimEnter,WinEnter * set winhighlight=
+		autocmd FocusLost,WinLeave * set winhighlight=CursorLineNr:LineNr,StatusLine:LineNr,EndOfBuffer:ColorColumn,IncSearch:ColorColumn,Normal:ColorColumn,NormalNC:ColorColumn,SignColumn:ColorColumn
+	augroup END
+endif
