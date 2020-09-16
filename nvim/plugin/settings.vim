@@ -95,8 +95,14 @@ if has('termguicolors')
 	set termguicolors
 endif
 
-set shortmess=I
+set shortmess+=A
+set shortmess+=I
+set shortmess+=O
+set shortmess+=T
+set shortmess+=a
 set shortmess+=c
+set shortmess+=o
+set shortmess+=t
 
 set listchars+=extends:»
 set listchars+=nbsp:ø
