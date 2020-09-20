@@ -23,9 +23,9 @@
 }
 
 [ "$(command -v ls)" ] && {
+	alias ls='ls --color'
 	alias l='ls -AFh'
 	alias ll='ls -AlFh'
-	alias ls='ls --color'
 }
 
 [ "$(command -v ncmpcpp)" ] && [ "$(command -v mpd)" ] && \
