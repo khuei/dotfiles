@@ -23,8 +23,8 @@
 }
 
 [ "$(command -v ls)" ] && {
-	alias l='ls -Fh'
-	alias ll='ls -alFh'
+	alias l='ls -AFh'
+	alias ll='ls -AlFh'
 	alias ls='ls --color'
 }
 
