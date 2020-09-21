@@ -31,7 +31,7 @@ color() {
 		echo "$COLOR_LUMA"
 	}
 
-	color_setup() {
+	setup() {
 		local SCHEME="$1"
 		local FILE="$BASE16_DIR/base16-$SCHEME.sh"
 
@@ -81,26 +81,26 @@ color() {
 		}
 
 		local PREVIOUS_SCHEME="$(head -1 "$BASE16_CONFIG_PREVIOUS")"
-		color_setup "$PREVIOUS_SCHEME"
+		setup "$PREVIOUS_SCHEME"
 		;;
 
 	'')
 		[ -s "$BASE16_CONFIG" ] || {
-			color_setup 'default-dark'
+			setup 'default-dark'
 			return 0
 		}
 
 		local SCHEME="$(head -1 "$BASE16_CONFIG")"
-		color_setup "$SCHEME"
+		setup "$SCHEME"
 		;;
 
 	*)
-		color_setup "$SCHEME"
+		setup "$SCHEME"
 		;;
 	esac
 
 	unfunction luma
-	unfunction color_setup
+	unfunction setup
 }
 
 color "$@"
