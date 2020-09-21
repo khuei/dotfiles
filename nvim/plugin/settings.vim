@@ -87,7 +87,7 @@ if has('folding')
 	set foldlevelstart=99
 endif
 
-if $TERM == 'linux'
+if $TERM =~# '^linux'
 	set guicursor=
 endif
 
