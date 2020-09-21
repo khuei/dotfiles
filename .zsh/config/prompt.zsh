@@ -1,7 +1,7 @@
 #!/usr/bin/env zsh
 
 prompt_window_title_setup() {
-	CMD="${1:gs/$/\\$}"
+	local CMD="${1:gs/$/\\$}"
 	print -Pn "\033]0;$CMD:q\a"
 }
 
@@ -13,7 +13,7 @@ prompt_preexec() {
 
 	HISTCMD_LOCAL=$((++HISTCMD_LOCAL))
 
-	TRIMMED="${2[(wr)^(*=*|ssh|sudo|-*)]}"
+	local TRIMMED="${2[(wr)^(*=*|ssh|sudo|-*)]}"
 	if [ -n "$TMUX" ]; then
 		prompt_window_title_setup "$TRIMMED"
 	else
@@ -25,12 +25,12 @@ prompt_precmd() {
 	local RPROMPT_BASE="\${vcs_info_msg_0_}%F{blue}%~%f"
 
 	if [ "$ZSH_START_TIME" ]; then
-		DELTA=$((SECONDS - ZSH_START_TIME))
-		DAYS=$((~~(DELTA / 86400)))
-		HOURS=$((~~((DELTA - DAYS * 86400) / 3600)))
-		MINUTES=$((~~((DELTA - DAYS * 86400 - HOURS * 3600) / 60)))
-		SECS=$((DELTA - DAYS * 86400 - HOURS * 3600 - MINUTES * 60))
-		ELAPSED=""
+		local DELTA=$((SECONDS - ZSH_START_TIME))
+		local DAYS=$((~~(DELTA / 86400)))
+		local HOURS=$((~~((DELTA - DAYS * 86400) / 3600)))
+		local MINUTES=$((~~((DELTA - DAYS * 86400 - HOURS * 3600) / 60)))
+		local SECS=$((DELTA - DAYS * 86400 - HOURS * 3600 - MINUTES * 60))
+		local ELAPSED
 
 		[ "$DAYS" -ne 0 ] && ELAPSED="${DAYS}d"
 		[ "$HOURS" -ne 0 ] && ELAPSED="${ELAPSED}${HOURS}h"
@@ -46,8 +46,7 @@ prompt_precmd() {
 
 		ELAPSED="${ELAPSED}${SECS}"
 
-		RPROMPT="%F{cyan}%{$(printf '\033[3m')%}${ELAPSED}%f%{$(printf '\033[0m')%} $RPROMPT_BASE"
-		export RPROMPT
+		export RPROMPT="%F{cyan}%{$(printf '\033[3m')%}${ELAPSED}%f%{$(printf '\033[0m')%} $RPROMPT_BASE"
 
 		unset ZSH_START_TIME
 	else
@@ -57,7 +56,7 @@ prompt_precmd() {
 	if [ "$HISTCMD_LOCAL" -eq 0 ]; then
 		prompt_window_title_setup "$(basename "$PWD")"
 	else
-		LAST="$(history | tail -1 | awk '{print $2}')"
+		local LAST="$(history | tail -1 | awk '{print $2}')"
 		if [ -n "$TMUX" ]; then
 			prompt_window_title_setup "$LAST"
 		else
@@ -109,7 +108,8 @@ prompt_async_tasks() {
 }
 
 prompt_async_callback() {
-	job="$1" error="$2"
+	local job="$1"
+	local error="$2"
 
 	case "$job" in
 	\[async])
@@ -138,12 +138,14 @@ prompt_init() {
 	autoload -Uz async.zsh && async.zsh
 	autoload -Uz add-zsh-hook
 
+	local LVL
 	if [ -n "$TMUX" ]; then
 		LVL=$((SHLVL-1))
 	else
 		LVL=$SHLVL
 	fi
 
+	local SUFFIX
 	if [ "$(id -u)" -eq 0 ]; then
 		SUFFIX="%F{yellow}%n%f$(printf '%%F{yellow}❯%.0s%%f' {1..$LVL})"
 	else
