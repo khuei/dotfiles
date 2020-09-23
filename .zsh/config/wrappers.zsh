@@ -2,8 +2,7 @@
 
 [ "$(command -v cc)" ] && [ "$(command -v c++)" ] && {
 	cc() {
-		filetype=$(echo "$1" | grep -o '[^.]*$')
-		case "$filetype" in
+		case "${1##*.}" in
 		c)
 			command cc "$1"
 			;;
