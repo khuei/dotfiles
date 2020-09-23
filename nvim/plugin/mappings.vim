@@ -32,5 +32,5 @@ nnoremap <silent> <S-Right> :lnfile<CR>
 nnoremap <expr> k (v:count > 2 ? "m'" . v:count : '') . 'k'
 nnoremap <expr> j (v:count > 2 ? "m'" . v:count : '') . 'j'
 
-cnoremap <expr> <Tab> getcmdtype() == '/' \|\| getcmdtype() == '?' ? '<CR>/<C-r>/' : '<C-z>'
-cnoremap <expr> <S-Tab> getcmdtype() == '/' \|\| getcmdtype() == '?' ? '<CR>?<C-r>/' : '<S-Tab>'
+cnoremap <expr> <Tab> getcmdtype() =~ '[/?]' ? '<CR>/<C-r>/' : '<C-z>'
+cnoremap <expr> <S-Tab> getcmdtype() =~ '[/?]' ? '<CR>?<C-r>/' : '<S-Tab>'
