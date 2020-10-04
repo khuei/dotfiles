@@ -104,6 +104,7 @@ set shortmess+=c
 set shortmess+=o
 set shortmess+=t
 
+set list
 set listchars+=extends:»
 set listchars+=nbsp:ø
 set listchars+=precedes:«
@@ -111,12 +112,6 @@ set listchars+=tab:▷┅
 set listchars+=trail:•
 
 if has('autocmd')
-	augroup list
-		autocmd!
-		autocmd BufEnter,FocusGained,VimEnter,WinEnter * set list
-		autocmd BufLeave,FocusLost,WinLeave * set nolist
-	augroup END
-
 	augroup cursorline
 		autocmd!
 		autocmd BufEnter,InsertLeave,VimEnter * setlocal cursorline
