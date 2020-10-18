@@ -22,3 +22,8 @@ highlight JobLine cterm=bold,reverse ctermfg=black ctermbg=255
 highlight SuggestBox cterm=bold ctermfg=255 ctermbg=default
 highlight CmpMismatch cterm=bold ctermfg=255 ctermbg=9
 highlight AuxWin cterm=bold,reverse ctermfg=default ctermbg=default
+
+highlight /^.*\.(cfg|conf|diff|doc|ini|log|patch|pdf|ps|tex|txt)$/I cterm=none ctermfg=green ctermbg=default
+highlight /^.*\.(aac|au|flac|m4a|mid|midi|mka|mp3|mpc|oga|ogg|opus|ra|spx|wav|xspf)$/I cterm=none ctermfg=cyan ctermbg=default
+highlight /^.*\.(7z|ace|alz|arc|arj|bz|bz2|cab|cpio|deb|dwm|dz|ear|esd|gz|jar|lha|lrz|lz|lz4|lzh|lzma|lzo|rar|rpm|rz|sar|swm|t7z|tar|taz|tbz|tbz2|tgz|tlz|txz|tz|tzo|tzst|war|wim|xz|z|zip|zoo|zst)$/I cterm=bold ctermfg=red ctermbg=default
+highlight /^.*\.(asf|avi|bmp|cgm|dl|emf|flc|fli|flv|gif|gl|jpeg|jpg|m2v|m4v|mjpeg|mjpg|mkv|mng|mov|mp4|mp4v|mpeg|mpg|nuv|ogm|ogv|ogx|pbm|pcx|pgm|png|ppm|qt|rm|rmvb|svg|svgz|tga|tif|tiff|vob|webm|webp|wmv|xbm|xcf|xpm|xwd|yuv)$/I cterm=bold ctermfg=magenta ctermbg=default
