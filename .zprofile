@@ -2,7 +2,6 @@ export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
 
 unset PATH
-[ -d /usr/lib/llvm/10/bin ] && PATH=$PATH:/usr/lib/llvm/10/bin
 [ -d ~/.cargo/bin ] && PATH=$PATH:~/.cargo/bin
 [ -d ~/.local/bin ] && PATH=$PATH:~/.local/bin
 [ -d ~/bin ] && PATH=$PATH:~/bin
