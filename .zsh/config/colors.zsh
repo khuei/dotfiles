@@ -47,10 +47,8 @@ color() {
 		local BACKGROUND
 
 		case "$LIGHT" in
-		0)
-			BACKGROUND='dark' ;;
-		1)
-			BACKGROUND='light' ;;
+		0) BACKGROUND='dark' ;;
+		1) BACKGROUND='light' ;;
 		esac
 
 		[ -f "$BASE16_CONFIG" ] && \
@@ -83,7 +81,6 @@ color() {
 		local PREVIOUS_SCHEME="$(head -1 "$BASE16_CONFIG_PREVIOUS")"
 		setup "$PREVIOUS_SCHEME"
 		;;
-
 	'')
 		[ -s "$BASE16_CONFIG" ] || {
 			setup 'default-dark'
@@ -93,7 +90,6 @@ color() {
 		local SCHEME="$(head -1 "$BASE16_CONFIG")"
 		setup "$SCHEME"
 		;;
-
 	*)
 		setup "$SCHEME"
 		;;

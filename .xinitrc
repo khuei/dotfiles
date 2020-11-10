@@ -20,7 +20,6 @@ dwm)
 	[ "$(command -v slstatus)" ] && slstatus &
 	[ "$(command -v dwm)" ] && exec dwm
 	;;
-
 *)
 	[ "$(command -v "$1")" ] && exec "$1"
 	;;

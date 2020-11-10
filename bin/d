@@ -13,11 +13,8 @@ while [ -z "$term" ]; do
 	EOF
 
 	case $comm in
-	"${0##*/}"|"${SHELL##*/}"|init)
-		;;
-	*)
-		term=$comm
-		;;
+	"${0##*/}"|"${SHELL##*/}"|init) ;;
+	*) term=$comm ;;
 	esac
 done
 

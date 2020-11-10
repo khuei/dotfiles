@@ -13,10 +13,8 @@ preview_draw() {
 
 main() {
 	case "$1" in
-	clear)
-		preview_clear "$@" ;;
-	draw)
-		preview_draw "$@" ;;
+	clear) preview_clear "$@" ;;
+	draw) preview_draw "$@" ;;
 	esac
 }
 
