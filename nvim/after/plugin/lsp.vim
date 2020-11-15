@@ -11,7 +11,7 @@ if executable('rls')
 	lua require'nvim_lsp'.rls.setup{}
 endif
 
-nnoremap <silent> <Leader>ld <cmd>lua vim.lsp.util.show_line_diagnostics()<CR>
+nnoremap <silent> <Leader>ld <cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>
 nnoremap <silent> K <cmd>lua vim.lsp.buf.hover()<CR>
 nnoremap <silent> g0 <cmd>lua vim.lsp.buf.document_symbol()<CR>
 nnoremap <silent> gW <cmd>lua vim.lsp.buf.workspace_symbol()<CR>
