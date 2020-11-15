@@ -19,33 +19,20 @@ nnoremap <silent> gd <cmd>lua vim.lsp.buf.declaration()<CR>
 nnoremap <silent> gr <cmd>lua vim.lsp.buf.references()<CR>
 
 if $TERM !~# '^linux'
-	sign define LspDiagnosticsErrorSign text=✖
-	sign define LspDiagnosticsWarningSign text=
-	sign define LspDiagnosticsInformationSign text=
-	sign define LspDiagnosticsHintSign text=➤
+	sign define LspDiagnosticsSignError text=✖
+	sign define LspDiagnosticsSignWarning text=
+	sign define LspDiagnosticsSignInformation text=
+	sign define LspDiagnosticsSignHint text=➤
 endif
 
 function! s:SetupLspHighlights() abort
-	exec 'highlight LspDiagnosticsError cterm=italic gui=italic ' .
+	exec 'highlight LspDiagnosticsDefaultError cterm=italic gui=italic ' .
 				\ ' guifg=' . synIDattr(synIDtrans(hlID('WarningMsg')), 'fg', 'gui')
-	exec 'highlight LspDiagnosticsHint cterm=italic gui=italic ' .
+	exec 'highlight LspDiagnosticsDefaultHint cterm=italic gui=italic ' .
 				\ ' guifg=' . synIDattr(synIDtrans(hlID('ModeMsg')), 'fg', 'gui')
-	exec 'highlight LspDiagnosticsInformation cterm=italic gui=italic ' .
+	exec 'highlight LspDiagnosticsDefaultInformation cterm=italic gui=italic ' .
 				\ ' guifg=' . synIDattr(synIDtrans(hlID('Conditional')), 'fg', 'gui')
-	exec 'highlight LspDiagnosticsWarning cterm=italic gui=italic' .
-				\ ' guifg=' . synIDattr(synIDtrans(hlID('Type')), 'fg', 'gui')
-
-	exec 'highlight LspDiagnosticsErrorSign' .
-				\ ' guibg=' . synIDattr(synIDtrans(hlID('ColorColumn')), 'bg', 'gui') .
-				\ ' guifg=' . synIDattr(synIDtrans(hlID('WarningMsg')), 'fg', 'gui')
-	exec 'highlight LspDiagnosticsHintSign' .
-				\ ' guibg=' . synIDattr(synIDtrans(hlID('ColorColumn')), 'bg', 'gui') .
-				\ ' guifg=' . synIDattr(synIDtrans(hlID('ModeMsg')), 'fg', 'gui')
-	exec 'highlight LspDiagnosticsInformationSign' .
-				\ ' guibg=' . synIDattr(synIDtrans(hlID('ColorColumn')), 'bg', 'gui') .
-				\ ' guifg=' . synIDattr(synIDtrans(hlID('Conditional')), 'fg', 'gui')
-	exec 'highlight LspDiagnosticsWarningSign' .
-				\ ' guibg=' . synIDattr(synIDtrans(hlID('ColorColumn')), 'bg', 'gui') .
+	exec 'highlight LspDiagnosticsDefaultWarning cterm=italic gui=italic' .
 				\ ' guifg=' . synIDattr(synIDtrans(hlID('Type')), 'fg', 'gui')
 endfunction
 
