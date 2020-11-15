@@ -1,14 +1,14 @@
-if exists('g:loaded_lsp') || !exists('g:nvim_lsp') || &compatible
+if exists('g:loaded_lsp') || !exists('g:lspconfig') || &compatible
 	finish
 endif
 let g:loaded_lsp = 1
 
 if executable('clangd')
-	lua require'nvim_lsp'.clangd.setup{}
+	lua require'lspconfig'.clangd.setup{}
 endif
 
 if executable('rls')
-	lua require'nvim_lsp'.rls.setup{}
+	lua require'lspconfig'.rls.setup{}
 endif
 
 nnoremap <silent> <leader>ds <cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>
