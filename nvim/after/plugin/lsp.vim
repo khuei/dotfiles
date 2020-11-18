@@ -36,6 +36,19 @@ function! s:SetupLspHighlights() abort
 				\ ' guifg=' . synIDattr(synIDtrans(hlID('Conditional')), 'fg', 'gui')
 	exec 'highlight LspDiagnosticsDefaultWarning cterm=italic gui=italic' .
 				\ ' guifg=' . synIDattr(synIDtrans(hlID('Type')), 'fg', 'gui')
+
+	exec 'highlight LspDiagnosticsSignError' .
+				\ ' guibg=' . synIDattr(synIDtrans(hlID('ColorColumn')), 'bg', 'gui') .
+				\ ' guifg=' . synIDattr(synIDtrans(hlID('WarningMsg')), 'fg', 'gui')
+	exec 'highlight LspDiagnosticsSignHint' .
+				\ ' guibg=' . synIDattr(synIDtrans(hlID('ColorColumn')), 'bg', 'gui') .
+				\ ' guifg=' . synIDattr(synIDtrans(hlID('ModeMsg')), 'fg', 'gui')
+	exec 'highlight LspDiagnosticsSignInformation' .
+				\ ' guibg=' . synIDattr(synIDtrans(hlID('ColorColumn')), 'bg', 'gui') .
+				\ ' guifg=' . synIDattr(synIDtrans(hlID('Conditional')), 'fg', 'gui')
+	exec 'highlight LspDiagnosticsSignWarning' .
+				\ ' guibg=' . synIDattr(synIDtrans(hlID('ColorColumn')), 'bg', 'gui') .
+				\ ' guifg=' . synIDattr(synIDtrans(hlID('Type')), 'fg', 'gui')
 endfunction
 
 if has('autocmd')
