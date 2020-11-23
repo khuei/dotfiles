@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+[ ! -d "/tmp$PWD/" ] && mkdir -p "/tmp$PWD/"
+
 preview_clear() {
 	declare -p -A cmd=([action]="remove" [identifier]="preview") \
 		> "$UEBERZUG_FIFO"
@@ -11,10 +13,54 @@ preview_draw() {
 		> "$UEBERZUG_FIFO"
 }
 
+preview_audio() {
+	[ ! -f "/tmp${PWD}/$6.png" ] && \
+		ffmpeg -i "$6" "/tmp${PWD}/$6.png" -y &>/dev/null
+
+	declare -p -A cmd=([action]="add" [identifier]="preview"
+	[x]="$2" [y]="$3" [width]="$4" [height]="$5" [path]="/tmp${PWD}/$6.png") \
+		> "$UEBERZUG_FIFO"
+}
+
+preview_gif() {
+	[ ! -d "/tmp$PWD/$6/" ] && {
+		mkdir -p "/tmp$PWD/$6/"
+		convert -coalesce "$PWD/$6" "/tmp$PWD/$6/$6.png"
+	}
+
+	for frame in $(ls -1 "/tmp$PWD/$6/$6"*.png | sort -V); do
+		declare -p -A cmd=([action]="add" [identifier]="preview"
+		[x]="$2" [y]="$3" [width]="$4" [height]="$5" [path]="$frame") \
+			> "$UEBERZUG_FIFO"
+		sleep .07
+	done
+}
+
+preview_video() {
+	[ ! -f "/tmp$PWD/$6.png" ] && \
+		ffmpegthumbnailer -i "$PWD/$6" -o "/tmp$PWD/$6.png" -s 0 -q 10
+
+	declare -p -A cmd=([action]="add" [identifier]="preview"
+	[x]="$2" [y]="$3" [width]="$4" [height]="$5" [path]="/tmp$PWD/$6.png") \
+		> "$UEBERZUG_FIFO"
+}
+
+preview_font() {
+	[ ! -f "/tmp${PWD}/$6.png" ] && \
+		fontpreview -i "$6" -o "/tmp${PWD}/$6.png"
+
+	declare -p -A cmd=([action]="add" [identifier]="preview"
+	[x]="$2" [y]="$3" [width]="$4" [height]="$5" [path]="/tmp${PWD}/$6.png") \
+		> "$UEBERZUG_FIFO"
+}
+
 main() {
 	case "$1" in
-	clear) preview_clear "$@" ;;
-	draw) preview_draw "$@" ;;
+		audio) preview_audio "$@" ;;
+		clear) preview_clear "$@" ;;
+		draw) preview_draw "$@" ;;
+		gif) preview_gif "$@" ;;
+		video) preview_video "$@" ;;
 	esac
 }
 

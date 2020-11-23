@@ -42,15 +42,35 @@ fileview ../ echo >/dev/null
 fileviewer */ ls --color --group-directories-first
 fileviewer .*/ ls --color --group-directories-first
 
-fileviewer *.bmp,*.jpg,*.jpeg,*.png,*.xpm
+fileviewer <image/gif>
+			\ vifmimg gif %px %py %pw %ph %c
+			\ %pc
+			\ vifmimg clear
+
+fileviewer <image/*>
 			\ vifmimg draw %px %py %pw %ph %c
 			\ %pc
 			\ vifmimg clear
 
-filetype *.mp3,*.flac,*.wav mpv --no-video
-filetype *.gif,*.mp4,*.mkv,*.webm mpv
-filetype *.png,*.jpg,*.jpe,*.jpeg sxiv
-filetype *.html,*.pdf firefox
+fileviewer <video/*>
+			\ vifmimg video %px %py %pw %ph %c
+			\ %pc
+			\ vifmimg clear
+
+fileviewer <audio/*>
+			\ vifmimg audio %px %py %pw %ph %c
+			\ %pc
+			\ vifmimg clear
+
+fileviewer <font/*>
+			\ vifmimg font %px %py %pw %ph %c
+			\ %pc
+			\ vifmimg clear
+
+filetype <audio/*> mpv --no-video
+filetype <video/*> mpv
+filetype <image/*> sxiv
+filetype <*/*> xdg-open
 
 nmap q ZQ
 nnoremap gg ggj
