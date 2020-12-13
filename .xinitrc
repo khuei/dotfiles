@@ -4,7 +4,7 @@
 [ "$(command -v xcape)" ] && [ -d ~/setxkbmap ] && {
 	setxkbmap -layout "us+symbols(xcape-special)" \
 	          -keycodes "evdev+keycodes(xcape-special)" \
-	          -option "caps:super,shift:both_shiftlock" \
+	          -option "caps:super,shift:both_capslock_cancel" \
 	          -print | xkbcomp -I"$HOME/setxkbmap" - "${DISPLAY%%.*}" 2>/dev/null
 
 	xcape -e "Hyper_R=space;Super_L=Escape"
