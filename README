@@ -1,33 +1,19 @@
 "Stay in *nixland, and I'll show you how deep the rabbit hole goes"
 
-Dependencies
-____________
+Dotfiles
+_______________________________________________________________________________
 
-- git
-- mpd
-- ncmpcpp
-- neovim
-- picom
-- setxkbmap/xcape
-- tmux
-- vifm
-- zsh
+my bespoke configuration files
 
 Installation
-____________
+_______________________________________________________________________________
 
-Run the following commands:
+run the following command to run install script:
 
-    git clone https://github.com/Z5483/dotfiles
-    cd dotfiles
     ./install
 
-Given that `~/.gitconfig` is included with these dotfiles, any local configurations should be written to `~/.gitconfig.local` instead, such as:
+given that `~/.gitconfig` is included with these dotfiles, any local
+configurations should be written to `~/.gitconfig.local` instead, such as:
 
     git config --file ~/.gitconfig.local user.name  "John Doe"
     git config --file ~/.gitconfig.local user.email "johndoe@example.com"
-
-NOTE
-____
-
-Don't install my configuration files if you don't understand it.
