@@ -12,6 +12,12 @@ snippet inc "#include '...'"
 #include "${1}"
 endsnippet
 
+snippet ns "namespace"
+namespace ${1} {
+	${2}
+} // namespace $1
+endsnippet
+
 snippet binc "#include <boost/shared_ptr.hpp>"
 #include <boost/${1:shared_ptr}.hpp>
 endsnippet
