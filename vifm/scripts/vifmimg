@@ -14,6 +14,10 @@ preview_draw() {
 }
 
 preview_audio() {
+	[[ $(command -v ffmpeg) ]] || {
+		exit
+	}
+
 	[ ! -f "/tmp${PWD}/$6.png" ] && \
 		ffmpeg -i "$6" "/tmp${PWD}/$6.png" -y &>/dev/null
 
@@ -23,6 +27,10 @@ preview_audio() {
 }
 
 preview_gif() {
+	[[ $(command -v convert) ]] || {
+		exit
+	}
+
 	[ ! -d "/tmp$PWD/$6/" ] && {
 		mkdir -p "/tmp$PWD/$6/"
 		convert -coalesce "$PWD/$6" "/tmp$PWD/$6/$6.png"
@@ -37,6 +45,10 @@ preview_gif() {
 }
 
 preview_video() {
+	[[ $(command -v ffmpegthumbnailer) ]] || {
+		exit
+	}
+
 	[ ! -f "/tmp$PWD/$6.png" ] && \
 		ffmpegthumbnailer -i "$PWD/$6" -o "/tmp$PWD/$6.png" -s 0 -q 10
 
@@ -46,6 +58,10 @@ preview_video() {
 }
 
 preview_font() {
+	[[ $(command -v fontpreview) ]] || {
+		exit
+	}
+
 	[ ! -f "/tmp${PWD}/$6.png" ] && \
 		fontpreview -i "$6" -o "/tmp${PWD}/$6.png"
 
