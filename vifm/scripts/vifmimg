@@ -1,82 +1,75 @@
-#!/usr/bin/env bash
+#!/bin/sh
 
-[ ! -d "/tmp$PWD/" ] && mkdir -p "/tmp$PWD/"
+[ -d "/tmp$PWD/" ] || mkdir -p "/tmp$PWD/"
 
 preview_clear() {
-	declare -p -A cmd=([action]="remove" [identifier]="preview") \
-		> "$UEBERZUG_FIFO"
+	printf "action\tremove\tidentifier\tpreview\n" > "$UEBERZUG_FIFO"
 }
 
 preview_draw() {
-	declare -p -A cmd=([action]="add" [identifier]="preview"
-	[x]="$2" [y]="$3" [width]="$4" [height]="$5" [path]="$PWD/$6") \
-		> "$UEBERZUG_FIFO"
+	{
+		printf 'action\tadd\tidentifier\tpreview\t'
+		printf 'x\t%d\ty\t%d\t' "$2" "$3"
+		printf 'width\t%d\theight\t%d\t' "$4" "$5"
+		printf 'path\t%s\n' "$PWD/$6"
+	} > "$UEBERZUG_FIFO"
 }
 
 preview_audio() {
-	[[ $(command -v ffmpeg) ]] || {
+	[ "$(command -v ffmpeg)" ] || {
 		exit
 	}
 
-	[ ! -f "/tmp${PWD}/$6.png" ] && \
-		ffmpeg -i "$6" "/tmp${PWD}/$6.png" -y &>/dev/null
+	[ -f "/tmp$PWD/$6.png" ] || \
+		ffmpeg -i "$PWD/$6" "/tmp$PWD/$6.png" -y 2>/dev/null
 
-	declare -p -A cmd=([action]="add" [identifier]="preview"
-	[x]="$2" [y]="$3" [width]="$4" [height]="$5" [path]="/tmp${PWD}/$6.png") \
-		> "$UEBERZUG_FIFO"
-}
-
-preview_gif() {
-	[[ $(command -v convert) ]] || {
-		exit
-	}
-
-	[ ! -d "/tmp$PWD/$6/" ] && {
-		mkdir -p "/tmp$PWD/$6/"
-		convert -coalesce "$PWD/$6" "/tmp$PWD/$6/$6.png"
-	}
-
-	for frame in $(ls -1 "/tmp$PWD/$6/$6"*.png | sort -V); do
-		declare -p -A cmd=([action]="add" [identifier]="preview"
-		[x]="$2" [y]="$3" [width]="$4" [height]="$5" [path]="$frame") \
-			> "$UEBERZUG_FIFO"
-		sleep .07
-	done
+	{
+		printf 'action\tadd\tidentifier\tpreview\t'
+		printf 'x\t%d\ty\t%d\t' "$2" "$3"
+		printf 'width\t%d\theight\t%d\t' "$4" "$5"
+		printf 'path\t%s\n' "/tmp$PWD/$6.png"
+	} > "$UEBERZUG_FIFO"
 }
 
 preview_video() {
-	[[ $(command -v ffmpegthumbnailer) ]] || {
+	[ "$(command -v ffmpegthumbnailer)" ] || {
 		exit
 	}
 
-	[ ! -f "/tmp$PWD/$6.png" ] && \
+	[ -f "/tmp$PWD/$6.png" ] || \
 		ffmpegthumbnailer -i "$PWD/$6" -o "/tmp$PWD/$6.png" -s 0 -q 10
 
-	declare -p -A cmd=([action]="add" [identifier]="preview"
-	[x]="$2" [y]="$3" [width]="$4" [height]="$5" [path]="/tmp$PWD/$6.png") \
-		> "$UEBERZUG_FIFO"
+	{
+		printf 'action\tadd\tidentifier\tpreview\t'
+		printf 'x\t%d\ty\t%d\t' "$2" "$3"
+		printf 'width\t%d\theight\t%d\t' "$4" "$5"
+		printf 'path\t%s\n' "/tmp$PWD/$6.png"
+	} > "$UEBERZUG_FIFO"
 }
 
 preview_font() {
-	[[ $(command -v fontpreview) ]] || {
+	[ "$(command -v fontpreview)" ] || {
 		exit
 	}
 
-	[ ! -f "/tmp${PWD}/$6.png" ] && \
-		fontpreview -i "$6" -o "/tmp${PWD}/$6.png"
+	[ -f "/tmp$PWD/$6.png" ] || \
+		fontpreview -i "$PWD/$6" -o "/tmp$PWD/$6.png"
 
-	declare -p -A cmd=([action]="add" [identifier]="preview"
-	[x]="$2" [y]="$3" [width]="$4" [height]="$5" [path]="/tmp${PWD}/$6.png") \
-		> "$UEBERZUG_FIFO"
+	{
+		printf 'action\tadd\tidentifier\tpreview\t'
+		printf 'x\t%d\ty\t%d\t' "$2" "$3"
+		printf 'width\t%d\theight\t%d\t' "$4" "$5"
+		printf 'path\t%s\n' "/tmp$PWD/$6.png"
+	} > "$UEBERZUG_FIFO"
 }
 
 main() {
 	case "$1" in
-		audio) preview_audio "$@" ;;
 		clear) preview_clear "$@" ;;
 		draw) preview_draw "$@" ;;
-		gif) preview_gif "$@" ;;
+		audio) preview_audio "$@" ;;
 		video) preview_video "$@" ;;
+		font) preview_font "$@" ;;
 	esac
 }
 

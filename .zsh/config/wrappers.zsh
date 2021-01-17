@@ -38,7 +38,7 @@
 		mkfifo "$UEBERZUG_FIFO"
 		trap 'rm $UEBERZUG_FIFO 2>/dev/null && unset UEBERZUG_FIFO;
 		      pkill -P $$ 2>/dev/null' EXIT
-		tail -f "$UEBERZUG_FIFO" | ueberzug layer --silent --parser bash --loader thread &! \
+		tail -f "$UEBERZUG_FIFO" | ueberzug layer --silent --parser simple --loader thread &! \
 		command vifm "$@"
 	}
 }

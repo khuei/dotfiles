@@ -42,11 +42,6 @@ fileview ../ echo >/dev/null
 fileviewer */ ls --color --group-directories-first
 fileviewer .*/ ls --color --group-directories-first
 
-fileviewer <image/gif>
-			\ vifmimg gif %px %py %pw %ph %c
-			\ %pc
-			\ vifmimg clear
-
 fileviewer <image/*>
 			\ vifmimg draw %px %py %pw %ph %c
 			\ %pc
