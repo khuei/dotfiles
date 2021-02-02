@@ -22,6 +22,7 @@
 	tags     = "!git tag --list"
 
 	lg = "!git log --abbrev-commit --color --decorate --graph --pretty=format:'%C(auto)%h%Creset -%C(auto)%d%Creset %s %C(magenta)(%cr) %C(cyan)<%an>%Creset'"
+	ten = "!git --paginate log -10 --pretty=format:'%C(auto)%h%Creset -%C(auto)%d%Creset %s %C(magenta)(%cr) %C(cyan)<%an>%Creset'"
 
 	d  = "!git diff-index --quiet HEAD -- || git diff --patch-with-stat"
 	di = "!d() { git diff --patch-with-stat HEAD~$1; }; git diff-index --quiet HEAD --; d"
