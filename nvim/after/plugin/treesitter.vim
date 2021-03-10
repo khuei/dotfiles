@@ -1,7 +1,6 @@
-if exists('g:loaded_treesitter') || !exists('g:loaded_nvim_treesitter') || &compatible
+if !exists('g:loaded_nvim_treesitter') || &compatible
 	finish
 endif
-let g:loaded_treesitter = 1
 
 lua <<EOF
 require'nvim-treesitter.configs'.setup {

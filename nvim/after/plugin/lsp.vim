@@ -1,7 +1,6 @@
-if exists('g:loaded_lsp') || !exists('g:lspconfig') || &compatible
+if !exists('g:lspconfig') || &compatible
 	finish
 endif
-let g:loaded_lsp = 1
 
 if executable('clangd')
 	lua require'lspconfig'.clangd.setup{}

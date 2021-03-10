@@ -1,7 +1,6 @@
-if exists('g:loaded_netrwConfig') || &compatible
+if !exists('g:loaded_netrw') || &compatible
 	finish
 endif
-let g:loaded_netrwConfig = 1
 
 if !exists("g:netrw_banner")
 	let g:netrw_banner = 0
