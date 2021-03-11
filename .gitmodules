@@ -4,9 +4,21 @@
 [submodule "deoplete-lsp"]
 	path = nvim/pack/bundle/opt/deoplete-lsp
 	url = https://github.com/Shougo/deoplete-lsp.git
+[submodule "fzy-native"]
+	path = nvim/pack/bundle/opt/fzy-native
+	url = https://github.com/nvim-telescope/telescope-fzy-native.nvim
 [submodule "lspconfig"]
 	path = nvim/pack/bundle/opt/lspconfig
 	url = https://github.com/neovim/nvim-lspconfig.git
+[submodule "plenary"]
+	path = nvim/pack/bundle/opt/plenary
+	url = https://github.com/nvim-lua/plenary.nvim
+[submodule "popup"]
+	path = nvim/pack/bundle/opt/popup
+	url = https://github.com/nvim-lua/popup.nvim
+[submodule "telescope"]
+	path = nvim/pack/bundle/opt/telescope
+	url = https://github.com/nvim-telescope/telescope.nvim
 [submodule "treesitter"]
 	path = nvim/pack/bundle/opt/treesitter
 	url = https://github.com/nvim-treesitter/nvim-treesitter.git

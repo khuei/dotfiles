@@ -6,7 +6,11 @@ if &loadplugins
 	if has('packages')
 		packadd! deoplete
 		packadd! deoplete-lsp
+		packadd! fzy-native
 		packadd! lspconfig
+		packadd! plenary
+		packadd! popup
+		packadd! telescope
 		packadd! treesitter
 		packadd! ultisnips
 	endif
