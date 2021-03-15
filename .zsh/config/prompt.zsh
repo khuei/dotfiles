@@ -13,11 +13,10 @@ prompt_preexec() {
 
 	HISTCMD_LOCAL=$((++HISTCMD_LOCAL))
 
-	local TRIMMED="${2[(wr)^(*=*|ssh|sudo|-*)]}"
 	if [ -n "$TMUX" ]; then
-		prompt_window_title_setup "$TRIMMED"
+		prompt_window_title_setup "$2"
 	else
-		prompt_window_title_setup "$(basename "$PWD") > $TRIMMED"
+		prompt_window_title_setup "$(basename "$PWD") > $2"
 	fi
 }
 
@@ -150,7 +149,7 @@ prompt_init() {
 		SUFFIX=$(printf '%%F{red}❯%.0s%%f' {1..$LVL})
 	fi
 
-	export PS1="%F{green}${SSH_TTY:+%n@%m}%f%B${SSH_TTY:+:}%b%F{blue}%B%1~%b%F{yellow}%B%(1j.*.)%(?..!)%b%f %B${SUFFIX}%b "
+	export PS1="%F{blue}%B%1~%b%F{yellow}%B%(1j.*.)%(?..!)%b%f %B${SUFFIX}%b "
 
 	add-zsh-hook precmd prompt_async_tasks
 	add-zsh-hook precmd prompt_precmd
