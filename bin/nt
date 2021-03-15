@@ -1,7 +1,0 @@
-#!/bin/sh
-#
-# [n]o[t]e
-
-[ "$*" ] || exit 1
-
-printf '%s\n' "$(date +%d/%m/%y\ %T): $*" >> ~/notes
