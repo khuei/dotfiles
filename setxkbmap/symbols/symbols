@@ -1,4 +1,0 @@
-xkb_symbols "xcape-special" {
-	key <HYPR>  { [ Hyper_R ] };
-	modifier_map Control { <HYPR> };
-};
