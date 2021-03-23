@@ -112,15 +112,15 @@ set listchars+=tab:▷┅
 set listchars+=trail:•
 
 if has('autocmd')
-	augroup cursorline
+	augroup autocmds
 		autocmd!
-		autocmd BufEnter,InsertLeave,VimEnter * setlocal cursorline
-		autocmd BufLeave,InsertEnter * setlocal nocursorline
-	augroup END
-
-	augroup winhighlight
-		autocmd!
-		autocmd BufEnter,FocusGained,VimEnter,WinEnter * set winhighlight=
-		autocmd FocusLost,WinLeave * set winhighlight=CursorLineNr:LineNr,StatusLine:LineNr,EndOfBuffer:ColorColumn,IncSearch:ColorColumn,Normal:ColorColumn,NormalNC:ColorColumn,SignColumn:ColorColumn
+		autocmd BufEnter * lua require'plugin.autocmds'.buf_enter()
+		autocmd FocusGained * lua require'plugin.autocmds'.focus_gained()
+		autocmd FocusLost * lua require'plugin.autocmds'.focus_lost()
+		autocmd InsertEnter * lua require'plugin.autocmds'.insert_enter()
+		autocmd InsertLeave * lua require'plugin.autocmds'.insert_leave()
+		autocmd VimEnter * lua require'plugin.autocmds'.vim_enter()
+		autocmd WinEnter * lua require'plugin.autocmds'.win_enter()
+		autocmd WinLeave * lua require'plugin.autocmds'.win_leave()
 	augroup END
 endif
