@@ -16,9 +16,7 @@ PATH=$PATH:/usr/local/bin
 PATH=$PATH:/usr/local/sbin
 export PATH
 
-export XDG_CACHE_HOME=~
 export XDG_CONFIG_HOME=~
-export XDG_DATA_HOME=~
 
 if [ "$(command -v nvim)" ]; then
 	export EDITOR=nvim
