@@ -23,8 +23,8 @@ autocomplete.setup_mappings = function()
 
 	local opts = { noremap = true, expr = true, silent = true }
 
-	vim.api.nvim_buf_set_keymap(0, 'i', '<CR>', 'pumvisible() ? "<C-y>" : "<CR>"', opts)
-	vim.api.nvim_buf_set_keymap(0, 's', '<CR>', 'pumvisible() ? "<C-y>" : "<CR>"', opts)
+	vim.api.nvim_buf_set_keymap(0, 'i', '<CR>', 'pumvisible() ? "<C-Y>" : "<CR>"', opts)
+	vim.api.nvim_buf_set_keymap(0, 's', '<CR>', 'pumvisible() ? "<C-Y>" : "<CR>"', opts)
 
 	expansion_active = true
 end
