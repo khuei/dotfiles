@@ -393,6 +393,30 @@ call <sid>hi("StartifySpecial",  s:gui03, "", s:cterm03, "", "", "")
 " Java highlighting
 call <sid>hi("javaOperator",     s:gui0D, "", s:cterm0D, "", "", "")
 
+if has("nvim")
+	" Treesitter highlighting
+	call <sid>hi("TSFunction",        s:gui0D, "", s:cterm0D, "", "", "")
+	call <sid>hi("TSKeywordFunction", s:gui0E, "", s:cterm0E, "", "", "")
+	call <sid>hi("TSMethod",          s:gui0D, "", s:cterm0D, "", "", "")
+	call <sid>hi("TSProperty",        s:gui0A, "", s:cterm0A, "", "", "")
+	call <sid>hi("TSPunctBracket",    s:gui0C, "", s:cterm0C, "", "", "")
+	call <sid>hi("TSType",            s:gui08, "", s:cterm08, "", "none", "")
+	call <sid>hi("TSDefinition",       "", s:gui03, "", s:cterm03, "", "")
+	call <sid>hi("TSDefinitionUsage",  "", s:gui02, "", s:cterm02, "none", "")
+	
+	" LSP highlighting
+	call <sid>hi("LspDiagnosticsDefaultError",       s:gui08, "", s:cterm08, "", "", "")
+	call <sid>hi("LspDiagnosticsDefaultWarning",     s:gui09, "", s:cterm09, "", "", "")
+	call <sid>hi("LspDiagnosticsDefaultInformation", s:gui05, "", s:cterm05, "", "", "")
+	call <sid>hi("LspDiagnosticsDefaultHint",        s:gui03, "", s:cterm03, "", "", "")
+
+	call <sid>hi("LspDiagnosticsSignError",       s:gui08, s:gui01, s:cterm08, "", "", "")
+	call <sid>hi("LspDiagnosticsSignWarning",     s:gui09, s:gui01, s:cterm09, "", "", "")
+	call <sid>hi("LspDiagnosticsSignInformation", s:gui05, s:gui01, s:cterm05, "", "", "")
+	call <sid>hi("LspDiagnosticsSignHint",        s:gui03, s:gui01, s:cterm03, "", "", "")
+
+endif
+
 " Remove functions
 delf <sid>hi
 
@@ -401,4 +425,3 @@ unlet s:gui00 s:gui01 s:gui02 s:gui03  s:gui04  s:gui05  s:gui06  s:gui07  s:gui
 unlet s:cterm00 s:cterm01 s:cterm02 s:cterm03 s:cterm04 s:cterm05 s:cterm06 s:cterm07 s:cterm08 s:cterm09 s:cterm0A s:cterm0B s:cterm0C s:cterm0D s:cterm0E s:cterm0F
 
 " vi:syntax=vim
-
