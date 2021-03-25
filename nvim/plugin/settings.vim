@@ -122,5 +122,7 @@ if has('autocmd')
 		autocmd VimEnter * lua require'plugin.autocmds'.vim_enter()
 		autocmd WinEnter * lua require'plugin.autocmds'.win_enter()
 		autocmd WinLeave * lua require'plugin.autocmds'.win_leave()
+
+		autocmd TextYankPost * lua vim.highlight.on_yank{timeout=200}
 	augroup END
 endif
