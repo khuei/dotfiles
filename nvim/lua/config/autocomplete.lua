@@ -118,9 +118,9 @@ autocomplete.expand_or_jump = function(direction)
 	return ''
 end
 
+local deoplete_init_done = false
 autocomplete.deoplete_init = function()
-	local deoplete_init_done
-	if deoplete_init_done then
+	if deoplete_init_done or vim.fn.exists('g:loaded_deoplete') then
 		return
 	end
 	deoplete_init_done = true
