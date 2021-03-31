@@ -120,7 +120,7 @@ end
 
 local deoplete_init_done = false
 autocomplete.deoplete_init = function()
-	if deoplete_init_done or vim.fn.exists('g:loaded_deoplete') then
+	if deoplete_init_done or vim.fn.exists('g:loaded_deoplete') == 0 then
 		return
 	end
 	deoplete_init_done = true
