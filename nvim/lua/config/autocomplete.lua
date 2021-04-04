@@ -30,9 +30,9 @@ autocomplete.setup_mappings = function()
 end
 
 autocomplete.teardown_mappings = function()
-	local opts = { map = true, expr = true, silent = true }
-	vim.api.nvim_buf_set_keymap(bufnr, 'i', '<CR>', '', opts)
-	vim.api.nvim_buf_set_keymap(bufnr, 's', '<CR>', '', opts)
+	local opts = { noremap = true, silent = true }
+	vim.api.nvim_buf_set_keymap(bufnr, 'i', '<CR>', '<CR>', opts)
+	vim.api.nvim_buf_set_keymap(bufnr, 's', '<CR>', '<CR>', opts)
 
 	expansion_active = false
 end
