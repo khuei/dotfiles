@@ -37,6 +37,8 @@ set softtabstop=8
 set shiftwidth=8
 set shiftround
 set noexpandtab
+set copyindent
+set preserveindent
 
 if !&scrolloff
 	set scrolloff=1
