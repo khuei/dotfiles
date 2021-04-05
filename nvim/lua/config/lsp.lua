@@ -1,11 +1,11 @@
 local lspconfig = {}
 
 if vim.fn.executable('clangd') == 1 then
-	require'lspconfig'.clangd.setup{}
+	require('lspconfig').clangd.setup{}
 end
 
 if vim.fn.executable('rls') == 1 then
-	require'lspconfig'.rls.setup{}
+	require('lspconfig').rls.setup{}
 end
 
 local opts = { noremap = true, silent = true }

@@ -116,14 +116,14 @@ set listchars+=trail:•
 if has('autocmd')
 	augroup autocmds
 		autocmd!
-		autocmd BufEnter * lua require'plugin.autocmds'.buf_enter()
-		autocmd FocusGained * lua require'plugin.autocmds'.focus_gained()
-		autocmd FocusLost * lua require'plugin.autocmds'.focus_lost()
-		autocmd InsertEnter * lua require'plugin.autocmds'.insert_enter()
-		autocmd InsertLeave * lua require'plugin.autocmds'.insert_leave()
-		autocmd VimEnter * lua require'plugin.autocmds'.vim_enter()
-		autocmd WinEnter * lua require'plugin.autocmds'.win_enter()
-		autocmd WinLeave * lua require'plugin.autocmds'.win_leave()
+		autocmd BufEnter * lua require('plugin.autocmds').buf_enter()
+		autocmd FocusGained * lua require('plugin.autocmds').focus_gained()
+		autocmd FocusLost * lua require('plugin.autocmds').focus_lost()
+		autocmd InsertEnter * lua require('plugin.autocmds').insert_enter()
+		autocmd InsertLeave * lua require('plugin.autocmds').insert_leave()
+		autocmd VimEnter * lua require('plugin.autocmds').vim_enter()
+		autocmd WinEnter * lua require('plugin.autocmds').win_enter()
+		autocmd WinLeave * lua require('plugin.autocmds').win_leave()
 
 		autocmd TextYankPost * lua vim.highlight.on_yank{timeout=200}
 	augroup END
