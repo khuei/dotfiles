@@ -121,19 +121,6 @@ autocomplete.expand_or_jump = function(direction)
 	return ''
 end
 
-local deoplete_init_done = false
-autocomplete.deoplete_init = function()
-	if deoplete_init_done or vim.fn.exists('g:loaded_deoplete') == 0 then
-		return
-	end
-	deoplete_init_done = true
-
-	vim.cmd([[call deoplete#enable()]])
-	vim.cmd([[call deoplete#custom#source('file', 'rank', 2000)]])
-	vim.cmd([[call deoplete#custom#source('ultisnips', 'rank', 1000)]])
-	vim.cmd([[call deoplete#custom#source('_', 'matchers', ['matcher_full_fuzzy'])]])
-end
-
 vim.g.UltiSnipsJumpForwardTrigger = '<Tab>'
 vim.g.UltiSnipsJumpBackwardTrigger = '<S-Tab>'
 
@@ -164,6 +151,19 @@ if vim.fn.exists(':UltiSnipsEdit') == 2 then
 	vim.api.nvim_set_keymap('s',
 	vim.api.nvim_get_var('UltiSnipsJumpBackwardTrigger'),
 	[[<Esc><cmd>lua require'config.autocomplete'.expand_or_jump('p')<CR>]], opts)
+end
+
+local deoplete_init_done = false
+autocomplete.deoplete_init = function()
+	if deoplete_init_done or vim.fn.exists('g:loaded_deoplete') == 0 then
+		return
+	end
+	deoplete_init_done = true
+
+	vim.cmd([[call deoplete#enable()]])
+	vim.cmd([[call deoplete#custom#source('file', 'rank', 2000)]])
+	vim.cmd([[call deoplete#custom#source('ultisnips', 'rank', 1000)]])
+	vim.cmd([[call deoplete#custom#source('_', 'matchers', ['matcher_full_fuzzy'])]])
 end
 
 return autocomplete
