@@ -15,7 +15,7 @@ colors.check_colorscheme = function()
 		if config then
 			vim.o.background = config[1]
 		else
-			print('Bad background: ' .. config[1])
+			error('Bad background: ' .. config[1])
 		end
 
 		local color = io.open(os.getenv('HOME') ..
@@ -24,7 +24,7 @@ colors.check_colorscheme = function()
 			vim.cmd('colorscheme base16-' .. config[0])
 			color:close()
 		else
-			print('Bad scheme: ' .. config[0])
+			error('Bad scheme: ' .. config[0])
 		end
 
 		config_file:close()
