@@ -8,6 +8,10 @@ if vim.fn.executable('rls') == 1 then
 	require('lspconfig').rls.setup{}
 end
 
+if vim.fn.executable('rust-analyzer') == 1 then
+	require('lspconfig').rust_analyzer.setup{}
+end
+
 local opts = { noremap = true, silent = true }
 
 vim.api.nvim_set_keymap('n', '<Leader>ds',
