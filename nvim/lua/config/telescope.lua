@@ -28,4 +28,8 @@ vim.api.nvim_set_keymap('n', '<Leader>b',
 [[<cmd>lua require('telescope.builtin').buffers()<CR>]],
 { noremap = true, silent = true })
 
+vim.api.nvim_set_keymap('n', '<Leader>-',
+[[<cmd>lua require('telescope.builtin').file_browser()<CR>]],
+{ noremap = true, silent = true })
+
 return telescope
