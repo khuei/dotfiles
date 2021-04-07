@@ -69,48 +69,27 @@ local cterm0F = '14'
 local base16_cterm0F = '14'
 
 --- Neovim terminal colours
-if vim.fn.has('nvim') == 1 then
-	local terminal_color_0 = '#272822'
-	local terminal_color_1 = '#f92672'
-	local terminal_color_2 = '#a6e22e'
-	local terminal_color_3 = '#f4bf75'
-	local terminal_color_4 = '#66d9ef'
-	local terminal_color_5 = '#ae81ff'
-	local terminal_color_6 = '#a1efe4'
-	local terminal_color_7 = '#f8f8f2'
-	local terminal_color_8 = '#75715e'
-	local terminal_color_9 = '#f92672'
-	local terminal_color_10 = '#a6e22e'
-	local terminal_color_11 = '#f4bf75'
-	local terminal_color_12 = '#66d9ef'
-	local terminal_color_13 = '#ae81ff'
-	local terminal_color_14 = '#a1efe4'
-	local terminal_color_15 = '#f9f8f5'
-	local terminal_color_background = terminal_color_0
-	local terminal_color_foreground = terminal_color_5
-	if vim.api.nvim_get_option('background') == 'light' then
-		local terminal_color_background = terminal_color_7
-		local terminal_color_foreground = terminal_color_2
-	end
-elseif vim.fn.has('terminal') == 1 then
-	local terminal_ansi_colors = {
-		'#272822',
-		'#f92672',
-		'#a6e22e',
-		'#f4bf75',
-		'#66d9ef',
-		'#ae81ff',
-		'#a1efe4',
-		'#f8f8f2',
-		'#75715e',
-		'#f92672',
-		'#a6e22e',
-		'#f4bf75',
-		'#66d9ef',
-		'#ae81ff',
-		'#a1efe4',
-		'#f9f8f5',
-	}
+local terminal_color_0 = '#272822'
+local terminal_color_1 = '#f92672'
+local terminal_color_2 = '#a6e22e'
+local terminal_color_3 = '#f4bf75'
+local terminal_color_4 = '#66d9ef'
+local terminal_color_5 = '#ae81ff'
+local terminal_color_6 = '#a1efe4'
+local terminal_color_7 = '#f8f8f2'
+local terminal_color_8 = '#75715e'
+local terminal_color_9 = '#f92672'
+local terminal_color_10 = '#a6e22e'
+local terminal_color_11 = '#f4bf75'
+local terminal_color_12 = '#66d9ef'
+local terminal_color_13 = '#ae81ff'
+local terminal_color_14 = '#a1efe4'
+local terminal_color_15 = '#f9f8f5'
+local terminal_color_background = terminal_color_0
+local terminal_color_foreground = terminal_color_5
+if vim.api.nvim_get_option('background') == 'light' then
+	local terminal_color_background = terminal_color_7
+	local terminal_color_foreground = terminal_color_2
 end
 
 --- Theme setup
@@ -369,28 +348,26 @@ colorscheme.setup = function()
 	--- Java highlighting
 	hi('javaOperator', gui0D, '', cterm0D, '', '', '')
 
-	if vim.fn.has('nvim') == 1 then
-		--- Treesitter highlighting
-		hi('TSFunction', gui0D, '', cterm0D, '', '', '')
-		hi('TSKeywordFunction', gui0E, '', cterm0E, '', '', '')
-		hi('TSMethod', gui0D, '', cterm0D, '', '', '')
-		hi('TSProperty', gui0A, '', cterm0A, '', '', '')
-		hi('TSPunctBracket', gui0C, '', cterm0C, '', '', '')
-		hi('TSType', gui08, '', cterm08, '', 'none', '')
-		hi('TSDefinition', '', gui03, '', cterm03, '', '')
-		hi('TSDefinitionUsage', '', gui02, '', cterm02, 'none', '')
+	--- Treesitter highlighting
+	hi('TSFunction', gui0D, '', cterm0D, '', '', '')
+	hi('TSKeywordFunction', gui0E, '', cterm0E, '', '', '')
+	hi('TSMethod', gui0D, '', cterm0D, '', '', '')
+	hi('TSProperty', gui0A, '', cterm0A, '', '', '')
+	hi('TSPunctBracket', gui0C, '', cterm0C, '', '', '')
+	hi('TSType', gui08, '', cterm08, '', 'none', '')
+	hi('TSDefinition', '', gui03, '', cterm03, '', '')
+	hi('TSDefinitionUsage', '', gui02, '', cterm02, 'none', '')
 
-		--- LSP highlighting
-		hi('LspDiagnosticsDefaultError', gui08, '', cterm08, '', '', '')
-		hi('LspDiagnosticsDefaultWarning', gui09, '', cterm09, '', '', '')
-		hi('LspDiagnosticsDefaultInformation', gui05, '', cterm05, '', '', '')
-		hi('LspDiagnosticsDefaultHint', gui03, '', cterm03, '', '', '')
+	--- LSP highlighting
+	hi('LspDiagnosticsDefaultError', gui08, '', cterm08, '', '', '')
+	hi('LspDiagnosticsDefaultWarning', gui09, '', cterm09, '', '', '')
+	hi('LspDiagnosticsDefaultInformation', gui05, '', cterm05, '', '', '')
+	hi('LspDiagnosticsDefaultHint', gui03, '', cterm03, '', '', '')
 
-		hi('LspDiagnosticsSignError', gui08, gui01, cterm08, '', '', '')
-		hi('LspDiagnosticsSignWarning', gui09, gui01, cterm09, '', '', '')
-		hi('LspDiagnosticsSignInformation', gui05, gui01, cterm05, '', '', '')
-		hi('LspDiagnosticsSignHint', gui03, gui01, cterm03, '', '', '')
-	end
+	hi('LspDiagnosticsSignError', gui08, gui01, cterm08, '', '', '')
+	hi('LspDiagnosticsSignWarning', gui09, gui01, cterm09, '', '', '')
+	hi('LspDiagnosticsSignInformation', gui05, gui01, cterm05, '', '', '')
+	hi('LspDiagnosticsSignHint', gui03, gui01, cterm03, '', '', '')
 end
 
 return colorscheme
