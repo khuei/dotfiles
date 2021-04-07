@@ -82,7 +82,7 @@ local smart_tab = function()
 			local sw = get_tabspace()
 			local previous_char = vim.fn.matchstr(prefix, '.$')
 			local previous_column = vim.fn.strlen(prefix) - vim.fn.strlen(previous_char) + 1
-			local current_column = vim.fn.virtcol("[vim.fn.line('.'), previous_column]") + 1
+			local current_column = vim.fn.virtcol({ vim.fn.line('.'), previous_column }) + 1
 			local remainder = (current_column - 1) % sw
 			local move
 			if remainder == 0 then
