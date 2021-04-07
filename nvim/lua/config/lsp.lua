@@ -1,15 +1,42 @@
 local lspconfig = {}
 
 if vim.fn.executable('clangd') == 1 then
-	require('lspconfig').clangd.setup{}
+	require('lspconfig').clangd.setup({})
 end
 
 if vim.fn.executable('rls') == 1 then
-	require('lspconfig').rls.setup{}
+	require('lspconfig').rls.setup({})
 end
 
 if vim.fn.executable('rust-analyzer') == 1 then
-	require('lspconfig').rust_analyzer.setup{}
+	require('lspconfig').rust_analyzer.setup({})
+end
+
+if vim.fn.executable('lua-language-server') == 1 then
+	require('lspconfig').sumneko_lua.setup({
+		cmd = { io.popen('which lua-language-server'):read(), '-E', os.getenv('HOME')
+		.. '/.local/share/lua-language-server/main.lua' },
+		settings = {
+			Lua = {
+				runtime = {
+					path = vim.split(package.path, ';'),
+				},
+				diagnostics = {
+					globals = { 'vim' },
+					disable = { 'undefined-global' },
+				},
+				workspace = {
+					library = {
+						[vim.fn.expand('$VIMRUNTIME/lua')] = true,
+						[vim.fn.expand('$VIMRUNTIME/lua/vim/lsp')] = true,
+					},
+				},
+				telemetry = {
+					enable = false,
+				},
+			},
+		},
+	})
 end
 
 vim.api.nvim_set_keymap('n', '<Leader>ds',
