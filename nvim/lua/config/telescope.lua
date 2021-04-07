@@ -16,9 +16,16 @@ require('telescope').setup {
 }
 require('telescope').load_extension('fzy_native')
 
-local opts = { noremap = true }
-vim.api.nvim_set_keymap('n', '<Leader>f', '<cmd>Telescope find_files<CR>', opts)
-vim.api.nvim_set_keymap('n', '<leader>g', '<cmd>Telescope live_grep<CR>', opts)
-vim.api.nvim_set_keymap('n', '<leader>b', '<cmd>Telescope buffers<CR>', opts)
+local opts = { noremap = true, silent = true }
+
+vim.api.nvim_set_keymap('n', '<Leader>f',
+[[<cmd>lua require('telescope.builtin').find_files({ hidden = true })<CR>]],
+opts)
+
+vim.api.nvim_set_keymap('n', '<Leader>g',
+[[<cmd>lua require('telescope.builtin').live_grep()<CR>]], opts)
+
+vim.api.nvim_set_keymap('n', '<Leader>b',
+[[<cmd>lua require('telescope.builtin').buffers()<CR>]], opts)
 
 return telescope
