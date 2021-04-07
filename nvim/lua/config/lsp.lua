@@ -55,3 +55,5 @@ if os.getenv('TERM') ~= 'linux' then
 	{ texthl = 'LspDiagnosticsSignHint', text = '➤',
 	numhl = 'LspDiagnosticsSignHint' })
 end
+
+return lspconfig
