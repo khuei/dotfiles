@@ -3,43 +3,43 @@ local autocomplete = {}
 local expansion_active = false
 
 autocomplete.setup_mappings = function()
-	local opts = { noremap = true, silent = true, }
-
 	vim.api.nvim_buf_set_keymap(0, 'i',
 	vim.api.nvim_get_var('UltiSnipsJumpForwardTrigger'),
 	[[<C-R>=luaeval("require('config.autocomplete').expand_or_jump('n')")<CR>]],
-	opts)
+	{ noremap = true, silent = true })
 
 	vim.api.nvim_buf_set_keymap(0, 's',
 	vim.api.nvim_get_var('UltiSnipsJumpForwardTrigger'),
 	[[<Esc><cmd>lua require('config.autocomplete').expand_or_jump('n')<CR>]],
-	opts)
+	{ noremap = true, silent = true })
 
 	vim.api.nvim_buf_set_keymap(0, 'i',
 	vim.api.nvim_get_var('UltiSnipsJumpBackwardTrigger'),
 	[[<C-R>=luaeval("require('config.autocomplete').expand_or_jump('p')")<CR>]],
-	opts)
+	{ noremap = true, silent = true })
 
 	vim.api.nvim_buf_set_keymap(0, 's',
 	vim.api.nvim_get_var('UltiSnipsJumpBackwardTrigger'),
 	[[<Esc><cmd>lua require('config.autocomplete').expand_or_jump('p')<CR>]],
-	opts)
-
-	local opts = { noremap = true, expr = true, silent = true }
+	{ noremap = true, silent = true })
 
 	vim.api.nvim_buf_set_keymap(0, 'i', '<CR>',
-	[[pumvisible() ? '<C-Y>' : '<CR>']], opts)
+	[[pumvisible() ? '<C-Y>' : '<CR>']],
+	{ noremap = true, expr = true, silent = true })
 
 	vim.api.nvim_buf_set_keymap(0, 's', '<CR>',
-	[[pumvisible() ? '<C-Y>' : '<CR>']], opts)
+	[[pumvisible() ? '<C-Y>' : '<CR>']],
+	{ noremap = true, expr = true, silent = true })
 
 	expansion_active = true
 end
 
 autocomplete.teardown_mappings = function()
-	local opts = { noremap = true, silent = true }
-	vim.api.nvim_buf_set_keymap(0, 'i', '<CR>', '<CR>', opts)
-	vim.api.nvim_buf_set_keymap(0, 's', '<CR>', '<CR>', opts)
+	vim.api.nvim_buf_set_keymap(0, 'i', '<CR>', '<CR>',
+	{ noremap = true, silent = true })
+
+	vim.api.nvim_buf_set_keymap(0, 's', '<CR>', '<CR>',
+	{ noremap = true, silent = true })
 
 	expansion_active = false
 end
@@ -131,34 +131,34 @@ vim.g.UltiSnipsJumpBackwardTrigger = '<S-Tab>'
 vim.g.UltiSnipsMappingsToIgnore = {'autocomplete'}
 vim.g.UltiSnipsSnippetDirectories = {'ultisnips'}
 
-local opts = { noremap = true, expr = true }
-vim.api.nvim_set_keymap('i', '<C-j>', "pumvisible() ? '<C-n>' : '<C-j>'", opts)
-vim.api.nvim_set_keymap('i', '<C-k>', "pumvisible() ? '<C-p>' : '<C-k>'", opts)
+vim.api.nvim_set_keymap('i', '<C-j>', "pumvisible() ? '<C-n>' : '<C-j>'",
+{ noremap = true, expr = true })
+
+vim.api.nvim_set_keymap('i', '<C-k>', "pumvisible() ? '<C-p>' : '<C-k>'",
+{ noremap = true, expr = true })
 
 vim.b.did_after_plugin_ultisnips_after = 1
 
 if vim.fn.exists(':UltiSnipsEdit') == 2 then
-	local opts = { noremap = true, silent = true }
-
 	vim.api.nvim_set_keymap('i',
 	vim.api.nvim_get_var('UltiSnipsExpandTrigger'),
 	[[<C-R>=luaeval("require('config.autocomplete').expand_or_jump('n')")<CR>]],
-	opts)
+	{ noremap = true, silent = true })
 
 	vim.api.nvim_set_keymap('s',
 	vim.api.nvim_get_var('UltiSnipsExpandTrigger'),
 	[[<Esc><cmd>lua require('config.autocomplete').expand_or_jump('n')<CR>]],
-	opts)
+	{ noremap = true, silent = true })
 
 	vim.api.nvim_set_keymap('i',
 	vim.api.nvim_get_var('UltiSnipsJumpBackwardTrigger'),
 	[[<C-R>=luaeval("require('config.autocomplete').expand_or_jump('p')")<CR>]],
-	opts)
+	{ noremap = true, silent = true })
 
 	vim.api.nvim_set_keymap('s',
 	vim.api.nvim_get_var('UltiSnipsJumpBackwardTrigger'),
 	[[<Esc><cmd>lua require('config.autocomplete').expand_or_jump('p')<CR>]],
-	opts)
+	{ noremap = true, silent = true })
 end
 
 local deoplete_init_done = false

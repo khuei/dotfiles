@@ -16,16 +16,16 @@ require('telescope').setup {
 }
 require('telescope').load_extension('fzy_native')
 
-local opts = { noremap = true, silent = true }
-
 vim.api.nvim_set_keymap('n', '<Leader>f',
 [[<cmd>lua require('telescope.builtin').find_files({ hidden = true })<CR>]],
-opts)
+{ noremap = true, silent = true })
 
 vim.api.nvim_set_keymap('n', '<Leader>g',
-[[<cmd>lua require('telescope.builtin').live_grep()<CR>]], opts)
+[[<cmd>lua require('telescope.builtin').live_grep()<CR>]],
+{ noremap = true, silent = true })
 
 vim.api.nvim_set_keymap('n', '<Leader>b',
-[[<cmd>lua require('telescope.builtin').buffers()<CR>]], opts)
+[[<cmd>lua require('telescope.builtin').buffers()<CR>]],
+{ noremap = true, silent = true })
 
 return telescope
