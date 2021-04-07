@@ -1,3 +1,5 @@
+require('plugin.mappings')
+
 if vim.fn.executable('python3') == 1 then
 	vim.api.nvim_set_var('python3_host_prog', 'python3')
 end
