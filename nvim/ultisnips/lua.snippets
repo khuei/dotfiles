@@ -13,17 +13,19 @@ endsnippet
 snippet if "if"
 if ${1:condition} then
 	${2}
-end
+${3:end}
 endsnippet
 
 snippet elif "else if"
-else if ${1:condition} then
+elseif ${1:condition} then
 	${2}
+${3:end}
 endsnippet
 
 snippet else "else"
 else
 	${1}
+end
 endsnippet
 
 snippet forp "pair for loop"
