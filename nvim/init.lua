@@ -18,3 +18,8 @@ if vim.api.nvim_get_option('loadplugins') then
 		vim.cmd([[packadd! ultisnips]])
 	end
 end
+
+require('config.autocomplete')
+require('config.lsp')
+require('config.telescope')
+require('config.treesitter')
