@@ -4,18 +4,6 @@ if vim.fn.executable('clangd') == 1 then
 	require('lspconfig').clangd.setup({})
 end
 
-if vim.fn.executable('pyright-langserver') then
-	require('lspconfig').pyright.setup({})
-elseif vim.fn.executable('pyls') == 1 then
-	require('lspconfig').pyls.setup({})
-end
-
-if vim.fn.executable('rust-analyzer') == 1 then
-	require('lspconfig').rust_analyzer.setup({})
-elseif vim.fn.executable('rls') == 1 then
-	require('lspconfig').rls.setup({})
-end
-
 if vim.fn.executable('lua-language-server') == 1 then
 	require('lspconfig').sumneko_lua.setup({
 		cmd = { io.popen('which lua-language-server'):read(), '-E', os.getenv('HOME')
@@ -41,6 +29,18 @@ if vim.fn.executable('lua-language-server') == 1 then
 			},
 		},
 	})
+end
+
+if vim.fn.executable('pyright-langserver') then
+	require('lspconfig').pyright.setup({})
+elseif vim.fn.executable('pyls') == 1 then
+	require('lspconfig').pyls.setup({})
+end
+
+if vim.fn.executable('rust-analyzer') == 1 then
+	require('lspconfig').rust_analyzer.setup({})
+elseif vim.fn.executable('rls') == 1 then
+	require('lspconfig').rls.setup({})
 end
 
 vim.api.nvim_set_keymap('n', '<Leader>ds',
