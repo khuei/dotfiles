@@ -44,10 +44,6 @@ autocomplete.teardown_mappings = function()
 	expansion_active = false
 end
 
-vim.g.ulti_jump_backwards_res = 0
-vim.g.ulti_jump_forwards_res = 0
-vim.g.ulti_expand_res = 0
-
 local get_tabspace
 if vim.fn.exists('*shiftwidth') == 1 then
 	get_tabspace = function()
@@ -95,6 +91,10 @@ local smart_tab = function()
 	end
 end
 
+vim.api.nvim_set_var('ulti_jump_backwards_res', 0)
+vim.api.nvim_set_var('ulti_jump_forwards_res', 0)
+vim.api.nvim_set_var('ulti_expand_res', 0)
+
 autocomplete.expand_or_jump = function(direction)
 	vim.cmd('call UltiSnips#ExpandSnippet()')
 	if vim.api.nvim_get_var('ulti_expand_res') == 0 then
@@ -125,11 +125,11 @@ autocomplete.expand_or_jump = function(direction)
 	return ''
 end
 
-vim.g.UltiSnipsJumpForwardTrigger = '<Tab>'
-vim.g.UltiSnipsJumpBackwardTrigger = '<S-Tab>'
+vim.api.nvim_set_var('UltiSnipsJumpForwardTrigger', '<Tab>')
+vim.api.nvim_set_var('UltiSnipsJumpBackwardTrigger', '<S-Tab>')
 
-vim.g.UltiSnipsMappingsToIgnore = {'autocomplete'}
-vim.g.UltiSnipsSnippetDirectories = {'ultisnips'}
+vim.api.nvim_set_var('UltiSnipsMappingsToIgnore', {'autocomplete'})
+vim.api.nvim_set_var('UltiSnipsSnippetDirectories', {'ultisnips'})
 
 vim.api.nvim_set_keymap('i', '<C-j>', "pumvisible() ? '<C-n>' : '<C-j>'",
 { noremap = true, expr = true })
@@ -137,7 +137,7 @@ vim.api.nvim_set_keymap('i', '<C-j>', "pumvisible() ? '<C-n>' : '<C-j>'",
 vim.api.nvim_set_keymap('i', '<C-k>', "pumvisible() ? '<C-p>' : '<C-k>'",
 { noremap = true, expr = true })
 
-vim.b.did_after_plugin_ultisnips_after = 1
+vim.api.nvim_buf_set_var(0, 'did_after_plugin_ultisnips_after', 1)
 
 if vim.fn.exists(':UltiSnipsEdit') == 2 then
 	vim.api.nvim_set_keymap('i',
