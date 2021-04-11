@@ -13,6 +13,10 @@ prompt_preexec() {
 
 	HISTCMD_LOCAL=$((++HISTCMD_LOCAL))
 
+	case $TTY in
+		/dev/ttyS[0-9]*) return ;;
+	esac
+
 	if [ -n "$TMUX" ]; then
 		prompt_window_title_setup "$2"
 	else
