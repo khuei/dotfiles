@@ -1,101 +1,44 @@
 local colorscheme = {}
 
 --- GUI color definitions
-local gui00 = '1d1f21'
-local base16_gui00 = '1d1f21'
-local gui01 = '282a2e'
-local base16_gui01 = '282a2e'
-local gui02 = '373b41'
-local base16_gui02 = '373b41'
-local gui03 = '969896'
-local base16_gui03 = '969896'
-local gui04 = 'b4b7b4'
-local base16_gui04 = 'b4b7b4'
-local gui05 = 'c5c8c6'
-local base16_gui05 = 'c5c8c6'
-local gui06 = 'e0e0e0'
-local base16_gui06 = 'e0e0e0'
-local gui07 = 'ffffff'
-local base16_gui07 = 'ffffff'
-local gui08 = 'cc6666'
-local base16_gui08 = 'cc6666'
-local gui09 = 'de935f'
-local base16_gui09 = 'de935f'
-local gui0A = 'f0c674'
-local base16_gui0A = 'f0c674'
-local gui0B = 'b5bd68'
-local base16_gui0B = 'b5bd68'
-local gui0C = '8abeb7'
-local base16_gui0C = '8abeb7'
-local gui0D = '81a2be'
-local base16_gui0D = '81a2be'
-local gui0E = 'b294bb'
-local base16_gui0E = 'b294bb'
-local gui0F = 'a3685a'
-local base16_gui0F = 'a3685a'
+local gui00 = "1d1f21"
+local gui01 = "282a2e"
+local gui02 = "373b41"
+local gui03 = "969896"
+local gui04 = "b4b7b4"
+local gui05 = "c5c8c6"
+local gui06 = "e0e0e0"
+local gui07 = "ffffff"
+local gui08 = "cc6666"
+local gui09 = "de935f"
+local gui0A = "f0c674"
+local gui0B = "b5bd68"
+local gui0C = "8abeb7"
+local gui0D = "81a2be"
+local gui0E = "b294bb"
+local gui0F = "a3685a"
 
 --- Terminal color definitions
-local cterm00 = '00'
-local base16_cterm00 = '00'
-local cterm03 = '08'
-local base16_cterm03 = '08'
-local cterm05 = '07'
-local base16_cterm05 = '07'
-local cterm07 = '15'
-local base16_cterm07 = '15'
-local cterm08 = '01'
-local base16_cterm08 = '01'
-local cterm0A = '03'
-local base16_cterm0A = '03'
-local cterm0B = '02'
-local base16_cterm0B = '02'
-local cterm0C = '06'
-local base16_cterm0C = '06'
-local cterm0D = '04'
-local base16_cterm0D = '04'
-local cterm0E = '05'
-local base16_cterm0E = '05'
-local cterm01 = '10'
-local base16_cterm01 = '10'
-local cterm02 = '11'
-local base16_cterm02 = '11'
-local cterm04 = '12'
-local base16_cterm04 = '12'
-local cterm06 = '13'
-local base16_cterm06 = '13'
-local cterm09 = '09'
-local base16_cterm09 = '09'
-local cterm0F = '14'
-local base16_cterm0F = '14'
-
---- Neovim terminal colours
-local terminal_color_0 = '#1d1f21'
-local terminal_color_1 = '#cc6666'
-local terminal_color_2 = '#b5bd68'
-local terminal_color_3 = '#f0c674'
-local terminal_color_4 = '#81a2be'
-local terminal_color_5 = '#b294bb'
-local terminal_color_6 = '#8abeb7'
-local terminal_color_7 = '#c5c8c6'
-local terminal_color_8 = '#969896'
-local terminal_color_9 = '#cc6666'
-local terminal_color_10 = '#b5bd68'
-local terminal_color_11 = '#f0c674'
-local terminal_color_12 = '#81a2be'
-local terminal_color_13 = '#b294bb'
-local terminal_color_14 = '#8abeb7'
-local terminal_color_15 = '#ffffff'
-local terminal_color_background = terminal_color_0
-local terminal_color_foreground = terminal_color_5
-if vim.api.nvim_get_option('background') == 'light' then
-	local terminal_color_background = terminal_color_7
-	local terminal_color_foreground = terminal_color_2
-end
+local cterm00 = "00"
+local cterm03 = "08"
+local cterm05 = "07"
+local cterm07 = "15"
+local cterm08 = "01"
+local cterm0A = "03"
+local cterm0B = "02"
+local cterm0C = "06"
+local cterm0D = "04"
+local cterm0E = "05"
+local cterm01 = "10"
+local cterm02 = "11"
+local cterm04 = "12"
+local cterm06 = "13"
+local cterm09 = "09"
+local cterm0F = "14"
 
 --- Theme setup
 vim.cmd('hi clear')
 vim.cmd('syntax reset')
-local colors_name = 'base16-tomorrow-night'
 
 --- Highlighting function
 --- Optional variables are attributes and guisp
