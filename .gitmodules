@@ -3,7 +3,7 @@
 	url = https://github.com/Shougo/deoplete.nvim.git
 [submodule "deoplete-lsp"]
 	path = nvim/pack/bundle/opt/deoplete-lsp
-	url = https://github.com/Shougo/deoplete-lsp.git
+	url = https://github.com/deoplete-plugins/deoplete-lsp.git
 [submodule "fzy-native"]
 	path = nvim/pack/bundle/opt/fzy-native
 	url = https://github.com/nvim-telescope/telescope-fzy-native.nvim.git
