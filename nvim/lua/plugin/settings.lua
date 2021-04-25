@@ -8,6 +8,8 @@ if vim.fn.has('syntax') and vim.fn.exists('g:syntax_on') == 0 then
 	vim.cmd([[syntax on]])
 end
 
+vim.api.nvim_set_option('mouse', 'a')
+
 vim.api.nvim_set_option('autoread', true)
 
 vim.api.nvim_set_option('hidden', true)
