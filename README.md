@@ -2,7 +2,9 @@
 
 > Stay in \*nixland, and I'll show you how deep the rabbit hole goes
 
-my bespoke configuration files
+## Screenshot
+
+![](./assets/screenshot.jpg)
 
 ## Installation
 
