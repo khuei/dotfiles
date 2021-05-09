@@ -1,22 +1,5 @@
 #!/usr/bin/env zsh
 
-[ "$(command -v cc)" ] && [ "$(command -v c++)" ] && {
-	cc() {
-		case "${1##*.}" in
-		c)
-			command cc "$1"
-			;;
-		cpp)
-			command c++ "$1"
-			;;
-		*)
-			echo 'error: no input files' 1>&2
-			return 1
-			;;
-		esac
-	}
-}
-
 [ "$(command -v tmux)" ] && {
 	tmux() {
 		SOCK_SYMLINK=~/.ssh/ssh_auth_sock

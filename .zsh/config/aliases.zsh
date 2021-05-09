@@ -1,20 +1,5 @@
 #!/usr/bin/env zsh
 
-[ "$(command -v alsamixer)" ] && alias a=alsamixer
-
-[ "$(command -v cargo)" ] && {
-	alias cbench='cargo bench'
-	alias cbuild='cargo build'
-	alias ccheck='cargo check'
-	alias cclean='cargo clean'
-	alias crun='cargo run'
-	alias ctest='cargo test'
-}
-
-[ "$(command -v clang-format)" ] && alias cformat=clang-format
-
-[ "$(command -v clang-tidy)" ] && alias ctidy=clang-tidy
-
 [ "$(command -v color)" ] && alias c=color
 
 [ "$(command -v git)" ] && {
@@ -30,8 +15,6 @@
 
 [ "$(command -v ncmpcpp)" ] && [ "$(command -v mpd)" ] && \
 	alias n="[ -z \"\$(ps -opid= -C mpd)\" ] && mpd &! ncmpcpp 2>/dev/null"
-
-[ "$(command -v slock)" ] && alias sl=slock
 
 [ "$(command -v ssh)" ] && alias s=ssh
 
