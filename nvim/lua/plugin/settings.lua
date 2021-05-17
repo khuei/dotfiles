@@ -108,37 +108,37 @@ local winhighlight_blurred = table.concat({
 	'SignColumn:ColorColumn'
 }, ',')
 
-settings.buf_enter = function()
+function settings.buf_enter()
 	vim.api.nvim_win_set_option(0, 'winhighlight', '')
 end
 
-settings.focus_gained = function()
+function settings.focus_gained()
 	vim.api.nvim_win_set_option(0, 'winhighlight', '')
 end
 
-settings.focus_lost = function()
+function settings.focus_lost()
 	vim.api.nvim_win_set_option(0, 'winhighlight', winhighlight_blurred)
 end
 
-settings.insert_enter = function()
+function settings.insert_enter()
 	vim.api.nvim_win_set_option(0, 'cursorline', false)
 end
 
-settings.insert_leave = function()
+function settings.insert_leave()
 	vim.api.nvim_win_set_option(0, 'cursorline', true)
 end
 
-settings.vim_enter = function()
-	vim.api.nvim_win_set_option(0, 'cursorline', true)
-	vim.api.nvim_win_set_option(0, 'winhighlight', '')
-end
-
-settings.win_enter = function()
+function settings.vim_enter()
 	vim.api.nvim_win_set_option(0, 'cursorline', true)
 	vim.api.nvim_win_set_option(0, 'winhighlight', '')
 end
 
-settings.win_leave = function()
+function settings.win_enter()
+	vim.api.nvim_win_set_option(0, 'cursorline', true)
+	vim.api.nvim_win_set_option(0, 'winhighlight', '')
+end
+
+function settings.win_leave()
 	vim.api.nvim_win_set_option(0, 'cursorline', false)
 	vim.api.nvim_win_set_option(0, 'winhighlight', winhighlight_blurred)
 end

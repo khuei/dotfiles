@@ -2,7 +2,7 @@ local autocomplete = {}
 
 local expansion_active = false
 
-autocomplete.setup_mappings = function()
+function autocomplete.setup_mappings()
 	vim.api.nvim_buf_set_keymap(0, 'i',
 	vim.api.nvim_get_var('UltiSnipsJumpForwardTrigger'),
 	[[<C-R>=luaeval("require('config.autocomplete').expand_or_jump('n')")<CR>]],
@@ -34,7 +34,7 @@ autocomplete.setup_mappings = function()
 	expansion_active = true
 end
 
-autocomplete.teardown_mappings = function()
+function autocomplete.teardown_mappings()
 	vim.api.nvim_buf_set_keymap(0, 'i', '<CR>', '<CR>',
 	{ noremap = true, silent = true })
 
@@ -44,30 +44,23 @@ autocomplete.teardown_mappings = function()
 	expansion_active = false
 end
 
-local get_tabspace
-if vim.fn.exists('*shiftwidth') == 1 then
-	get_tabspace = function()
-		if vim.api.nvim_get_option('softtabstop') <= 0 then
+local function get_tabspace()
+	if vim.api.nvim_get_option('softtabstop') <= 0 then
+		if vim.fn.exists('*shiftwidth') == 1 then
 			return vim.fn.shiftwidth()
 		else
-			return vim.api.nvim_get_option('softtabstop')
-		end
-	end
-else
-	get_tabspace = function()
-		if vim.api.nvim_get_option('softtabstop') <= 0 then
 			if vim.api.nvim_get_option('shiftwidth') == 0 then
 				return vim.api.nvim_get_option('tabstop')
 			else
 				return vim.api.nvim_get_option('shiftwidth')
 			end
-		else
-			return vim.api.nvim_get_option('softtabstop')
 		end
+	else
+		return vim.api.nvim_get_option('softtabstop')
 	end
 end
 
-local smart_tab = function()
+local function smart_tab()
 	if vim.fn.exists('l:expandtab') ~= 0 then
 		return vim.api.nvim_replace_termcodes('<Tab>', true, false, true)
 	else
@@ -95,7 +88,7 @@ vim.api.nvim_set_var('ulti_jump_backwards_res', 0)
 vim.api.nvim_set_var('ulti_jump_forwards_res', 0)
 vim.api.nvim_set_var('ulti_expand_res', 0)
 
-autocomplete.expand_or_jump = function(direction)
+function autocomplete.expand_or_jump(direction)
 	vim.cmd('call UltiSnips#ExpandSnippet()')
 	if vim.api.nvim_get_var('ulti_expand_res') == 0 then
 		if vim.fn.pumvisible() == 1 then
@@ -162,7 +155,7 @@ if vim.fn.exists(':UltiSnipsEdit') == 2 then
 end
 
 local deoplete_init_done = false
-autocomplete.deoplete_init = function()
+function autocomplete.deoplete_init()
 	if deoplete_init_done or vim.fn.exists('g:loaded_deoplete') == 0 then
 		return
 	end

@@ -42,7 +42,7 @@ vim.cmd('syntax reset')
 
 --- Highlighting function
 --- Optional variables are attributes and guisp
-local hi = function(group, guifg, guibg, ctermfg, ctermbg, attr, guisp)
+local function hi(group, guifg, guibg, ctermfg, ctermbg, attr, guisp)
 	if guifg ~= nil and guifg ~= '' then
 		vim.cmd('hi ' .. group .. ' guifg=#' .. guifg)
 	end
@@ -63,7 +63,7 @@ local hi = function(group, guifg, guibg, ctermfg, ctermbg, attr, guisp)
 	end
 end
 
-colorscheme.setup = function()
+function colorscheme.setup()
 	--- Vim editor colors
 	hi('Normal', gui05, gui00, cterm05, cterm00, '', '')
 	hi('Bold', '', '', '', '', 'bold', '')

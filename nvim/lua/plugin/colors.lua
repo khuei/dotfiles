@@ -1,6 +1,6 @@
 local colors = {}
 
-colors.check_colorscheme = function()
+function colors.check_colorscheme()
 	local config_file = io.open(os.getenv('HOME') .. '/.base16', 'r')
 
 	if config_file then
@@ -36,7 +36,7 @@ colors.check_colorscheme = function()
 	vim.cmd('doautocmd ColorScheme')
 end
 
-colors.setup_highlight = function()
+function colors.setup_highlight()
 	vim.cmd('highlight Comment cterm=italic gui=italic')
 
 	local conceal_term_fg
