@@ -27,6 +27,9 @@ vim.api.nvim_set_option('updatetime', 100)
 vim.api.nvim_set_option('ttimeout', true)
 vim.api.nvim_set_option('ttimeoutlen', 100)
 
+vim.api.nvim_set_option('scrolloff', 1)
+vim.api.nvim_set_option('sidescrolloff', 5)
+
 vim.api.nvim_buf_set_option(0, 'autoindent', true)
 vim.api.nvim_set_option('backspace', 'indent,start,eol')
 vim.api.nvim_set_option('smarttab', true)
