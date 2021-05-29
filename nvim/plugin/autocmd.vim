@@ -17,14 +17,6 @@ if has('autocmd')
 		\ lua require('plugin.colors').check_colorscheme()
 	augroup END
 
-	augroup idleboot
-		autocmd!
-		if has('vim_starting')
-			autocmd CursorHold,CursorHoldI *
-			\ lua require('config.autocomplete').deoplete_init()
-		endif
-	augroup END
-
 	augroup settings
 		autocmd!
 		autocmd BufEnter * lua require('plugin.settings').buf_enter()

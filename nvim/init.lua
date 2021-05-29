@@ -7,8 +7,7 @@ end
 
 if vim.api.nvim_get_option('loadplugins') then
 	if vim.fn.has('packages') == 1 then
-		vim.cmd([[packadd deoplete]])
-		vim.cmd([[packadd deoplete-lsp]])
+		vim.cmd([[packadd compe]])
 		vim.cmd([[packadd fzy-native]])
 		vim.cmd([[packadd lspconfig]])
 		vim.cmd([[packadd plenary]])

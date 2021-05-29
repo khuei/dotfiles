@@ -154,17 +154,27 @@ if vim.fn.exists(':UltiSnipsEdit') == 2 then
 	{ noremap = true, silent = true })
 end
 
-local deoplete_init_done = false
-function autocomplete.deoplete_init()
-	if deoplete_init_done or vim.fn.exists('g:loaded_deoplete') == 0 then
-		return
-	end
-	deoplete_init_done = true
+require('compe').setup {
+	enabled = true;
+	autocomplete = true;
+	debug = true;
+	min_length = 1;
+	preselect = 'enable';
+	throttle_time = 80;
+	source_timeout = 200;
+	incomplete_delay = 400;
+	max_abbr_width = 100;
+	max_kind_width = 100;
+	max_menu_width = 100;
+	documentation = true;
 
-	vim.cmd([[call deoplete#enable()]])
-	vim.cmd([[call deoplete#custom#source('file', 'rank', 2000)]])
-	vim.cmd([[call deoplete#custom#source('ultisnips', 'rank', 1000)]])
-	vim.cmd([[call deoplete#custom#source('_', 'matchers', ['matcher_full_fuzzy'])]])
-end
+	source = {
+		buffer = true;
+		calc = true;
+		nvim_lsp = true;
+		path = true;
+		ultisnips = true;
+	};
+}
 
 return autocomplete
