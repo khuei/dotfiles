@@ -1,11 +1,6 @@
 export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
 
-unset PATH
-[ -d ~/.cargo/bin ] && PATH=$PATH:~/.cargo/bin
-[ -d ~/.local/bin ] && PATH=$PATH:~/.local/bin
-[ -d ~/bin ] && PATH=$PATH:~/bin
-
 PATH=$PATH:/bin
 PATH=$PATH:/sbin
 
@@ -14,7 +9,10 @@ PATH=$PATH:/usr/sbin
 
 PATH=$PATH:/usr/local/bin
 PATH=$PATH:/usr/local/sbin
-export PATH
+
+[ -d ~/.cargo/bin ] && PATH=$PATH:~/.cargo/bin
+[ -d ~/.local/bin ] && PATH=$PATH:~/.local/bin
+[ -d ~/bin ] && PATH=$PATH:~/bin
 
 export XDG_CONFIG_HOME=~
 
