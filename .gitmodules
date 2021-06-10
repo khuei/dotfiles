@@ -1,21 +1,9 @@
 [submodule "compe"]
 	path = nvim/pack/bundle/opt/compe
 	url = https://github.com/hrsh7th/nvim-compe
-[submodule "fzy-native"]
-	path = nvim/pack/bundle/opt/fzy-native
-	url = https://github.com/nvim-telescope/telescope-fzy-native.nvim.git
 [submodule "lspconfig"]
 	path = nvim/pack/bundle/opt/lspconfig
 	url = https://github.com/neovim/nvim-lspconfig.git
-[submodule "plenary"]
-	path = nvim/pack/bundle/opt/plenary
-	url = https://github.com/nvim-lua/plenary.nvim.git
-[submodule "popup"]
-	path = nvim/pack/bundle/opt/popup
-	url = https://github.com/nvim-lua/popup.nvim.git
-[submodule "telescope"]
-	path = nvim/pack/bundle/opt/telescope
-	url = https://github.com/nvim-telescope/telescope.nvim.git
 [submodule "treesitter"]
 	path = nvim/pack/bundle/opt/treesitter
 	url = https://github.com/nvim-treesitter/nvim-treesitter.git
