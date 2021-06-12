@@ -19,7 +19,7 @@ function colors.check_colorscheme()
 		end
 
 		local color = io.open(os.getenv('HOME') ..
-		'/nvim/colors/base16-' .. config[0] .. '.vim')
+		'/nvim/colors/base16-' .. config[0] .. '.lua')
 		if color then
 			vim.cmd('colorscheme base16-' .. config[0])
 			color:close()
