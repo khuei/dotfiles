@@ -24,11 +24,11 @@ function autocomplete.setup_mappings()
 	{ noremap = true, silent = true })
 
 	vim.api.nvim_buf_set_keymap(0, 'i', '<CR>',
-	[[pumvisible() ? '<C-Y>' : '<CR>']],
+	[[pumvisible() ? compe#confirm('<C-Y>') : '<CR>']],
 	{ noremap = true, expr = true, silent = true })
 
 	vim.api.nvim_buf_set_keymap(0, 's', '<CR>',
-	[[pumvisible() ? '<C-Y>' : '<CR>']],
+	[[pumvisible() ? compe#confirm('<C-Y>') : '<CR>']],
 	{ noremap = true, expr = true, silent = true })
 
 	expansion_active = true
