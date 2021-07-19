@@ -4,7 +4,8 @@ git pull --rebase --prune
 git submodule update --init --recursive
 git submodule update --remote --merge
 
-for config in 'bin' '.gitconfig' '.mpd' '.ncmpcpp' '.tmux.conf' '.xinitrc' \
+for config in 'bin' '.gitconfig' '.mpd' '.ncmpcpp' '.tmux.conf' \
+              'user-dirs.conf' 'user-dirs.dirs' '.xinitrc' \
               '.zprofile' '.zsh' '.zshrc' 'nvim' 'picom' 'vifm'; do
 	cp -rv "$(dirname "$0")/$config" "$HOME"
 done
