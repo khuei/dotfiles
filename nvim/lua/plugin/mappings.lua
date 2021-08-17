@@ -7,8 +7,6 @@ vim.api.nvim_set_keymap('n', '<C-j>', '<C-w>j', { noremap = true })
 vim.api.nvim_set_keymap('n', '<C-k>', '<C-w>k', { noremap = true })
 vim.api.nvim_set_keymap('n', '<C-l>', '<C-w>l', { noremap = true })
 
-vim.api.nvim_set_keymap('n', 'Y', 'y$', { noremap = true })
-
 vim.api.nvim_set_keymap('n', '<Leader>n', '<cmd>nohlsearch<CR>',
 { noremap = true, silent = true })
 
