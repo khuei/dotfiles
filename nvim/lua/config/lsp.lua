@@ -1,5 +1,9 @@
 local lspconfig = {}
 
+if vim.fn.executable('bash-language-server') == 1 then
+	require('lspconfig').bashls.setup({})
+end
+
 if vim.fn.executable('clangd') == 1 then
 	require('lspconfig').clangd.setup({})
 end
