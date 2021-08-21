@@ -4,6 +4,10 @@ if vim.fn.executable('clangd') == 1 then
 	require('lspconfig').clangd.setup({})
 end
 
+if vim.fn.executable('gopls') == 1 then
+	require('lspconfig').gopls.setup({})
+end
+
 if vim.fn.executable('lua-language-server') == 1 then
 	require('lspconfig').sumneko_lua.setup({
 		cmd = { io.popen('which lua-language-server'):read(), '-E', os.getenv('HOME')
