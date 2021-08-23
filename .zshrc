@@ -5,6 +5,7 @@ fpath=(
 )
 
 setopt AUTO_CD
+setopt CDABLE_VARS
 setopt SHARE_HISTORY
 
 . ~/.zsh/config/bindings.zsh
