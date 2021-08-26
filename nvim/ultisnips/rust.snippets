@@ -64,8 +64,16 @@ impl ${1:trait}${2: for ${3:type}} {
 }
 endsnippet
 
+snippet epr "print!"
+eprint!("${1}"${1/([^{}]|{{)*({})?.*/(?2:, :\);)/}${2}${1/([^{}]|{{)*({})?.*/(?2:\);)/}
+endsnippet
+
 snippet pr "print!"
 print!("${1}"${1/([^{}]|{{)*({})?.*/(?2:, :\);)/}${2}${1/([^{}]|{{)*({})?.*/(?2:\);)/}
+endsnippet
+
+snippet eprl "println!"
+eprintln!("${1}"${1/([^{}]|{{)*({})?.*/(?2:, :\);)/}${2}${1/([^{}]|{{)*({})?.*/(?2:\);)/}
 endsnippet
 
 snippet prl "println!"
