@@ -1,14 +1,4 @@
 if has('autocmd')
-	augroup autocomplete
-		autocmd!
-		autocmd! User UltiSnipsEnterFirstSnippet
-		autocmd User UltiSnipsEnterFirstSnippet
-		\ lua require('config.autocomplete').setup_mappings()
-		autocmd! User UltiSnipsExitLastSnippet
-		autocmd User UltiSnipsExitLastSnippet
-		\ lua require('config.autocomplete').teardown_mappings()
-	augroup END
-
 	augroup color
 		autocmd!
 		autocmd ColorScheme *

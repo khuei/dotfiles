@@ -7,9 +7,6 @@
 [submodule "treesitter"]
 	path = nvim/pack/bundle/opt/treesitter
 	url = https://github.com/nvim-treesitter/nvim-treesitter.git
-[submodule "ultisnips"]
-	path = nvim/pack/bundle/opt/ultisnips
-	url = https://github.com/SirVer/ultisnips.git
 [submodule "zsh-autosuggestions"]
 	path = .zsh/plugin/zsh-autosuggestions
 	url = https://github.com/zsh-users/zsh-autosuggestions.git

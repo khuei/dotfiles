@@ -10,10 +10,8 @@ if vim.api.nvim_get_option('loadplugins') then
 		vim.cmd([[packadd compe]])
 		vim.cmd([[packadd lspconfig]])
 		vim.cmd([[packadd treesitter]])
-		vim.cmd([[packadd ultisnips]])
 	end
 end
 
-require('config.autocomplete')
 require('config.lsp')
 require('config.treesitter')
