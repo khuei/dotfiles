@@ -12,6 +12,3 @@ if vim.api.nvim_get_option('loadplugins') then
 		vim.cmd([[packadd treesitter]])
 	end
 end
-
-require('config.lsp')
-require('config.treesitter')

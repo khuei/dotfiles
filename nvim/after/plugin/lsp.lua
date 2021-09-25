@@ -1,5 +1,3 @@
-local lspconfig = {}
-
 if vim.fn.executable('bash-language-server') == 1 then
 	require('lspconfig').bashls.setup({})
 end
@@ -100,5 +98,3 @@ if os.getenv('TERM') ~= 'linux' then
 	{ texthl = 'LspDiagnosticsSignHint', text = '➤',
 	numhl = 'LspDiagnosticsSignHint' })
 end
-
-return lspconfig
