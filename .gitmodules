@@ -1,6 +1,6 @@
-[submodule "compe"]
-	path = nvim/pack/bundle/opt/compe
-	url = https://github.com/hrsh7th/nvim-compe
+[submodule "coq"]
+	path = nvim/pack/bundle/opt/coq
+	url = https://github.com/ms-jpq/coq_nvim
 [submodule "lspconfig"]
 	path = nvim/pack/bundle/opt/lspconfig
 	url = https://github.com/neovim/nvim-lspconfig.git
