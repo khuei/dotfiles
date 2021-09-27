@@ -2,6 +2,7 @@ require('plugin.mappings')
 require('plugin.settings')
 
 vim.g.coq_settings = {
+	xdg = false,
 	auto_start = 'shut-up',
 	display = {
 		pum = {
