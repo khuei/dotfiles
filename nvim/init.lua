@@ -3,6 +3,28 @@ require('plugin.settings')
 
 vim.g.coq_settings = {
 	auto_start = 'shut-up',
+	display = {
+		pum = {
+			fast_close = false,
+			source_context = {"[", "]"},
+		},
+		preview = {
+			border = "single",
+			positions = {
+				east = 1,
+				south = 2,
+				north = 3,
+				west = 4,
+			},
+		},
+		ghost_text = {
+			enabled = true,
+			context = {"", ""},
+		},
+		icons = {
+			mode = "none",
+		}
+	}
 }
 
 if vim.api.nvim_get_option('loadplugins') then

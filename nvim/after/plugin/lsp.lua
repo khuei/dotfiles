@@ -81,20 +81,18 @@ vim.api.nvim_set_keymap('n', 'gr',
 '<cmd>lua vim.lsp.buf.references()<CR>',
 { noremap = true, silent = true })
 
-if os.getenv('TERM') ~= 'linux' then
-	vim.fn.sign_define('LspDiagnosticsSignError',
-	{ texthl = 'LspDiagnosticsSignError', text = '✖',
-	numhl = 'LspDiagnosticsSignError' })
+vim.fn.sign_define('LspDiagnosticsSignError',
+{ texthl = 'LspDiagnosticsSignError', text = 'x',
+numhl = 'LspDiagnosticsSignError' })
 
-	vim.fn.sign_define('LspDiagnosticsSignWarning',
-	{ texthl = 'LspDiagnosticsSignWarning', text = '',
-	numhl = 'LspDiagnosticsSignWarning' })
+vim.fn.sign_define('LspDiagnosticsSignWarning',
+{ texthl = 'LspDiagnosticsSignWarning', text = 'w',
+numhl = 'LspDiagnosticsSignWarning' })
 
-	vim.fn.sign_define('LspDiagnosticsSignInformation',
-	{ texthl = 'LspDiagnosticsSignInformation', text = '',
-	numhl = 'LspDiagnosticsSignInformation' })
+vim.fn.sign_define('LspDiagnosticsSignInformation',
+{ texthl = 'LspDiagnosticsSignInformation', text = 'i',
+numhl = 'LspDiagnosticsSignInformation' })
 
-	vim.fn.sign_define('LspDiagnosticsSignHint',
-	{ texthl = 'LspDiagnosticsSignHint', text = '➤',
-	numhl = 'LspDiagnosticsSignHint' })
-end
+vim.fn.sign_define('LspDiagnosticsSignHint',
+{ texthl = 'LspDiagnosticsSignHint', text = 'h',
+numhl = 'LspDiagnosticsSignHint' })
