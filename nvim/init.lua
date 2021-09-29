@@ -25,6 +25,9 @@ vim.g.coq_settings = {
 		icons = {
 			mode = "none",
 		}
+	},
+	keymap = {
+		jump_to_mark = "<C-p>",
 	}
 }
 
