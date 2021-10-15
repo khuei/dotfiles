@@ -5,6 +5,13 @@
 
 [ "$(command -v unclutter)" ] && unclutter -idle 1 &
 
+[ " $(command -v nm-applet)" ] && {
+	nm-applet &
+	[ -z "${DBUS_SESSION_BUS_ADDRESS}" ] && eval $(dbus-launch --sh-syntax --exit-with-session)
+}
+
+export $(gnome-keyring-daemon --start --components=pkcs11,secrets,ssh,gpg)
+
 case "$1" in
 dwm)
 	[ "$(command -v slstatus)" ] && slstatus &
