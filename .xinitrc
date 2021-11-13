@@ -1,7 +1,7 @@
 #!/bin/sh
 
 [ "$(command -v picom)" ] && [ -s ~/picom/picom.conf ] && \
-	picom -b --experimental-backends --config ~/picom/picom.conf
+	wp && picom -b --experimental-backends --config ~/picom/picom.conf
 
 [ "$(command -v unclutter)" ] && unclutter -idle 1 &
 
@@ -14,7 +14,6 @@ export $(gnome-keyring-daemon --start --components=pkcs11,secrets,ssh,gpg)
 
 case "$1" in
 dwm)
-	[ "$(command -v slstatus)" ] && slstatus &
 	[ "$(command -v dwm)" ] && exec dwm
 	;;
 *)
