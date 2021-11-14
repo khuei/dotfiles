@@ -2,10 +2,6 @@
 
 > Stay in \*nixland, and I'll show you how deep the rabbit hole goes
 
-## Screenshot
-
-![](./assets/screenshot.jpg)
-
 ## Installation
 
 run the following command to run install script:
