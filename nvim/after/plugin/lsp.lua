@@ -81,18 +81,14 @@ vim.api.nvim_set_keymap('n', 'gr',
 '<cmd>lua vim.lsp.buf.references()<CR>',
 { noremap = true, silent = true })
 
-vim.fn.sign_define('LspDiagnosticsSignError',
-{ texthl = 'LspDiagnosticsSignError', text = 'x',
-numhl = 'LspDiagnosticsSignError' })
+vim.fn.sign_define('DiagnosticSignError', { text = 'x', texthl =
+'DiagnosticSignError', numhl = 'DiagnosticSignError' })
 
-vim.fn.sign_define('LspDiagnosticsSignWarning',
-{ texthl = 'LspDiagnosticsSignWarning', text = 'w',
-numhl = 'LspDiagnosticsSignWarning' })
+vim.fn.sign_define('DiagnosticSignWarn', { text = 'w', texthl =
+'DiagnosticSignWarn', numhl = 'DiagnosticSignWarn' })
 
-vim.fn.sign_define('LspDiagnosticsSignInformation',
-{ texthl = 'LspDiagnosticsSignInformation', text = 'i',
-numhl = 'LspDiagnosticsSignInformation' })
+vim.fn.sign_define('DiagnosticSignInfo', { texthl =
+'DiagnosticSignInfo', text = 'i', numhl = 'DiagnosticSignInfo' })
 
-vim.fn.sign_define('LspDiagnosticsSignHint',
-{ texthl = 'LspDiagnosticsSignHint', text = 'h',
-numhl = 'LspDiagnosticsSignHint' })
+vim.fn.sign_define('DiagnosticSignHint', { texthl = 'DiagnosticSignHint', text
+= 'h', numhl = 'DiagnosticSignHint' })
