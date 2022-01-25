@@ -50,7 +50,7 @@ elseif vim.fn.executable('rls') == 1 then
 end
 
 vim.api.nvim_set_keymap('n', '<Leader>ds',
-'<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>',
+'<cmd>lua vim.diagnostic.open_float()<CR>',
 { noremap = true, silent = true })
 
 vim.api.nvim_set_keymap('n', '<Leader>dn',
