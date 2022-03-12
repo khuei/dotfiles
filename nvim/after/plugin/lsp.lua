@@ -10,24 +10,23 @@ if vim.fn.executable('gopls') == 1 then
 	require('lspconfig').gopls.setup({})
 end
 
+local runtime_path = vim.split(package.path, ';')
+table.insert(runtime_path, "lua/?.lua")
+table.insert(runtime_path, "lua/?/init.lua")
+
 if vim.fn.executable('lua-language-server') == 1 then
 	require('lspconfig').sumneko_lua.setup({
-		cmd = { io.popen('which lua-language-server'):read(), '-E', os.getenv('HOME')
-		.. '/.local/share/lua-language-server/main.lua' },
 		settings = {
 			Lua = {
 				runtime = {
-					path = vim.split(package.path, ';'),
+					version = 'LuaJIT',
+					path = runtime_path,
 				},
 				diagnostics = {
-					globals = { 'vim' },
-					disable = { 'undefined-global' },
+					globals = {'vim'},
 				},
 				workspace = {
-					library = {
-						[vim.fn.expand('$VIMRUNTIME/lua')] = true,
-						[vim.fn.expand('$VIMRUNTIME/lua/vim/lsp')] = true,
-					},
+					library = vim.api.nvim_get_runtime_file("", true),
 				},
 				telemetry = {
 					enable = false,
