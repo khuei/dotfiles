@@ -87,9 +87,9 @@ prompt_vcs_info() {
 }
 
 prompt_async_renice() {
-	[ "$(command -v renice)" ] && renice +15 -p $$
+	[ "$(command -v renice)" ] && renice +19 -p $$
 
-	[ "$(command -v ionice)" ] && ionice -c 3 -p $$
+	[ "$(command -v ionice)" ] && ionice -c 3 -n 7 -p $$
 }
 
 prompt_async_init() {
