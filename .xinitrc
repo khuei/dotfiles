@@ -1,9 +1,6 @@
 #!/bin/sh
 
 {
-	[ "$(command -v picom)" ] && [ -s ~/picom/picom.conf ] && \
-		wp && picom -b --experimental-backends --config ~/picom/picom.conf
-
 	[ "$(command -v unclutter)" ] && unclutter -idle 1 &
 
 	[ "$(command -v nm-applet)" ] && {
