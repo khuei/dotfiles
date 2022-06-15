@@ -313,7 +313,8 @@ prompt_git_info() {
 		if [ -d ".git" ]; then
 			[ -n "$(git diff 2>/dev/null)" ] && is_modified=true
 			[ -n "$(git diff --cached 2>/dev/null)" ] && has_staged=true
-			[ -n "$(git ls-files --others 2>/dev/null)" ] && has_untracked=true
+			[ -n "$(git ls-files --exclude-standard --others 2>/dev/null)" ] && 
+				has_untracked=true
 
 			REPLY="[$(git branch --show-current 2>/dev/null)"
 
