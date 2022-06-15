@@ -6,7 +6,7 @@
 . ~/.zsh/plugin/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 ###########################################################
-##################### General $######$$####################
+##################### General #############################
 ###########################################################
 #
 fpath=(
@@ -226,7 +226,6 @@ prompt_window_title_setup() {
 	print -Pn "\033]0;$CMD:q\a"
 }
 
-add-zsh-hook preexec prompt_preexec
 prompt_preexec() {
 	typeset -Fg SECONDS
 	ZSH_START_TIME=${ZSH_START_TIME:-$SECONDS}
@@ -243,8 +242,8 @@ prompt_preexec() {
 		prompt_window_title_setup "$(basename "$PWD") > $2"
 	fi
 }
+add-zsh-hook preexec prompt_preexec
 
-add-zsh-hook precmd prompt_precmd
 prompt_precmd() {
 	if [ "$ZSH_START_TIME" ]; then
 		local DELTA=$((SECONDS - ZSH_START_TIME))
@@ -288,34 +287,34 @@ prompt_precmd() {
 	fi
 
 }
+add-zsh-hook precmd prompt_precmd
 
-add-zsh-hook chpwd prompt_chpwd
 prompt_chpwd() {
 	zle && zle -I
 	RPS2=
 	zle && [[ $CONTEXT == start ]] && prompt_async
 	true
 }
+add-zsh-hook chpwd prompt_chpwd
 
-add-zsh-hook precmd prompt_async_precmd
 prompt_async_precmd() {
 	local fd=
 	exec {fd}< <( prompt_git_info )
 	zle -Fw "$fd" prompt_async_callback
 	true
 }
+add-zsh-hook precmd prompt_async_precmd
 
 prompt_git_info() {
 	local REPLY=
 	{
-		local is_gitdir=false is_modified=false has_unstaged=false has_untracked=false
+		local is_modified=false has_unstaged=false has_untracked=false
 
-		[ -n "$(git rev-parse --is-inside-work-tree 2>/dev/null)" ] && is_gitdir=true
-		[ -n "$(git diff 2>/dev/null)" ] && is_modified=true
-		[ -n "$(git diff --cached 2>/dev/null)" ] && has_staged=true
-		[ -n "$(git ls-files --others 2>/dev/null)" ] && has_untracked=true
+		if [ -d ".git" ]; then
+			[ -n "$(git diff 2>/dev/null)" ] && is_modified=true
+			[ -n "$(git diff --cached 2>/dev/null)" ] && has_staged=true
+			[ -n "$(git ls-files --others 2>/dev/null)" ] && has_untracked=true
 
-		if $is_gitdir; then
 			REPLY="[$(git branch --show-current 2>/dev/null)"
 
 			[ "$has_staged" = true ] && REPLY="$REPLY%F{green}●%f"
@@ -329,20 +328,20 @@ prompt_git_info() {
 	}
 }
 
-zle -N prompt_async_callback
 prompt_async_callback() {
 	local fd=$1 REPLY
 	{
 		zle -F "$fd"
 		read -ru $fd
-		[[ $RPS1 == $REPLY ]] && return
-		RPS1=$REPLY
+		[[ $RPROMPT == $REPLY ]] && return
+		RPROMPT=$REPLY
 		zle && [[ $CONTEXT == start ]] &&
 		zle .reset-prompt
 	} always {
 		exec {fd}<&-
 	}
 }
+zle -N prompt_async_callback
 
 } &>/dev/null
 
