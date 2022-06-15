@@ -7,6 +7,9 @@
 [submodule "treesitter"]
 	path = nvim/pack/bundle/opt/treesitter
 	url = https://github.com/nvim-treesitter/nvim-treesitter.git
+[submodule "zsh-async"]
+	path = .zsh/plugin/zsh-async
+	url = https://github.com/mafredri/zsh-async
 [submodule "zsh-autosuggestions"]
 	path = .zsh/plugin/zsh-autosuggestions
 	url = https://github.com/zsh-users/zsh-autosuggestions.git

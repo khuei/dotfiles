@@ -1,7 +1,0 @@
-#compdef d
-
-if (( CURRENT == 2 )); then
-	_path_commands
-else
-	_message "no more available options"
-fi
