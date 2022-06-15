@@ -413,11 +413,11 @@ vim.api.nvim_set_keymap('n', '<Leader>ds',
 { noremap = true, silent = true })
 
 vim.api.nvim_set_keymap('n', '<Leader>dn',
-'<cmd>lua vim.lsp.diagnostic.goto_next()<CR>',
+'<cmd>lua vim.diagnostic.goto_next()<CR>',
 { noremap = true, silent = true })
 
 vim.api.nvim_set_keymap('n', '<Leader>dN',
-'<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>',
+'<cmd>lua vim.diagnostic.goto_prev()<CR>',
 { noremap = true, silent = true })
 
 vim.api.nvim_set_keymap('n', 'K',
