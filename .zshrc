@@ -2,7 +2,6 @@
 ###################### Plugins ############################
 ###########################################################
 
-. ~/.zsh/plugin/zsh-async/async.zsh
 . ~/.zsh/plugin/zsh-autosuggestions/zsh-autosuggestions.zsh
 . ~/.zsh/plugin/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
@@ -17,6 +16,8 @@ fpath=(
 )
 
 setopt AUTO_CD
+setopt CD_SILENT
+setopt PUSHD_SILENT
 setopt SHARE_HISTORY
 
 ###########################################################
@@ -197,14 +198,36 @@ color "$@"
 ####################### Prompt ############################
 ###########################################################
 
+{
+
+setopt PROMPT_SUBST
+setopt EXTENDED_GLOB
+
+autoload -Uz add-zsh-hook
+
+local LVL
+if [ -n "$TMUX" ]; then
+	LVL=$((SHLVL-1))
+else
+	LVL=$SHLVL
+fi
+
+local SUFFIX
+if [ "$(id -u)" -eq 0 ]; then
+	SUFFIX="%F{yellow}%n%f$(printf '%%F{yellow}❯%.0s%%f' {1..$LVL})"
+else
+	SUFFIX=$(printf '%%F{red}❯%.0s%%f' {1..$LVL})
+fi
+
+export PS1="%F{blue}%B%1~%b%F{yellow}%B%(1j.*.)%(?..!)%b%f %B${SUFFIX}%b "
+
 prompt_window_title_setup() {
 	local CMD="${1:gs/$/\\$}"
 	print -Pn "\033]0;$CMD:q\a"
 }
 
+add-zsh-hook preexec prompt_preexec
 prompt_preexec() {
-	setopt EXTENDED_GLOB
-
 	typeset -Fg SECONDS
 	ZSH_START_TIME=${ZSH_START_TIME:-$SECONDS}
 
@@ -221,9 +244,8 @@ prompt_preexec() {
 	fi
 }
 
+add-zsh-hook precmd prompt_precmd
 prompt_precmd() {
-	local RPROMPT_BASE="\${vcs_info_msg_0_}%F{blue}%~%f"
-
 	if [ "$ZSH_START_TIME" ]; then
 		local DELTA=$((SECONDS - ZSH_START_TIME))
 		local DAYS=$((~~(DELTA / 86400)))
@@ -246,11 +268,12 @@ prompt_precmd() {
 
 		ELAPSED="${ELAPSED}${SECS}"
 
-		export RPROMPT="%F{cyan}%{$(printf '\033[3m')%}${ELAPSED}%f%{$(printf '\033[0m')%} $RPROMPT_BASE"
+		export RPS1="%F{cyan}%{$(printf '\033[3m')%}${ELAPSED}%f%{$(printf '\033[0m')%} "
+		export RPS3="%F{blue}%~%f"
 
 		unset ZSH_START_TIME
 	else
-		export RPROMPT="$RPROMPT_BASE"
+		export RPS3="%F{blue}%~%f"
 	fi
 
 	if [ "$HISTCMD_LOCAL" -eq 0 ]; then
@@ -263,97 +286,63 @@ prompt_precmd() {
 			prompt_window_title_setup "$(basename "$PWD") > $LAST"
 		fi
 	fi
+
 }
 
-prompt_vcs_info() {
-	zstyle ":vcs_info:*" enable git
-	zstyle ":vcs_info:*" check-for-changes true
-	zstyle ":vcs_info:*" stagedstr "%F{green}●%f"
-	zstyle ":vcs_info:*" unstagedstr "%F{red}●%f"
-	zstyle ":vcs_info:*" use-simple true
-	zstyle ":vcs_info:git+set-message:*" hooks git-untracked
-	zstyle ":vcs_info:git*:*" formats "[%b%m%c%u] "
-	zstyle ":vcs_info:git*:*" actionformats "[%b|%a%m%c%u] "
+add-zsh-hook chpwd prompt_chpwd
+prompt_chpwd() {
+	zle && zle -I
+	RPS2=
+	zle && [[ $CONTEXT == start ]] && prompt_async
+	true
+}
 
-	+vi-git-untracked() {
-		[ -n "$(git ls-files --exclude-standard --others 2>/dev/null)" ] && \
-			hook_com[unstaged]+="%F{blue}●%f"
+add-zsh-hook precmd prompt_async_precmd
+prompt_async_precmd() {
+	local fd=
+	exec {fd}< <( prompt_git_info )
+	zle -Fw "$fd" prompt_async_callback
+	true
+}
+
+prompt_git_info() {
+	local REPLY=
+	{
+		local is_gitdir=false is_modified=false has_unstaged=false has_untracked=false
+
+		[ -n "$(git rev-parse --is-inside-work-tree 2>/dev/null)" ] && is_gitdir=true
+		[ -n "$(git diff 2>/dev/null)" ] && is_modified=true
+		[ -n "$(git diff --cached 2>/dev/null)" ] && has_staged=true
+		[ -n "$(git ls-files --others 2>/dev/null)" ] && has_untracked=true
+
+		if $is_gitdir; then
+			REPLY="[$(git branch --show-current 2>/dev/null)"
+
+			[ "$has_staged" = true ] && REPLY="$REPLY%F{green}●%f"
+			[ "$is_modified" = true ] && REPLY="$REPLY%F{red}●%f"
+			[ "$has_untracked" = true ] && REPLY="$REPLY%F{blue}●%f"
+
+			REPLY="$REPLY] "
+		fi
+	} always {
+		print -r -- "$RPS1$REPLY$RPS3"
 	}
-
-	vcs_info
 }
 
-prompt_async_renice() {
-	[ "$(command -v renice)" ] && renice +19 -p $$
-
-	[ "$(command -v ionice)" ] && ionice -c 3 -n 7 -p $$
-}
-
-prompt_async_init() {
-	typeset -g prompt_async_init
-	(( ${prompt_async_init:-0} )) && return 0
-	prompt_async_init=1
-
-	async_start_worker prompt_async -u -n
-	async_register_callback prompt_async prompt_async_callback
-	async_worker_eval prompt_async prompt_async_renice
-}
-
-prompt_async_tasks() {
-	prompt_async_init
-	async_worker_eval prompt_async builtin cd -- "$PWD"
-	async_job prompt_async prompt_vcs_info
-}
-
+zle -N prompt_async_callback
 prompt_async_callback() {
-	local job="$1"
-	local error="$2"
-
-	case "$job" in
-	\[async])
-		(( error == 2 )) || (( error == 3 )) || (( error == 130 )) && {
-			typeset -g prompt_async_init=0
-			async_stop_worker prompt_async
-			prompt_async_init
-			prompt_async_tasks
-		}
-		;;
-	\[async/eval])
-		(( error )) && prompt_async_tasks
-		;;
-	prompt_vcs_info)
-		prompt_vcs_info
+	local fd=$1 REPLY
+	{
+		zle -F "$fd"
+		read -ru $fd
+		[[ $RPS1 == $REPLY ]] && return
+		RPS1=$REPLY
+		zle && [[ $CONTEXT == start ]] &&
 		zle .reset-prompt
-		;;
-	esac
+	} always {
+		exec {fd}<&-
+	}
 }
-
-{
-
-setopt PROMPT_SUBST
-
-autoload -Uz add-zsh-hook
-autoload -Uz vcs_info
-
-local LVL
-if [ -n "$TMUX" ]; then
-	LVL=$((SHLVL-1))
-else
-	LVL=$SHLVL
-fi
-
-local SUFFIX
-if [ "$(id -u)" -eq 0 ]; then
-	SUFFIX="%F{yellow}%n%f$(printf '%%F{yellow}❯%.0s%%f' {1..$LVL})"
-else
-	SUFFIX=$(printf '%%F{red}❯%.0s%%f' {1..$LVL})
-fi
-
-export PS1="%F{blue}%B%1~%b%F{yellow}%B%(1j.*.)%(?..!)%b%f %B${SUFFIX}%b "
-
-add-zsh-hook precmd prompt_async_tasks
-add-zsh-hook precmd prompt_precmd
-add-zsh-hook preexec prompt_preexec
 
 } &>/dev/null
 
