@@ -1,3 +1,6 @@
+[submodule "artifacts"]
+	path = nvim/pack/bundle/opt/artifacts
+	url = https://github.com/ms-jpq/coq.artifacts
 [submodule "coq"]
 	path = nvim/pack/bundle/opt/coq
 	url = https://github.com/ms-jpq/coq_nvim

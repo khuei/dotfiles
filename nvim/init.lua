@@ -1,12 +1,4 @@
 -----------------------------------------------------------
---------------------- Plugins -----------------------------
------------------------------------------------------------
-
-vim.cmd([[packadd coq]])
-vim.cmd([[packadd lspconfig]])
-vim.cmd([[packadd treesitter]])
-
------------------------------------------------------------
 --------------------- Options -----------------------------
 -----------------------------------------------------------
 
@@ -339,14 +331,16 @@ vim.g.coq_settings = {
 			mode = "none",
 		}
 	},
-	keymap = {
-		jump_to_mark = "<C-p>",
-	}
 }
+
+vim.cmd([[packadd coq]])
+vim.cmd([[packadd artifacts]])
 
 -----------------------------------------------------------
 ------------------- Treesitter ----------------------------
 -----------------------------------------------------------
+
+vim.cmd([[packadd treesitter]])
 
 require('nvim-treesitter.configs').setup {
 	highlight = {
@@ -358,16 +352,24 @@ require('nvim-treesitter.configs').setup {
 ------------------- Language Servers ----------------------
 -----------------------------------------------------------
 
+vim.cmd([[packadd lspconfig]])
+
 if vim.fn.executable('bash-language-server') == 1 then
-	require('lspconfig').bashls.setup({})
+	require('lspconfig').bashls.setup({
+		require('coq').lsp_ensure_capabilities({})
+	})
 end
 
 if vim.fn.executable('clangd') == 1 then
-	require('lspconfig').clangd.setup({})
+	require('lspconfig').clangd.setup({
+		require('coq').lsp_ensure_capabilities({})
+	})
 end
 
 if vim.fn.executable('gopls') == 1 then
-	require('lspconfig').gopls.setup({})
+	require('lspconfig').gopls.setup({
+		require('coq').lsp_ensure_capabilities({})
+	})
 end
 
 local runtime_path = vim.split(package.path, ';')
@@ -393,19 +395,28 @@ if vim.fn.executable('lua-language-server') == 1 then
 				},
 			},
 		},
+		require('coq').lsp_ensure_capabilities({})
 	})
 end
 
 if vim.fn.executable('pyright-langserver') then
-	require('lspconfig').pyright.setup({})
+	require('lspconfig').pyright.setup({
+		require('coq').lsp_ensure_capabilities({})
+	})
 elseif vim.fn.executable('pyls') == 1 then
-	require('lspconfig').pyls.setup({})
+	require('lspconfig').pyls.setup({
+		require('coq').lsp_ensure_capabilities({})
+	})
 end
 
 if vim.fn.executable('rust-analyzer') == 1 then
-	require('lspconfig').rust_analyzer.setup({})
+	require('lspconfig').rust_analyzer.setup({
+		require('coq').lsp_ensure_capabilities({})
+	})
 elseif vim.fn.executable('rls') == 1 then
-	require('lspconfig').rls.setup({})
+	require('lspconfig').rls.setup({
+		require('coq').lsp_ensure_capabilities({})
+	})
 end
 
 vim.api.nvim_set_keymap('n', '<Leader>ds',
