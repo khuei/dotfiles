@@ -331,6 +331,9 @@ vim.g.coq_settings = {
 			mode = "none",
 		}
 	},
+	keymap = {
+		jump_to_mark = "<C-m>",
+	}
 }
 
 vim.cmd([[packadd coq]])
