@@ -316,7 +316,7 @@ prompt_git_info() {
 			[ -n "$(git ls-files --exclude-standard --others 2>/dev/null)" ] && 
 				has_untracked=true
 
-			REPLY="[$(git branch --show-current 2>/dev/null)"
+			REPLY="[$(git branch | sed -n '/\* /s///p' 2>/dev/null)"
 
 			[ "$has_staged" = true ] && REPLY="$REPLY%F{green}●%f"
 			[ "$is_modified" = true ] && REPLY="$REPLY%F{red}●%f"
