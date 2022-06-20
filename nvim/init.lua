@@ -332,7 +332,8 @@ vim.g.coq_settings = {
 		}
 	},
 	keymap = {
-		jump_to_mark = "<C-m>",
+		recommended = true,
+		jump_to_mark = "<C-e><CR>",
 	}
 }
 
