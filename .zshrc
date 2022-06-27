@@ -24,8 +24,6 @@ setopt SHARE_HISTORY
 ###################### Bindings ###########################
 ###########################################################
 
-{
-
 bindkey -v
 
 [ "$(tput cbt)" ] && bindkey "$(tput cbt)" reverse-menu-complete
@@ -49,7 +47,7 @@ zle -N zle-keymap-select
 
 fg-bg() {
 	if [ "$#BUFFER" -eq 0 ]; then
-		BUFFER=fg
+		BUFFER="fg >/dev/null"
 		zle accept-line -w
 	else
 		zle push-input -w
@@ -59,13 +57,9 @@ fg-bg() {
 zle -N fg-bg
 bindkey '^Z' fg-bg
 
-} &>/dev/null
-
 ###########################################################
 #################### Completions ##########################
 ###########################################################
-
-{
 
 autoload -Uz compinit
 [ -s ~/.zcompdump ] || {
@@ -86,8 +80,6 @@ zstyle ':completion:*' matcher-list \
 zstyle ':completion:*' list-colors "$LS_COLORS"
 zstyle ':completion:*' group-name ''
 zstyle ':completion:*:descriptions' format %F{default}%B--- %d ---%b%f
-
-} &>/dev/null
 
 ###########################################################
 #################### Colorscheme ##########################
@@ -197,8 +189,6 @@ color "$@"
 ###########################################################
 ####################### Prompt ############################
 ###########################################################
-
-{
 
 setopt PROMPT_SUBST
 setopt EXTENDED_GLOB
@@ -344,13 +334,9 @@ prompt_async_callback() {
 }
 zle -N prompt_async_callback
 
-} &>/dev/null
-
 ###########################################################
 ####################### Aliases ###########################
 ###########################################################
-
-{
 
 [ "$(command -v brightnessctl)" ] && alias bl=brightnessctl
 
@@ -393,13 +379,9 @@ zle -N prompt_async_callback
 
 [ -n "$PAGER" ] && alias p="$PAGER"
 
-} &>/dev/null
-
 ###########################################################
 ##################### Wrappers ############################
 ###########################################################
-
-{
 
 [ "$(command -v tmux)" ] && {
 	tmux() {
@@ -433,7 +415,5 @@ zle -N prompt_async_callback
 		command xinit "$1" -- "$vt"
 	}
 }
-
-} &>/dev/null
 
 true
