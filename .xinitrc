@@ -1,6 +1,8 @@
 #!/bin/sh
 
 {
+	[ "$(command -v picom)" ] && picom -b
+
 	[ "$(command -v unclutter)" ] && unclutter -idle 1 &
 
 	[ "$(command -v nm-applet)" ] && {
