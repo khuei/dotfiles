@@ -338,81 +338,55 @@ zle -N prompt_async_callback
 ####################### Aliases ###########################
 ###########################################################
 
-[ "$(command -v brightnessctl)" ] && alias bl=brightnessctl
-
-[ "$(command -v color)" ] && alias c=color
-
-[ "$(command -v git)" ] && {
-	alias g=git
-	alias groot="cd -- \$(git rev-parse --show-toplevel 2>/dev/null)"
-}
-
-[ "$(command -v ls)" ] && {
-	alias ls='ls --color'
-	alias l='ls -AFh'
-	alias ll='ls -AlFh'
-}
-
-[ "$(command -v ncmpcpp)" ] && [ "$(command -v mpd)" ] && \
-	alias n="[ -z \"\$(ps -opid= -C mpd)\" ] && mpd &! ncmpcpp 2>/dev/null"
-
-[ "$(command -v ssh)" ] && alias s=ssh
-
-[ "$(command -v systemctl)" ] && {
-	alias sc='systemctl'
-	alias scu='systemctl --user'
-	alias scdr='systemctl daemon-reload'
-	alias scdru='systemctl --user daemon-reload'
-	alias scr='systemctl restart'
-	alias scru='systemctl --user restart'
-	alias sce='systemctl stop'
-	alias sceu='systemctl --user stop'
-	alias scs='systemctl start'
-	alias scsu='systemctl --user start'
-}
-
-[ "$(command -v tmux)" ] && alias t=tmux
-
-[ "$(command -v vifm)" ] && alias f=vifm
-
-[ -n "$EDITOR" ] && alias v="${EDITOR:=vi}"
-
-[ -n "$PAGER" ] && alias p="$PAGER"
+alias bl=brightnessctl
+alias c=color
+alias g=git
+alias groot="cd -- \$(git rev-parse --show-toplevel 2>/dev/null)"
+alias ls='ls --color'
+alias l='ls -AFh'
+alias ll='ls -AlFh'
+alias n="[ -z \"\$(ps -opid= -C mpd)\" ] && mpd &! ncmpcpp 2>/dev/null"
+alias s=ssh
+alias sc='systemctl'
+alias scu='systemctl --user'
+alias scdr='systemctl daemon-reload'
+alias scdru='systemctl --user daemon-reload'
+alias scr='systemctl restart'
+alias scru='systemctl --user restart'
+alias sce='systemctl stop'
+alias sceu='systemctl --user stop'
+alias scs='systemctl start'
+alias scsu='systemctl --user start'
+alias t=tmux
+alias f=vifm
+alias v=$EDITOR
+alias p=$PAGER
 
 ###########################################################
 ##################### Wrappers ############################
 ###########################################################
 
-[ "$(command -v tmux)" ] && {
-	tmux() {
-		SOCK_SYMLINK=~/.ssh/ssh_auth_sock
-		[ -r "$SSH_AUTH_SOCK" ] && [ ! -L "$SSH_AUTH_SOCK" ] && \
-			ln -sf "$SSH_AUTH_SOCK" "$SOCK_SYMLINK"
-
-		[ -n "$*" ] && {
-			env SSH_AUTH_SOCK="$SOCK_SYMLINK" tmux "$@"
-			return 0
-		}
-
-		env SSH_AUTH_SOCK="$SOCK_SYMLINK" tmux new -A -s "$(basename "${PWD//[\.]/_}")"
+tmux() {
+	SOCK_SYMLINK=~/.ssh/ssh_auth_sock
+	[ -r "$SSH_AUTH_SOCK" ] && [ ! -L "$SSH_AUTH_SOCK" ] && {
+		ln -sf "$SSH_AUTH_SOCK" "$SOCK_SYMLINK"
 	}
+
+	[ -n "$*" ] && {
+		env SSH_AUTH_SOCK="$SOCK_SYMLINK" tmux "$@"
+		return 0
+	}
+
+	env SSH_AUTH_SOCK="$SOCK_SYMLINK" tmux new -A -s "$(basename "${PWD//[\.]/_}")"
 }
 
-[ "$(command -v vifm)" ] && [ "$(command -v ueberzug)" ] && {
-	vifm() {
-		export UEBERZUG_FIFO="/tmp/vifm-ueberzug-$$" || return 1
-		mkfifo "$UEBERZUG_FIFO"
-		trap 'rm $UEBERZUG_FIFO 2>/dev/null && unset UEBERZUG_FIFO;
-		      pkill -P $$ 2>/dev/null' EXIT
-		tail -f "$UEBERZUG_FIFO" | ueberzug layer --silent --parser simple --loader thread &! \
+vifm() {
+	export UEBERZUG_FIFO="/tmp/vifm-ueberzug-$$" || return 1
+	mkfifo "$UEBERZUG_FIFO"
+	trap 'rm $UEBERZUG_FIFO 2>/dev/null && unset UEBERZUG_FIFO;
+	      pkill -P $$ 2>/dev/null' EXIT
+	tail -f "$UEBERZUG_FIFO" | ueberzug layer --silent --parser simple --loader thread &! \
 		command vifm "$@"
-	}
-}
-
-[ "$(command -v xinit)" ] && [ "$TERM" = "linux" ] && {
-	xinit() {
-		vt=$(tty | sed "s/\/dev\/tty/vt/")
-		command xinit "$1" -- "$vt"
 	}
 }
 
