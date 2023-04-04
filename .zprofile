@@ -16,6 +16,13 @@ PATH=$PATH:/home/khue/.spicetify
 [ -d ~/.local/bin ] && PATH=$PATH:~/.local/bin
 [ -d ~/bin ] && PATH=$PATH:~/bin
 
+if [ "${LOGNAME}" ]; then
+	export XDG_CACHE_HOME="/tmp/${LOGNAME}/.cache"
+fi
+
+unset XDG_RUNTIME_DIR
+export XDG_RUNTIME_DIR="/run/user/$(id -u)"
+
 export XDG_CONFIG_HOME=~
 
 if [ "$(command -v nvim)" ]; then
@@ -75,3 +82,8 @@ done
 unfunction zcompare
 
 } >/dev/null &! exec zsh
+
+
+# Added by Toolbox App
+export PATH="$PATH:/home/khue/.local/share/JetBrains/Toolbox/scripts"
+
