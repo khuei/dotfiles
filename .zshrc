@@ -390,4 +390,9 @@ vifm() {
 	}
 }
 
+xinit() {
+	vt=${$(tty)/\/dev\/tty/vt}
+	command xinit "$1" -- "$vt"
+}
+
 true
