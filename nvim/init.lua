@@ -376,6 +376,12 @@ if vim.fn.executable('gopls') == 1 then
 	})
 end
 
+if vim.fn.executable('tsserver') == 1 then
+	require('lspconfig').tsserver.setup({
+		require('coq').lsp_ensure_capabilities({})
+	})
+end
+
 local runtime_path = vim.split(package.path, ';')
 table.insert(runtime_path, "lua/?.lua")
 table.insert(runtime_path, "lua/?/init.lua")
