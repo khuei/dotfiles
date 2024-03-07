@@ -303,6 +303,19 @@ vim.api.nvim_set_keymap('t', '<C-k>', [[<C-\><C-n><C-w>k]], { noremap = true })
 vim.api.nvim_set_keymap('t', '<C-l>', [[<C-\><C-n><C-w>l]], { noremap = true })
 
 -----------------------------------------------------------
+-------------------- Command-T ----------------------------
+-----------------------------------------------------------
+
+vim.g.CommandTPreferredImplementation = 'ruby'
+vim.g.CommandTMaxFiles = 200000
+
+vim.cmd([[packadd command-t]])
+
+vim.keymap.set('n', '<Leader>b', '<Plug>(CommandTBuffer)')
+vim.keymap.set('n', '<Leader>j', '<Plug>(CommandTJump)')
+vim.keymap.set('n', '<Leader>t', '<Plug>(CommandT)')
+
+-----------------------------------------------------------
 ------------------------ COQ ------------------------------
 -----------------------------------------------------------
 
@@ -409,7 +422,7 @@ if vim.fn.executable('lua-language-server') == 1 then
 	})
 end
 
-if vim.fn.executable('pyright-langserver') then
+if vim.fn.executable('pyright-langserver') == 1 then
 	require('lspconfig').pyright.setup({
 		require('coq').lsp_ensure_capabilities({})
 	})

@@ -16,3 +16,6 @@
 [submodule "zsh-syntax-highlighting"]
 	path = .zsh/plugin/zsh-syntax-highlighting
 	url = https://github.com/zsh-users/zsh-syntax-highlighting.git
+[submodule "nvim/pack/bundle/opt/command-t"]
+	path = nvim/pack/bundle/opt/command-t
+	url = https://github.com/wincent/command-t
