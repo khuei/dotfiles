@@ -10,6 +10,7 @@ PATH=$PATH:/usr/sbin
 PATH=$PATH:/usr/local/bin
 PATH=$PATH:/usr/local/sbin
 
+PATH=$PATH:/home/khue/.local/bin
 PATH=$PATH:/home/khue/.spicetify
 
 [ -d ~/.cargo/bin ] && PATH=$PATH:~/.cargo/bin
@@ -32,8 +33,8 @@ elif [ "$(command -v vim)" ]; then
 fi
 
 if [ "$(command -v less)" ]; then
-	export MANPAGER=less
-	export PAGER=less
+	export MANPAGER="less -R"
+	export PAGER="less -R"
 elif [ "$(command -v more)" ]; then
 	export MANPAGER=more
 	export PAGER=more
