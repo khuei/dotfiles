@@ -379,20 +379,3 @@ tmux() {
 
 	env SSH_AUTH_SOCK="$SOCK_SYMLINK" tmux new -A -s "$(basename "${PWD//[\.]/_}")"
 }
-
-vifm() {
-	export UEBERZUG_FIFO="/tmp/vifm-ueberzug-$$" || return 1
-	mkfifo "$UEBERZUG_FIFO"
-	trap 'rm $UEBERZUG_FIFO 2>/dev/null && unset UEBERZUG_FIFO;
-	      pkill -P $$ 2>/dev/null' EXIT
-	tail -f "$UEBERZUG_FIFO" | ueberzug layer --silent --parser simple --loader thread &! \
-		command vifm "$@"
-	}
-}
-
-xinit() {
-	vt=${$(tty)/\/dev\/tty/vt}
-	command xinit "$1" -- "$vt"
-}
-
-true
