@@ -42,25 +42,10 @@ fileview ../ echo >/dev/null
 fileviewer */ ls --color --group-directories-first
 fileviewer .*/ ls --color --group-directories-first
 
-fileviewer <image/*>
-			\ vifmimg draw %px %py %pw %ph %c
-			\ %pc
-			\ vifmimg clear
-
-fileviewer <video/*>
-			\ vifmimg video %px %py %pw %ph %c
-			\ %pc
-			\ vifmimg clear
-
-fileviewer <audio/*>
-			\ vifmimg audio %px %py %pw %ph %c
-			\ %pc
-			\ vifmimg clear
-
-fileviewer <font/*>
-			\ vifmimg font %px %py %pw %ph %c
-			\ %pc
-			\ vifmimg clear
+fileviewer {*.jpg,*.jpeg,*.png,*.gif,*nef}
+    \ kitten icat --silent --transfer-mode=file --place=%pwx%ph@%pxx%py %c >/dev/tty </dev/tty %N
+    \ %pc
+    \ kitten icat --clear --silent >/dev/tty </dev/tty %N
 
 filetype <audio/*> mpv --no-video
 filetype <video/*> mpv
