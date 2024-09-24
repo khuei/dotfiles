@@ -2,6 +2,8 @@
 
 > Stay in \*nixland, and I'll show you how deep the rabbit hole goes
 
+<img src="./home.png">
+
 ## Installation
 
 run the following command to run install script:
