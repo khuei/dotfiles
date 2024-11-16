@@ -6,6 +6,6 @@ git submodule update --remote --merge
 
 for config in '.gitconfig' '.mpd' '.ncmpcpp' '.tmux.conf' \
               'user-dirs.conf' 'user-dirs.dirs' '.xinitrc' \
-              '.zprofile' '.zsh' '.zshrc' 'nvim' 'vifm'; do
+              '.zprofile' '.zsh' '.zshrc' 'kitty' 'nvim' 'vifm'; do
 	cp -rv "$(dirname "$0")/$config" "$HOME"
 done
