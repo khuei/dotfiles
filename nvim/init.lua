@@ -392,7 +392,7 @@ if vim.fn.executable('gopls') == 1 then
 end
 
 if vim.fn.executable('tsserver') == 1 then
-	require('lspconfig').tsserver.setup({
+	require('lspconfig').ts_ls.setup({
 		require('coq').lsp_ensure_capabilities({})
 	})
 end
@@ -402,7 +402,7 @@ table.insert(runtime_path, "lua/?.lua")
 table.insert(runtime_path, "lua/?/init.lua")
 
 if vim.fn.executable('lua-language-server') == 1 then
-	require('lspconfig').sumneko_lua.setup({
+	require('lspconfig').lua_ls.setup({
 		settings = {
 			Lua = {
 				runtime = {
