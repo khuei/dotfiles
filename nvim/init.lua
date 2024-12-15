@@ -6,53 +6,37 @@ vim.loader.enable()
 
 vim.cmd([[filetype plugin indent on]])
 
-vim.api.nvim_set_option('mouse', 'a')
-
-vim.api.nvim_set_option('autoread', true)
-
-vim.api.nvim_set_option('hidden', true)
-
-vim.api.nvim_set_option('history', 10000)
-
-vim.api.nvim_set_option('tabpagemax', 50)
-
-vim.api.nvim_set_option('updatetime', 100)
-
-vim.api.nvim_set_option('ttimeout', true)
-vim.api.nvim_set_option('ttimeoutlen', 100)
-
-vim.api.nvim_set_option('scrolloff', 1)
-vim.api.nvim_set_option('sidescrolloff', 5)
-
-vim.api.nvim_buf_set_option(0, 'autoindent', true)
-vim.api.nvim_set_option('backspace', 'indent,start,eol')
-vim.api.nvim_set_option('smarttab', true)
-
-vim.api.nvim_buf_set_option(0, 'tabstop', 8)
-vim.api.nvim_buf_set_option(0, 'softtabstop', 8)
-vim.api.nvim_buf_set_option(0, 'shiftwidth', 8)
-vim.api.nvim_set_option('shiftround', true)
-vim.api.nvim_buf_set_option(0, 'expandtab', false)
-vim.api.nvim_buf_set_option(0, 'copyindent', true)
-vim.api.nvim_buf_set_option(0, 'preserveindent', true)
-
-vim.api.nvim_win_set_option(0, 'number', true)
-vim.api.nvim_win_set_option(0, 'relativenumber', true)
-
-vim.api.nvim_set_option('incsearch', true)
-
-vim.api.nvim_set_option('inccommand', 'split')
-
-vim.api.nvim_set_option('showcmd', false)
-
-vim.api.nvim_set_option('completeopt', 'menuone,noinsert,noselect')
-
-vim.api.nvim_set_option('wildmenu', true)
-
-vim.api.nvim_set_option('splitbelow', true)
-vim.api.nvim_set_option('splitright', true)
-
-vim.api.nvim_set_option('statusline', ' '
+vim.opt.mouse = 'a'
+vim.opt.autoread = true
+vim.opt.hidden = true
+vim.opt.history = 10000
+vim.opt.tabpagemax = 50
+vim.opt.updatetime = 100
+vim.opt.ttimeout = true
+vim.opt.ttimeoutlen = 100
+vim.opt.scrolloff = 1
+vim.opt.sidescrolloff = 5
+vim.opt_local.autoindent = true
+vim.opt.backspace = 'indent,start,eol'
+vim.opt.smarttab = true
+vim.opt_local.tabstop = 8
+vim.opt_local.softtabstop = 8
+vim.opt_local.shiftwidth = 8
+vim.opt.shiftround = true
+vim.opt_local.expandtab = false
+vim.opt_local.copyindent = true
+vim.opt_local.preserveindent = true
+vim.opt_local.number = true
+vim.opt_local.relativenumber = true
+vim.opt.incsearch = true
+vim.opt.inccommand = 'split'
+vim.opt.showcmd = false
+vim.opt.completeopt = 'menuone,noinsert,noselect'
+vim.opt.wildmenu = true
+vim.opt.splitbelow = true
+vim.opt.splitright = true
+vim.opt.statusline = (
+	' '
 	.. '%<'
 	.. '%F '
 	.. '%m'
@@ -64,9 +48,8 @@ vim.api.nvim_set_option('statusline', ' '
 	.. '%l/%L '
 	.. 'C: %c '
 )
-vim.api.nvim_set_option('laststatus', 3)
-vim.api.nvim_set_option('ruler', true)
-
+vim.opt.laststatus = 3
+vim.opt.ruler = true
 vim.opt.fillchars = {
 	stl = ' ',
 	stlnc = ' ',
@@ -81,21 +64,23 @@ vim.opt.fillchars = {
 	vertright = '┣',
 	verthoriz = '╋'
 }
-
-vim.api.nvim_win_set_option(0, 'foldmethod', 'indent')
-vim.api.nvim_set_option('foldlevelstart', 99)
+vim.opt_local.foldmethod = 'syntax'
+vim.opt.foldlevelstart = 99
 
 if os.getenv('TERM') == 'linux' then
-	vim.api.nvim_set_option('guicursor', '')
+	vim.opt.guicursor = ''
 end
 
-vim.api.nvim_set_option('termguicolors', true)
-
-vim.api.nvim_set_option('shortmess', 'AIOTacot')
-
-vim.api.nvim_win_set_option(0, 'list', true)
-vim.api.nvim_set_option('listchars',
-'extends:»,nbsp:ø,precedes:«,tab:▷┅,trail:•')
+vim.opt.termguicolors = true
+vim.opt.shortmess = 'AIOTacot'
+vim.opt_local.list = true
+vim.opt.listchars = (
+	'extends:»,'
+	.. 'nbsp:ø,'
+	.. 'precedes:«,'
+	.. 'tab:▷┅,'
+	.. 'trail:•'
+)
 
 -----------------------------------------------------------
 ------------------- Autocommands --------------------------
@@ -115,44 +100,44 @@ local highlight_autocmd = vim.api.nvim_create_augroup("Settings", { clear = true
 
 vim.api.nvim_create_autocmd({"BufEnter", "FocusGained"}, {
 	callback = function()
-		vim.api.nvim_win_set_option(0, 'winhighlight', '')
+		vim.opt_local.winhighlight = ''
 	end,
 	group = highlight_autocmd
 })
 
 vim.api.nvim_create_autocmd("FocusLost", {
 	callback = function()
-		vim.api.nvim_win_set_option(0, 'winhighlight', winhighlight_blurred)
+		vim.opt_local.winhighlight = winhighlight_blurred
 	end,
 	group = highlight_autocmd
 })
 
 vim.api.nvim_create_autocmd("InsertEnter", {
 	callback = function()
-		vim.api.nvim_win_set_option(0, 'cursorline', false)
+		vim.opt_local.cursorline = false
 	end,
 	group = highlight_autocmd
 })
 
 vim.api.nvim_create_autocmd("InsertLeave", {
 	callback = function()
-		vim.api.nvim_win_set_option(0, 'cursorline', true)
+		vim.opt_local.cursorline = true
 	end,
 	group = highlight_autocmd
 })
 
 vim.api.nvim_create_autocmd({"VimEnter", "WinEnter"}, {
 	callback = function()
-		vim.api.nvim_win_set_option(0, 'cursorline', true)
-		vim.api.nvim_win_set_option(0, 'winhighlight', '')
+		vim.opt_local.cursorline = true
+		vim.opt_local.winhighlight = ''
 	end,
 	group = highlight_autocmd
 })
 
 vim.api.nvim_create_autocmd("WinLeave", {
 	callback = function()
-		vim.api.nvim_win_set_option(0, 'cursorline', false)
-		vim.api.nvim_win_set_option(0, 'winhighlight', winhighlight_blurred)
+		vim.opt_local.cursorline = false
+		vim.opt_local.winhighlight = winhighlight_blurred
 	end,
 	group = highlight_autocmd
 })
@@ -173,7 +158,7 @@ vim.api.nvim_create_autocmd("ColorScheme", {
 		local conceal_term_fg
 		local conceal_gui_fg
 
-		if vim.api.nvim_get_option('background') == 'dark' then
+		if vim.opt.background:get() == 'dark' then
 			conceal_term_fg = 239
 			conceal_gui_fg = 'Grey30'
 		else
@@ -391,7 +376,7 @@ if vim.fn.executable('gopls') == 1 then
 	})
 end
 
-if vim.fn.executable('tsserver') == 1 then
+if vim.fn.executable('ts_ls') == 1 then
 	require('lspconfig').ts_ls.setup({
 		require('coq').lsp_ensure_capabilities({})
 	})
