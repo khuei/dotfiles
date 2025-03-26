@@ -7,36 +7,52 @@ vim.loader.enable()
 vim.cmd([[filetype plugin indent on]])
 
 vim.opt.mouse = 'a'
+
 vim.opt.autoread = true
+
 vim.opt.hidden = true
+
 vim.opt.history = 10000
+
 vim.opt.tabpagemax = 50
+
 vim.opt.updatetime = 100
+
 vim.opt.ttimeout = true
 vim.opt.ttimeoutlen = 100
+
 vim.opt.scrolloff = 1
 vim.opt.sidescrolloff = 5
-vim.opt_local.autoindent = true
-vim.opt.backspace = 'indent,start,eol'
+
+vim.bo.autoindent = true
+vim.opt.backspace = { 'indent', 'start', 'eol' }
 vim.opt.smarttab = true
-vim.opt_local.tabstop = 8
-vim.opt_local.softtabstop = 8
-vim.opt_local.shiftwidth = 8
+
+vim.bo.tabstop = 8
+vim.bo.softtabstop = 8
+vim.bo.shiftwidth = 8
 vim.opt.shiftround = true
-vim.opt_local.expandtab = false
-vim.opt_local.copyindent = true
-vim.opt_local.preserveindent = true
-vim.opt_local.number = true
-vim.opt_local.relativenumber = true
+vim.bo.expandtab = false
+vim.bo.copyindent = true
+vim.bo.preserveindent = true
+
+vim.wo.number = true
+vim.wo.relativenumber = true
+
 vim.opt.incsearch = true
+
 vim.opt.inccommand = 'split'
+
 vim.opt.showcmd = false
-vim.opt.completeopt = 'menuone,noinsert,noselect'
+
+vim.opt.completeopt = { 'menuone', 'noinsert', 'noselect' }
+
 vim.opt.wildmenu = true
+
 vim.opt.splitbelow = true
 vim.opt.splitright = true
-vim.opt.statusline = (
-	' '
+
+vim.opt.statusline = ' '
 	.. '%<'
 	.. '%F '
 	.. '%m'
@@ -47,9 +63,10 @@ vim.opt.statusline = (
 	.. 'L: '
 	.. '%l/%L '
 	.. 'C: %c '
-)
+
 vim.opt.laststatus = 3
 vim.opt.ruler = true
+
 vim.opt.fillchars = {
 	stl = ' ',
 	stlnc = ' ',
@@ -64,7 +81,8 @@ vim.opt.fillchars = {
 	vertright = '┣',
 	verthoriz = '╋'
 }
-vim.opt_local.foldmethod = 'syntax'
+
+vim.wo.foldmethod = 'indent'
 vim.opt.foldlevelstart = 99
 
 if os.getenv('TERM') == 'linux' then
@@ -72,15 +90,17 @@ if os.getenv('TERM') == 'linux' then
 end
 
 vim.opt.termguicolors = true
+
 vim.opt.shortmess = 'AIOTacot'
-vim.opt_local.list = true
-vim.opt.listchars = (
-	'extends:»,'
-	.. 'nbsp:ø,'
-	.. 'precedes:«,'
-	.. 'tab:▷┅,'
-	.. 'trail:•'
-)
+
+vim.wo.list = true
+vim.opt.listchars = {
+	extends = '»',
+	nbsp = 'ø',
+	precedes = '«',
+	tab = '▷┅',
+	trail = '•'
+}
 
 -----------------------------------------------------------
 ------------------- Autocommands --------------------------
@@ -89,55 +109,47 @@ vim.opt.listchars = (
 local winhighlight_blurred = table.concat({
 	'CursorLineNr:LineNr',
 	'StatusLine:LineNr',
-	'EndOfBuffer:ColorColumn',
-	'IncSearch:ColorColumn',
-	'Normal:ColorColumn',
-	'NormalNC:ColorColumn',
-	'SignColumn:ColorColumn'
+	'EndOfBuffer:SpecialKey',
+	'IncSearch:SpecialKey',
+	'Normal:SpecialKey',
+	'NormalNC:SpecialKey',
+	'SignColumn:SpecialKey',
+	'WinSeparator:ColorColumn',
+	'VertSplit:ColorColumn'
 }, ',')
 
 local highlight_autocmd = vim.api.nvim_create_augroup("Settings", { clear = true })
 
-vim.api.nvim_create_autocmd({"BufEnter", "FocusGained"}, {
+vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter", "FocusGained", "VimEnter", "WinEnter" }, {
 	callback = function()
-		vim.opt_local.winhighlight = ''
+		vim.wo.cursorline = true
+		vim.wo.winhighlight = ''
+		vim.cmd("syntax enable")
+		vim.cmd("TSBufToggle highlight")
 	end,
 	group = highlight_autocmd
 })
 
-vim.api.nvim_create_autocmd("FocusLost", {
+vim.api.nvim_create_autocmd({"BufLeave", "FocusLost", "WinLeave"}, {
 	callback = function()
-		vim.opt_local.winhighlight = winhighlight_blurred
+		vim.wo.cursorline = false
+		vim.wo.winhighlight = winhighlight_blurred
+		vim.cmd("ownsyntax off")
+		vim.cmd("TSBufToggle highlight")
 	end,
 	group = highlight_autocmd
 })
 
 vim.api.nvim_create_autocmd("InsertEnter", {
 	callback = function()
-		vim.opt_local.cursorline = false
+		vim.wo.cursorline = false
 	end,
 	group = highlight_autocmd
 })
 
 vim.api.nvim_create_autocmd("InsertLeave", {
 	callback = function()
-		vim.opt_local.cursorline = true
-	end,
-	group = highlight_autocmd
-})
-
-vim.api.nvim_create_autocmd({"VimEnter", "WinEnter"}, {
-	callback = function()
-		vim.opt_local.cursorline = true
-		vim.opt_local.winhighlight = ''
-	end,
-	group = highlight_autocmd
-})
-
-vim.api.nvim_create_autocmd("WinLeave", {
-	callback = function()
-		vim.opt_local.cursorline = false
-		vim.opt_local.winhighlight = winhighlight_blurred
+		vim.wo.cursorline = true
 	end,
 	group = highlight_autocmd
 })
@@ -347,6 +359,11 @@ vim.cmd([[packadd artifacts]])
 vim.cmd([[packadd treesitter]])
 
 require('nvim-treesitter.configs').setup {
+	ensure_installed = {},
+	ignore_install = {},
+	sync_install = false,
+	auto_install = true,
+	modules = {},
 	highlight = {
 		enable = true
 	},
@@ -358,27 +375,30 @@ require('nvim-treesitter.configs').setup {
 
 vim.cmd([[packadd lspconfig]])
 
+local lspconfig = require('lspconfig')
+local coq = require('coq')
+
 if vim.fn.executable('bash-language-server') == 1 then
-	require('lspconfig').bashls.setup({
-		require('coq').lsp_ensure_capabilities({})
+	lspconfig.bashls.setup({
+		coq.lsp_ensure_capabilities({})
 	})
 end
 
 if vim.fn.executable('clangd') == 1 then
-	require('lspconfig').clangd.setup({
-		require('coq').lsp_ensure_capabilities({})
+	lspconfig.clangd.setup({
+		coq.lsp_ensure_capabilities({})
 	})
 end
 
 if vim.fn.executable('gopls') == 1 then
-	require('lspconfig').gopls.setup({
-		require('coq').lsp_ensure_capabilities({})
+	lspconfig.gopls.setup({
+		coq.lsp_ensure_capabilities({})
 	})
 end
 
 if vim.fn.executable('ts_ls') == 1 then
-	require('lspconfig').ts_ls.setup({
-		require('coq').lsp_ensure_capabilities({})
+	lspconfig.ts_ls.setup({
+		coq.lsp_ensure_capabilities({})
 	})
 end
 
@@ -387,7 +407,7 @@ table.insert(runtime_path, "lua/?.lua")
 table.insert(runtime_path, "lua/?/init.lua")
 
 if vim.fn.executable('lua-language-server') == 1 then
-	require('lspconfig').lua_ls.setup({
+	lspconfig.lua_ls.setup({
 		settings = {
 			Lua = {
 				runtime = {
@@ -405,27 +425,33 @@ if vim.fn.executable('lua-language-server') == 1 then
 				},
 			},
 		},
-		require('coq').lsp_ensure_capabilities({})
+		coq.lsp_ensure_capabilities({})
 	})
 end
 
 if vim.fn.executable('pyright-langserver') == 1 then
-	require('lspconfig').pyright.setup({
-		require('coq').lsp_ensure_capabilities({})
+	lspconfig.pyright.setup({
+		coq.lsp_ensure_capabilities({})
 	})
 elseif vim.fn.executable('pyls') == 1 then
-	require('lspconfig').pyls.setup({
-		require('coq').lsp_ensure_capabilities({})
+	lspconfig.pyls.setup({
+		coq.lsp_ensure_capabilities({})
+	})
+end
+
+if vim.fn.executable('typescript-language-server') == 1 then
+	lspconfig.ts_ls.setup({
+		coq.lsp_ensure_capabilities({})
 	})
 end
 
 if vim.fn.executable('rust-analyzer') == 1 then
-	require('lspconfig').rust_analyzer.setup({
-		require('coq').lsp_ensure_capabilities({})
+	lspconfig.rust_analyzer.setup({
+		coq.lsp_ensure_capabilities({})
 	})
 elseif vim.fn.executable('rls') == 1 then
-	require('lspconfig').rls.setup({
-		require('coq').lsp_ensure_capabilities({})
+	lspconfig.rls.setup({
+		coq.lsp_ensure_capabilities({})
 	})
 end
 
