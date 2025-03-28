@@ -6,6 +6,9 @@ vim.loader.enable()
 
 vim.cmd([[filetype plugin indent on]])
 
+vim.cmd([[syntax on]])
+vim.opt.termguicolors = true
+
 vim.opt.mouse = 'a'
 
 vim.opt.autoread = true
@@ -89,8 +92,6 @@ if os.getenv('TERM') == 'linux' then
 	vim.opt.guicursor = ''
 end
 
-vim.opt.termguicolors = true
-
 vim.opt.shortmess = 'AIOTacot'
 
 vim.wo.list = true
@@ -109,13 +110,56 @@ vim.opt.listchars = {
 local winhighlight_blurred = table.concat({
 	'CursorLineNr:LineNr',
 	'StatusLine:LineNr',
-	'EndOfBuffer:SpecialKey',
-	'IncSearch:SpecialKey',
-	'Normal:SpecialKey',
-	'NormalNC:SpecialKey',
-	'SignColumn:SpecialKey',
+	'EndOfBuffer:ColorColumn',
+	'IncSearch:ColorColumn',
+	'Normal:SignColumn',
+	'NormalNC:SignColumn',
+	'Comment:SignColumn',
+	'Keyword:SignColumn',
+	'SignColumn:ColorColumn',
 	'WinSeparator:ColorColumn',
-	'VertSplit:ColorColumn'
+	'VertSplit:ColorColumn',
+	'Underlined:SignColumn',
+	'LspCodeLens:SignColumn',
+	'LspCodeLensSeparator:SignColumn',
+	'LspInlayHint:SignColumn',
+	'LspReferenceRead:SignColumn',
+	'LspReferenceText:SignColumn',
+	'LspReferenceWrite:SignColumn',
+	'LspReferenceTarget:SignColumn',
+	'LspSignatureActiveParameter:SignColumn',
+	'SnippetTabstop:SignColumn',
+	'DiagnosticFloatingError:SignColumn',
+	'DiagnosticError:SignColumn',
+	'DiagnosticFloatingWarn:SignColumn',
+	'DiagnosticWarn:SignColumn',
+	'DiagnosticFloatingInfo:SignColumn',
+	'DiagnosticInfo:SignColumn',
+	'DiagnosticFloatingHint:SignColumn',
+	'DiagnosticHint:SignColumn',
+	'DiagnosticFloatingOk:SignColumn',
+	'DiagnosticOk:SignColumn',
+	'DiagnosticVirtualTextError:SignColumn',
+	'DiagnosticVirtualTextWarn:SignColumn',
+	'DiagnosticVirtualTextInfo:SignColumn',
+	'DiagnosticVirtualTextHint:SignColumn',
+	'DiagnosticVirtualTextOk:SignColumn',
+	'DiagnosticVirtualLinesError:SignColumn',
+	'DiagnosticVirtualLinesWarn:SignColumn',
+	'DiagnosticVirtualLinesInfo:SignColumn',
+	'DiagnosticVirtualLinesHint:SignColumn',
+	'DiagnosticVirtualLinesOk:SignColumn',
+	'DiagnosticSignError:SignColumn',
+	'DiagnosticSignWarn:SignColumn',
+	'DiagnosticSignInfo:SignColumn',
+	'DiagnosticSignHint:SignColumn',
+	'DiagnosticSignOk:SignColumn',
+	'DiagnosticUnnecessary:SignColumn',
+	'DiagnosticUnderlineError:SignColumn',
+	'DiagnosticUnderlineWarn:SignColumn',
+	'DiagnosticUnderlineInfo:SignColumn',
+	'DiagnosticUnderlineHint:SignColumn',
+	'DiagnosticUnderlineOk:SignColumn',
 }, ',')
 
 local highlight_autocmd = vim.api.nvim_create_augroup("Settings", { clear = true })
@@ -124,8 +168,7 @@ vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter", "FocusGained", "VimEnte
 	callback = function()
 		vim.wo.cursorline = true
 		vim.wo.winhighlight = ''
-		vim.cmd("syntax enable")
-		vim.cmd("TSBufToggle highlight")
+		vim.cmd([[syntax on]])
 	end,
 	group = highlight_autocmd
 })
@@ -134,8 +177,7 @@ vim.api.nvim_create_autocmd({"BufLeave", "FocusLost", "WinLeave"}, {
 	callback = function()
 		vim.wo.cursorline = false
 		vim.wo.winhighlight = winhighlight_blurred
-		vim.cmd("ownsyntax off")
-		vim.cmd("TSBufToggle highlight")
+		vim.cmd([[ownsyntax off]])
 	end,
 	group = highlight_autocmd
 })
@@ -353,23 +395,6 @@ vim.cmd([[packadd coq]])
 vim.cmd([[packadd artifacts]])
 
 -----------------------------------------------------------
-------------------- Treesitter ----------------------------
------------------------------------------------------------
-
-vim.cmd([[packadd treesitter]])
-
-require('nvim-treesitter.configs').setup {
-	ensure_installed = {},
-	ignore_install = {},
-	sync_install = false,
-	auto_install = true,
-	modules = {},
-	highlight = {
-		enable = true
-	},
-}
-
------------------------------------------------------------
 ------------------- Language Servers ----------------------
 -----------------------------------------------------------
 
@@ -487,14 +512,15 @@ vim.api.nvim_set_keymap('n', 'gr',
 '<cmd>lua vim.lsp.buf.references()<CR>',
 { noremap = true, silent = true })
 
-vim.fn.sign_define('DiagnosticSignError', { text = 'x', texthl =
-'DiagnosticSignError', numhl = 'DiagnosticSignError' })
-
-vim.fn.sign_define('DiagnosticSignWarn', { text = 'w', texthl =
-'DiagnosticSignWarn', numhl = 'DiagnosticSignWarn' })
-
-vim.fn.sign_define('DiagnosticSignInfo', { texthl =
-'DiagnosticSignInfo', text = 'i', numhl = 'DiagnosticSignInfo' })
-
-vim.fn.sign_define('DiagnosticSignHint', { texthl = 'DiagnosticSignHint', text
-= 'h', numhl = 'DiagnosticSignHint' })
+vim.diagnostic.config {
+	virtual_text = true,
+	underline = true,
+	signs = {
+		text = {
+			[vim.diagnostic.severity.ERROR] = "x",
+			[vim.diagnostic.severity.WARN] = "w",
+			[vim.diagnostic.severity.INFO] = "i",
+			[vim.diagnostic.severity.HINT] = "h",
+		},
+	},
+}

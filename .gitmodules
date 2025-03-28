@@ -7,9 +7,6 @@
 [submodule "lspconfig"]
 	path = nvim/pack/bundle/opt/lspconfig
 	url = https://github.com/neovim/nvim-lspconfig.git
-[submodule "treesitter"]
-	path = nvim/pack/bundle/opt/treesitter
-	url = https://github.com/nvim-treesitter/nvim-treesitter.git
 [submodule "zsh-autosuggestions"]
 	path = .zsh/plugin/zsh-autosuggestions
 	url = https://github.com/zsh-users/zsh-autosuggestions.git
