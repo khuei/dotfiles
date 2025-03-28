@@ -164,16 +164,17 @@ local winhighlight_blurred = table.concat({
 
 local highlight_autocmd = vim.api.nvim_create_augroup("Settings", { clear = true })
 
-vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter", "FocusGained", "VimEnter", "WinEnter" }, {
+vim.api.nvim_create_autocmd({ "FocusGained", "VimEnter", "WinEnter" }, {
 	callback = function()
 		vim.wo.cursorline = true
 		vim.wo.winhighlight = ''
-		vim.cmd([[syntax on]])
+		local filetype = vim.bo.filetype
+		vim.cmd("ownsyntax " .. filetype)
 	end,
 	group = highlight_autocmd
 })
 
-vim.api.nvim_create_autocmd({"BufLeave", "FocusLost", "WinLeave"}, {
+vim.api.nvim_create_autocmd({ "FocusLost", "WinLeave" }, {
 	callback = function()
 		vim.wo.cursorline = false
 		vim.wo.winhighlight = winhighlight_blurred
