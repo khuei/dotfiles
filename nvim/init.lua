@@ -120,51 +120,77 @@ local winhighlight_blurred = table.concat({
 	'WinSeparator:ColorColumn',
 	'VertSplit:ColorColumn',
 	'Underlined:SignColumn',
+	'SnippetTabstop:SignColumn',
+	'@lsp.mod.deprecated:SignColumn',
+	'@lsp.type.class:SignColumn',
+	'@lsp.type.comment:SignColumn',
+	'@lsp.type.decorator:SignColumn',
+	'@lsp.type.enum:SignColumn',
+	'@lsp.type.enumMember:SignColumn',
+	'@lsp.type.event:SignColumn',
+	'@lsp.type.function:SignColumn',
+	'@lsp.type.interface:SignColumn',
+	'@lsp.type.keyword:SignColumn',
+	'@lsp.type.macro:SignColumn',
+	'@lsp.type.method:SignColumn',
+	'@lsp.type.modifier:SignColumn',
+	'@lsp.type.namespace:SignColumn',
+	'@lsp.type.number:SignColumn',
+	'@lsp.type.operator:SignColumn',
+	'@lsp.type.parameter:SignColumn',
+	'@lsp.type.property:SignColumn',
+	'@lsp.type.regexp:SignColumn',
+	'@lsp.type.string:SignColumn',
+	'@lsp.type.struct:SignColumn',
+	'@lsp.type.type:SignColumn',
+	'@lsp.type.typeParameter:SignColumn',
+	'@lsp.type.variable:SignColumn',
+	'@lsp:SignColumn',
+	'DiagnosticDeprecated:SignColumn',
+	'DiagnosticError:SignColumn',
+	'DiagnosticFloatingError:SignColumn',
+	'DiagnosticFloatingHint:SignColumn',
+	'DiagnosticFloatingInfo:SignColumn',
+	'DiagnosticFloatingOk:SignColumn',
+	'DiagnosticFloatingWarn:SignColumn',
+	'DiagnosticHint:SignColumn',
+	'DiagnosticInfo:SignColumn',
+	'DiagnosticOk:SignColumn',
+	'DiagnosticSignError:SignColumn',
+	'DiagnosticSignHint:SignColumn',
+	'DiagnosticSignInfo:SignColumn',
+	'DiagnosticSignOk:SignColumn',
+	'DiagnosticSignWarn:SignColumn',
+	'DiagnosticUnderlineError:SignColumn',
+	'DiagnosticUnderlineHint:SignColumn',
+	'DiagnosticUnderlineInfo:SignColumn',
+	'DiagnosticUnderlineOk:SignColumn',
+	'DiagnosticUnderlineWarn:SignColumn',
+	'DiagnosticUnnecessary:SignColumn',
+	'DiagnosticVirtualLinesError:SignColumn',
+	'DiagnosticVirtualLinesHint:SignColumn',
+	'DiagnosticVirtualLinesInfo:SignColumn',
+	'DiagnosticVirtualLinesOk:SignColumn',
+	'DiagnosticVirtualLinesWarn:SignColumn',
+	'DiagnosticVirtualTextError:SignColumn',
+	'DiagnosticVirtualTextHint:SignColumn',
+	'DiagnosticVirtualTextInfo:SignColumn',
+	'DiagnosticVirtualTextOk:SignColumn',
+	'DiagnosticVirtualTextWarn:SignColumn',
+	'DiagnosticWarn:SignColumn',
 	'LspCodeLens:SignColumn',
 	'LspCodeLensSeparator:SignColumn',
 	'LspInlayHint:SignColumn',
 	'LspReferenceRead:SignColumn',
+	'LspReferenceTarget:SignColumn',
 	'LspReferenceText:SignColumn',
 	'LspReferenceWrite:SignColumn',
-	'LspReferenceTarget:SignColumn',
 	'LspSignatureActiveParameter:SignColumn',
-	'SnippetTabstop:SignColumn',
-	'DiagnosticFloatingError:SignColumn',
-	'DiagnosticError:SignColumn',
-	'DiagnosticFloatingWarn:SignColumn',
-	'DiagnosticWarn:SignColumn',
-	'DiagnosticFloatingInfo:SignColumn',
-	'DiagnosticInfo:SignColumn',
-	'DiagnosticFloatingHint:SignColumn',
-	'DiagnosticHint:SignColumn',
-	'DiagnosticFloatingOk:SignColumn',
-	'DiagnosticOk:SignColumn',
-	'DiagnosticVirtualTextError:SignColumn',
-	'DiagnosticVirtualTextWarn:SignColumn',
-	'DiagnosticVirtualTextInfo:SignColumn',
-	'DiagnosticVirtualTextHint:SignColumn',
-	'DiagnosticVirtualTextOk:SignColumn',
-	'DiagnosticVirtualLinesError:SignColumn',
-	'DiagnosticVirtualLinesWarn:SignColumn',
-	'DiagnosticVirtualLinesInfo:SignColumn',
-	'DiagnosticVirtualLinesHint:SignColumn',
-	'DiagnosticVirtualLinesOk:SignColumn',
-	'DiagnosticSignError:SignColumn',
-	'DiagnosticSignWarn:SignColumn',
-	'DiagnosticSignInfo:SignColumn',
-	'DiagnosticSignHint:SignColumn',
-	'DiagnosticSignOk:SignColumn',
-	'DiagnosticUnnecessary:SignColumn',
-	'DiagnosticUnderlineError:SignColumn',
-	'DiagnosticUnderlineWarn:SignColumn',
-	'DiagnosticUnderlineInfo:SignColumn',
-	'DiagnosticUnderlineHint:SignColumn',
-	'DiagnosticUnderlineOk:SignColumn',
 }, ',')
 
 local highlight_autocmd = vim.api.nvim_create_augroup("Settings", { clear = true })
 
-vim.api.nvim_create_autocmd({ "FocusGained", "VimEnter", "WinEnter" }, {
+vim.api.nvim_create_autocmd({ "FocusGained", "VimEnter", "WinEnter", "BufEnter" }, {
 	callback = function()
 		vim.wo.cursorline = true
 		vim.wo.winhighlight = ''
@@ -174,7 +200,7 @@ vim.api.nvim_create_autocmd({ "FocusGained", "VimEnter", "WinEnter" }, {
 	group = highlight_autocmd
 })
 
-vim.api.nvim_create_autocmd({ "FocusLost", "WinLeave" }, {
+vim.api.nvim_create_autocmd({ "FocusLost", "WinLeave", "BufLeave" }, {
 	callback = function()
 		vim.wo.cursorline = false
 		vim.wo.winhighlight = winhighlight_blurred
@@ -343,6 +369,19 @@ vim.api.nvim_set_keymap('t', '<C-h>', [[<C-\><C-n><C-w>h]], { noremap = true })
 vim.api.nvim_set_keymap('t', '<C-j>', [[<C-\><C-n><C-w>j]], { noremap = true })
 vim.api.nvim_set_keymap('t', '<C-k>', [[<C-\><C-n><C-w>k]], { noremap = true })
 vim.api.nvim_set_keymap('t', '<C-l>', [[<C-\><C-n><C-w>l]], { noremap = true })
+
+-----------------------------------------------------------
+----------------------- Netrw -----------------------------
+-----------------------------------------------------------
+
+vim.g.netrw_browse_split = 4
+vim.g.netrw_liststyle = 3
+vim.g.netrw_show_hidden = 1
+vim.g.netrw_winsize = 20
+vim.g.netrw_banner = 0
+
+vim.api.nvim_set_keymap('n', '<Leader>e', ':Lexplore<CR>', { noremap = true, silent = true })
+
 
 -----------------------------------------------------------
 -------------------- Command-T ----------------------------
