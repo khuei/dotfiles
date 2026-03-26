@@ -18,6 +18,9 @@ fpath=(
 setopt AUTO_CD
 setopt CD_SILENT
 setopt PUSHD_SILENT
+HISTFILE=~/.history
+HISTSIZE=10000
+SAVEHIST=10000
 setopt SHARE_HISTORY
 
 ###########################################################
@@ -378,4 +381,27 @@ tmux() {
 	}
 
 	env SSH_AUTH_SOCK="$SOCK_SYMLINK" tmux new -A -s "$(basename "${PWD//[\.]/_}")"
+}
+
+ssh() {
+	if [ -n "$TMUX" ]; then
+		local user host target
+		for arg in "$@"; do
+			[[ "$arg" == -* ]] && continue
+			target="$arg"
+			break
+		done
+		if [[ "$target" == *@* ]]; then
+			user="${target%@*}"
+			host="${target#*@}"
+		else
+			host="$target"
+			user=$(command ssh -G "$target" 2>/dev/null | awk '/^user / {print $2}')
+		fi
+		tmux select-pane -T "${user}@${host}"
+		command ssh "$@"
+		tmux select-pane -T ""
+	else
+		command ssh "$@"
+	fi
 }
