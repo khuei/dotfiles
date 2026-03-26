@@ -20,38 +20,29 @@ PATH=$PATH:/home/khue/.spicetify
 if [ "${LOGNAME}" ]; then
 	export XDG_CACHE_HOME="/tmp/${LOGNAME}/.cache"
 fi
-
-unset XDG_RUNTIME_DIR
-export XDG_RUNTIME_DIR="/run/user/$(id -u)"
-
 export XDG_CONFIG_HOME=~
 
-if [ "$(command -v nvim)" ]; then
+if (( $+commands[nvim] )); then
 	export EDITOR=nvim
-elif [ "$(command -v vim)" ]; then
+elif (( $+commands[vim] )); then
 	export EDITOR=vim
 fi
 
-if [ "$(command -v less)" ]; then
+if (( $+commands[less] )); then
 	export MANPAGER="less -R"
 	export PAGER="less -R"
-elif [ "$(command -v more)" ]; then
+elif (( $+commands[more] )); then
 	export MANPAGER=more
 	export PAGER=more
 fi
 
 export DISABLE_UPDATE_PROMPT=true
-
-export GPG_TTY=$(tty)
-
+export GPG_TTY=$TTY
 export HISTSIZE=1000000
 export HISTFILE=~/.history
 export SAVEHIST=$HISTSIZE
-
 export KEYTIMEOUT=1
-
 export LESS='-iFMRSX'
-
 export LESSHISTFILE=/dev/null
 
 export LESS_TERMCAP_mb=$(printf '\033[01;31m')

@@ -18,10 +18,12 @@ fpath=(
 setopt AUTO_CD
 setopt CD_SILENT
 setopt PUSHD_SILENT
-HISTFILE=~/.history
-HISTSIZE=10000
-SAVEHIST=10000
 setopt SHARE_HISTORY
+setopt EXTENDED_GLOB
+setopt MENU_COMPLETE
+setopt LIST_PACKED
+setopt PROMPT_SUBST
+setopt EXTENDED_GLOB
 
 ###########################################################
 ###################### Bindings ###########################
@@ -65,13 +67,8 @@ bindkey '^Z' fg-bg
 ###########################################################
 
 autoload -Uz compinit
-[ -s ~/.zcompdump ] || {
-	compinit -C
-}
-compinit -i -u
+compinit -C
 
-setopt MENU_COMPLETE
-setopt LIST_PACKED
 
 zstyle ':completion:*' accept-exact '*(N)'
 zstyle ':completion:*' use-cache on
@@ -119,6 +116,20 @@ color() {
 		echo "$COLOR_LUMA"
 	}
 
+	extract() {
+		local COLOR=$1
+		local FILE=$2
+		local HEX=$(grep "${COLOR}=" "$FILE")
+
+		HEX=${HEX#*\"}
+
+		HEX=${HEX%\"*}
+
+		HEX=${HEX//\//}
+
+		echo $HEX
+	}
+
 	setup() {
 		local SCHEME="$1"
 		local FILE="$BASE16_DIR/base16-$SCHEME.sh"
@@ -128,7 +139,7 @@ color() {
 			return 1
 		}
 
-		local BG=$(grep color_background= "$FILE" | cut -d \" -f2 | sed -e 's#/##g')
+		local BG=$(extract color_background "$FILE")
 		local LUMA=$(luma "$BG")
 
 		local LIGHT=$((LUMA > 127.5))
@@ -149,7 +160,8 @@ color() {
 
 		[ -n "$TMUX" ] || return 0
 
-		CC=$(grep color18= "$FILE" | cut -d \" -f2 | sed -e 's#/##g')
+		local CC=$(extract color18 "$FILE")
+
 
 		[ -n "$BG" ] && [ -n "$CC" ] || return 0
 
@@ -185,16 +197,16 @@ color() {
 
 	unfunction luma
 	unfunction setup
+	unfunction extract
 }
 
-color "$@"
+if [[ -s ~/.base16 ]]; then
+    sh ~/.zsh/colors/base16-$(head -1 ~/.base16).sh
+fi
 
 ###########################################################
 ####################### Prompt ############################
 ###########################################################
-
-setopt PROMPT_SUBST
-setopt EXTENDED_GLOB
 
 autoload -Uz add-zsh-hook
 
@@ -306,7 +318,7 @@ prompt_git_info() {
 		if [ -n "$(git rev-parse --is-inside-work-tree 2>/dev/null)" ]; then
 			[ -n "$(git diff 2>/dev/null)" ] && is_modified=true
 			[ -n "$(git diff --cached 2>/dev/null)" ] && has_staged=true
-			[ -n "$(git ls-files --exclude-standard --others 2>/dev/null)" ] && 
+			[ -n "$(git ls-files --exclude-standard --others 2>/dev/null)" ] &&
 				has_untracked=true
 
 			REPLY="[$(git branch | sed -n '/\* /s///p' 2>/dev/null)"
