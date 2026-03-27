@@ -25,6 +25,10 @@ setopt LIST_PACKED
 setopt PROMPT_SUBST
 setopt EXTENDED_GLOB
 
+export HISTSIZE=1000000
+export HISTFILE=~/.history
+export SAVEHIST=$HISTSIZE
+
 ###########################################################
 ###################### Bindings ###########################
 ###########################################################
@@ -318,7 +322,7 @@ prompt_git_info() {
 		if [ -n "$(git rev-parse --is-inside-work-tree 2>/dev/null)" ]; then
 			[ -n "$(git diff 2>/dev/null)" ] && is_modified=true
 			[ -n "$(git diff --cached 2>/dev/null)" ] && has_staged=true
-			[ -n "$(git ls-files --exclude-standard --others 2>/dev/null)" ] &&
+			[ -n "$(git ls-files --exclude-standard --others 2>/dev/null)" ] && 
 				has_untracked=true
 
 			REPLY="[$(git branch | sed -n '/\* /s///p' 2>/dev/null)"

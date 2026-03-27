@@ -38,9 +38,6 @@ fi
 
 export DISABLE_UPDATE_PROMPT=true
 export GPG_TTY=$TTY
-export HISTSIZE=1000000
-export HISTFILE=~/.history
-export SAVEHIST=$HISTSIZE
 export KEYTIMEOUT=1
 export LESS='-iFMRSX'
 export LESSHISTFILE=/dev/null
