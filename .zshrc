@@ -301,7 +301,6 @@ add-zsh-hook precmd prompt_precmd
 prompt_chpwd() {
 	zle && zle -I
 	export RPROMPT=
-	zle && [[ $CONTEXT == start ]] && prompt_async_precmd
 	true
 }
 add-zsh-hook chpwd prompt_chpwd
@@ -317,13 +316,14 @@ add-zsh-hook precmd prompt_async_precmd
 prompt_git_info() {
 	local REPLY=
 	{
-		local is_modified=false has_staged=false has_untracked=false
+		local is_modified=false
+		local has_staged=false
+		local has_untracked=false
 
 		if [ -n "$(git rev-parse --is-inside-work-tree 2>/dev/null)" ]; then
-			[ -n "$(git diff 2>/dev/null)" ] && is_modified=true
-			[ -n "$(git diff --cached 2>/dev/null)" ] && has_staged=true
-			[ -n "$(git ls-files --exclude-standard --others 2>/dev/null)" ] && 
-				has_untracked=true
+			git diff --cached --quiet 2>/dev/null || has_staged=true
+			git diff --quiet 2>/dev/null || is_modified=true
+			[ -n "$(git ls-files --exclude-standard --others 2>/dev/null)" ] && has_untracked=true
 
 			REPLY="[$(git branch --show-current 2>/dev/null)"
 
